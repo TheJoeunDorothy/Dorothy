@@ -45,7 +45,9 @@ dependencies:
   camera: ^0.10.5+5
   # 갤러리
   image_picker: ^1.0.4
-
+  # splash 추가
+  flutter_native_splash: ^2.3.5
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
