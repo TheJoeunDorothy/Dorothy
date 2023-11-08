@@ -5,6 +5,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(); // git push test
+    return const Scaffold(
+      
+    ); // git push test
   }
 }
