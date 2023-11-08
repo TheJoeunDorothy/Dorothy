@@ -23,13 +23,36 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '버전',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.sp,
+                    ),
+                  ),
+                  Text(
+                    'v1.0.0 ',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color: Colors.grey
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
               _getSetting(settingText: '이용 약관', screen: const DummyScreen()),
               SizedBox(
-                height: 20.h,
+                height: 30.h,
               ),
-              _getSetting(settingText: '개인정보 처리방침', screen: const DummyScreen()),
+              _getSetting(
+                  settingText: '개인정보 처리방침', screen: const DummyScreen()),
               SizedBox(
-                height: 20.h,
+                height: 30.h,
               ),
             ],
           ),
@@ -38,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-    Widget _getSetting({required String settingText, required Widget screen}) {
+  Widget _getSetting({required String settingText, required Widget screen}) {
     return GestureDetector(
       onTap: () => Get.to(screen),
       child: Container(
@@ -54,8 +77,8 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right_sharp,
-              size: 35.sp,
+              Icons.arrow_forward_ios,
+              size: 20.sp,
             ),
           ],
         ),
@@ -63,4 +86,3 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
-
