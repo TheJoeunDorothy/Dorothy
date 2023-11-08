@@ -1,7 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:dorothy/home.dart';
+import 'package:dorothy/view/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true, // 분할 모드 지원
       builder: (_, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             splash: Image.asset(
               'assets/images/Dorothy.gif',
             ),
-            nextScreen: const Home(),
+            nextScreen: const CameraScreen(),
             // backgroundColor: Colors.white,
           ),
         );
