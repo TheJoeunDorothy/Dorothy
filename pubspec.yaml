@@ -55,6 +55,8 @@ dependencies:
   flutter_screenutil: ^5.9.0
   # 구글 폰트
   google_fonts: ^6.1.0
+  # 카메라, 알림 등 권한 요청
+  permission_handler: ^11.0.1
   
 dev_dependencies:
   flutter_test:

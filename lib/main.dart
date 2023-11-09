@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(390, 844), // iphone 13 & 14
+      designSize: const Size(390, 844), // iphone 13 & 14 사이즈.
       minTextAdapt: true,
       splitScreenMode: true, // 분할 모드 지원
       builder: (_, child) {
