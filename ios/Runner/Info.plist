@@ -51,5 +51,8 @@
     <!-- Permission options for the `photos` group -->
     <key>NSPhotoLibraryUsageDescription</key>
     <string>"Dorothy" 는 사진 라이브러리 엑세스 권한을 예측 결과 획득을 위한 용도로만 사용합니다.</string>
+	<!-- Permission options for the `Microphone` group -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>"Dorothy" 는 마이크 엑세스 권한을 예측 결과 획득을 위한 용도로만 사용합니다.</string>
 </dict>
 </plist>
