@@ -63,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _getSetting({required String settingText, required Widget screen}) {
     return InkWell(
-      autofocus: false,
+      
       onTap: () => Get.to(screen),
       child: Container(
         color: Colors.transparent,

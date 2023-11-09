@@ -15,6 +15,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 뒤로가기 제한
         actions: [
           IconButton(
             onPressed:() => Get.defaultDialog(
