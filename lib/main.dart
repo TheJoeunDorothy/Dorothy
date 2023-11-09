@@ -10,8 +10,8 @@ void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
   // 권한 확인
-  bool isCameraPermissionGranted = await isPermissionPermitted(Permission.camera);
-  bool isPhotosPermissionGranted = await isPermissionPermitted(Permission.photos);
+  bool isCameraPermissionGranted = await _isPermissionPermitted(Permission.camera);
+  bool isPhotosPermissionGranted = await _isPermissionPermitted(Permission.photos);
 
   // 권한 상태에 따라 화면 결정
   Widget initialScreen;
@@ -20,7 +20,7 @@ void main() async {
   } else {
     initialScreen = const PermissionScreen();
   }
-  runApp( MyApp(initialScreen: initialScreen,));
+  runApp(MyApp(initialScreen: initialScreen,));
 }
 
 class MyApp extends StatelessWidget {
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<bool> isPermissionPermitted(Permission permission) async {
+Future<bool> _isPermissionPermitted(Permission permission) async {
     var status = await permission.status;
     return status.isGranted;
   }
