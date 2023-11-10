@@ -4,22 +4,19 @@ import 'package:dorothy/view/permission_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 권한설정 페이지를 한 번이라도 들어갔으면 true로 저장되어있음.
+  bool isFirstAppRun = await _getFirstAppRunState();
   // 권한 확인
-  bool isCameraPermissionGranted = await _isPermissionPermitted(Permission.camera);
-  bool isPhotosPermissionGranted = await _isPermissionPermitted(Permission.photos);
 
   // 권한 상태에 따라 화면 결정
-  Widget initialScreen;
-  if (isCameraPermissionGranted && isPhotosPermissionGranted) {
-    initialScreen = const CameraScreen();
-  } else {
-    initialScreen = const PermissionScreen();
-  }
+  Widget initialScreen = (isFirstAppRun) ? const PermissionScreen() : const CameraScreen();
+
   runApp(MyApp(initialScreen: initialScreen,));
 }
 
@@ -31,8 +28,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(390, 844), // iphone 13 & 14 사이즈.
-      minTextAdapt: true,
-      splitScreenMode: true, // 분할 모드 지원
       builder: (_, child) {
         return GetMaterialApp(
           title: 'Flutter Demo',
@@ -54,7 +49,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<bool> _isPermissionPermitted(Permission permission) async {
-    var status = await permission.status;
-    return status.isGranted;
+
+Future<bool> _getFirstAppRunState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool permissionState = prefs.getBool('permissionState') ?? true;
+    return permissionState;
   }
