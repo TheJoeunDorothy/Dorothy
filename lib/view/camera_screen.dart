@@ -46,10 +46,12 @@ class _CameraScreenState extends State<CameraScreen> {
           ? ImageFormatGroup.nv21 // for Android
           : ImageFormatGroup.bgra8888, // for iOS
     );
-    controller!.initialize().then((_) {
+    controller!.initialize().then((_) async {
       if (!mounted) {
         return;
       }
+      // 줌 레벨 설정
+      await controller!.setZoomLevel(1.3);
       setState(() {});
       startImageStream();
     });
