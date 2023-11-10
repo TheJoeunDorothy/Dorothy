@@ -20,36 +20,47 @@ class PermissionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 10.h,),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      '도로시 앱의 서비스를 이용하기 위해\n필수 권한들을 허용해 주세요',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.start,
+              SizedBox(height: 10.h),
+              Wrap(
+                children: [
+                  Text(
+                    '도로시의 서비스를 이용하기 위해',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                    textAlign: TextAlign.start,
+                  ),
+                  SizedBox(width: 23.w,),
+                  Text(
+                    '필수 권한들을 허용해 주세요',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
               ),
-              SizedBox(height: 50.h,),
+              SizedBox(height: 50.h),
               _buildListTile(
                 icon: Icons.camera_alt,
                 title: '카메라',
-                subtitle: '사진 촬영과 이미지 업로드를 통해 \n퍼스널 컬러와 나이 예측이 가능합니다.',
+                subtitle: '사진 촬영과 이미지 업로드를 통해 퍼스널 컬러와 나이 예측이 가능합니다.',
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(height: 10.h),
               _buildListTile(
                 icon: Icons.photo_library,
                 title: '갤러리',
-                subtitle: '원하는 사진을 선택하여 퍼스널 컬러와 \n나이 예측이 가능합니다.',
+                subtitle: '원하는 사진을 선택하여 퍼스널 컬러와 나이 예측이 가능합니다.',
               ),
-              SizedBox(height: 330.h), // 아이콘과 버튼 사이의 간격 설정
+              SizedBox(height: 10.h),
+              _buildListTile(
+                icon: Icons.mic,
+                title: '마이크',
+                subtitle: '카메라 기능을 사용하기 위해 마이크 권한이 필요합니다.',
+              ),
+              SizedBox(height: 200.h), // 아이콘과 버튼 사이의 간격 설정
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SizedBox(
@@ -109,12 +120,12 @@ class PermissionScreen extends StatelessWidget {
 
   onJoin() async {
     // 카메라, 갤러리 권한 상태 저장
-    final statuses = await Future.wait([
-      _handleCameraAndLibrary(Permission.camera),
-      _handleCameraAndLibrary(Permission.photos),
-    ]);
+    var cameraStatus = await _handleCameraAndLibrary(Permission.camera);
+    var photosStatus = await _handleCameraAndLibrary(Permission.photos);
+    var microphoneStatus = await _handleCameraAndLibrary(Permission.microphone);
 
-    if (statuses.every((status) => status.isGranted)) {
+
+    if (cameraStatus.isGranted && photosStatus.isGranted && microphoneStatus.isGranted) {
       Get.to(const CameraScreen());
     } else {
       openAppSettings();
