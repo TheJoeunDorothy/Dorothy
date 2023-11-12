@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
-import 'package:dorothy/view/permission_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,8 +10,6 @@ void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 권한설정 페이지를 한 번이라도 들어갔으면 true로 저장되어있음.
-  bool isFirstAppRun = await _getFirstAppRunState();
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 
@@ -42,11 +39,10 @@ class MyApp extends StatelessWidget {
               foregroundColor: Colors.black,
             ),
             dialogTheme: DialogTheme(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              )
-            ),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: false,
           ),
@@ -62,12 +58,6 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-Future<bool> _getFirstAppRunState() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool permissionState = prefs.getBool('permissionState') ?? true;
-  return permissionState;
 }
 
 Future<bool> _getOnboardingState() async {

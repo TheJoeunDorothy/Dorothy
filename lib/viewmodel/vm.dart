@@ -35,33 +35,39 @@ class VM extends GetxController {
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
+    init();
+  }
 
+  Future<void> init() async {
     await getStates();
     if (cameraState.value && microphoneState.value) {
       final options = FaceDetectorOptions();
       faceDetector.value = FaceDetector(options: options);
       // 설정 값이 변경 될때마다 실행
       ever(isPageStreaming, handlePageStreaming);
-      initCamera();
+      await initCamera();
     }
   }
 
   // 카메라 설정
   Future<void> initCamera() async {
-    cameras?.value = await availableCameras();
-    final frontCamera = cameras?.firstWhere(
+    // 디바이스 기기 카메라 전면 설정
+    cameras!.value = await availableCameras();
+    final frontCamera = cameras!.firstWhere(
       (camera) => camera.lensDirection == CameraLensDirection.front,
     );
 
+    // 카메라 초기화
     controller.value = CameraController(
-      frontCamera!,
+      frontCamera,
       ResolutionPreset.medium,
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21 // Android
           : ImageFormatGroup.bgra8888, // iOS
     );
+
     controller.value!.initialize().then(
       (_) async {
         // 줌 레벨 설정
@@ -183,12 +189,10 @@ class VM extends GetxController {
 
   // 페이지 이동 스트리밍 설정
   void handlePageStreaming(bool isStreaming) {
-    if (cameraState.value && microphoneState.value) {
-      if (isStreaming) {
-        startImageStream();
-      } else {
-        stopImageStream();
-      }
+    if (isStreaming) {
+      startImageStream();
+    } else {
+      stopImageStream();
     }
   }
 

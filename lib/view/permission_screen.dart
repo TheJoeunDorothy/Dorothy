@@ -4,18 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PermissionScreen extends StatelessWidget {
   const PermissionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _setPermissionState();
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        elevation: 0, // 그림자 제거
+        backgroundColor: Colors.white, // 배경색 변경
       ),
       body: SafeArea(
         child: Padding(
@@ -132,10 +131,5 @@ class PermissionScreen extends StatelessWidget {
     // } else {
     //   //openAppSettings();
     // }
-  }
-
-  _setPermissionState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('permissionState', false);
   }
 }

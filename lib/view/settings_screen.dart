@@ -9,6 +9,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0, // 그림자 제거
         title: const Text(
           '설정',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -35,10 +36,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   Text(
                     'v1.0.0 ',
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      color: Colors.grey
-                    ),
+                    style: TextStyle(fontSize: 15.sp, color: Colors.grey),
                   ),
                 ],
               ),
@@ -63,7 +61,6 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _getSetting({required String settingText, required Widget screen}) {
     return InkWell(
-      
       onTap: () => Get.to(screen),
       child: Container(
         color: Colors.transparent,

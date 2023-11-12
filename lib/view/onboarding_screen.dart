@@ -33,6 +33,12 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
+      globalHeader: PreferredSize(
+        preferredSize: const Size.fromHeight(0.0), // 0으로 설정하여 앱바를 숨김
+        child: AppBar(
+          elevation: 0, // 그림자 제거
+        ),
+      ),
       pages: getPages(),
       showNextButton: true,
       next: const Icon(Icons.arrow_forward),
@@ -40,7 +46,7 @@ class OnBoardingScreen extends StatelessWidget {
       onDone: () async {
         // 온보딩 페이지를 보았다는 정보를 저장
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('hasSeenOnboarding', true);
+        await prefs.setBool('hasSeenOnboarding', false);
 
         // 권한 설정 화면으로 이동
         Get.offAll(() => const PermissionScreen());

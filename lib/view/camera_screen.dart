@@ -2,8 +2,6 @@ import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
-import 'package:dorothy/widget/slider_indicator.dart';
-import 'package:dorothy/widget/slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,28 +18,18 @@ class CameraScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 제한
+        elevation: 0, // 그림자 제거
         actions: [
           IconButton(
-            onPressed: () => Get.dialog(
-              Dialog(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20.h),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      sliderWidget(vm),
-                      sliderIndicator(vm),
-                      SizedBox(
-                        width: 270.w,
-                        child: CupertinoButton.filled(
-                          child: const Text('확인'),
-                          onPressed: () => Get.back(),
-                        ),
-                      ),
-                    ],
-                  ),
+            onPressed: () => Get.defaultDialog(
+              backgroundColor: Colors.white,
+              title: '설명창',
+              actions: [
+                CupertinoButton.filled(
+                  child: const Text('확인'),
+                  onPressed: () => Get.back(),
                 ),
-              ),
+              ],
             ),
             icon: const Icon(Icons.info_outlined),
           ),
@@ -58,50 +46,47 @@ class CameraScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: (!vm.cameraState.value || !vm.microphoneState.value)
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '필수 권한을 허용해 주세요',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
+      body: Obx(
+        () => SafeArea(
+          child: (!vm.cameraState.value || !vm.microphoneState.value)
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '필수 권한을 허용해 주세요',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    CupertinoButton.filled(
-                      child: const Text('권한 허용하기'),
-                      onPressed: () async => await openAppSettings(),
-                    ),
-                  ],
-                ),
-              )
-            : Stack(
-                children: [
-                  Obx(
-                    () {
-                      // 컨트롤러가 초기화가 되지 않았다면 인디케이터를 띄어줌
-                      if (vm.controller.value == null ||
-                          !vm.controller.value!.value.isInitialized) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else {
-                        return Positioned.fill(
-                          child: AspectRatio(
-                            aspectRatio: vm.controller.value!.value.aspectRatio,
-                            child: CameraPreview(vm.controller.value!),
-                          ),
-                        );
-                      }
-                    },
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      CupertinoButton.filled(
+                        child: const Text('권한 허용하기'),
+                        onPressed: () async => await openAppSettings(),
+                      ),
+                    ],
                   ),
-                  Center(
-                    child: Obx(
-                      () => Container(
+                )
+              : Stack(
+                  children: [
+                    // 컨트롤러가 초기화가 되지 않았다면 인디케이터를 띄어줌
+                    if (vm.controller.value == null ||
+                        !vm.controller.value!.value.isInitialized)
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    else
+                      Positioned.fill(
+                        child: AspectRatio(
+                          aspectRatio: vm.controller.value!.value.aspectRatio,
+                          child: CameraPreview(vm.controller.value!),
+                        ),
+                      ),
+                    Center(
+                      child: Container(
                         width: 230.w, // 사람 얼굴 사이즈에 맞게 조정
                         height: 300.h, // 사람 얼굴 사이즈에 맞게 조정
                         decoration: BoxDecoration(
@@ -110,9 +95,9 @@ class CameraScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+        ),
       ),
       // 촬영 버튼
       bottomNavigationBar: Container(
