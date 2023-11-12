@@ -174,12 +174,24 @@ class VM extends GetxController {
     );
   }
 
+  // 페이지 이동 스트리밍 설정
   void handlePageStreaming(bool isStreaming) {
     if (isStreaming) {
       startImageStream();
     } else {
       stopImageStream();
     }
+  }
+
+  // 카메라 촬영
+  Future<XFile> takePicture() async {
+    if (!isStreaming.value) {
+      throw Exception('스트리밍이 시작되지 않았습니다.');
+    }
+
+    final image = await controller.value!.takePicture();
+
+    return image;
   }
 
   @override

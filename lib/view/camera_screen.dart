@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,8 +34,11 @@ class CameraScreen extends StatelessWidget {
           IconButton(
             onPressed: () async {
               vm.isPageStreaming.value = false;
-              await Get.to(const SettingsScreen());
-              vm.isPageStreaming.value = true;
+              await Get.to(
+                const SettingsScreen(),
+              )?.then(
+                (value) => vm.isPageStreaming.value = true,
+              );
             },
             icon: const Icon(Icons.settings),
           ),
@@ -88,17 +92,30 @@ class CameraScreen extends StatelessWidget {
               SizedBox(
                 width: 75.w,
                 height: 75.h,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    //
-                  },
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: const CircleBorder(
-                    side: BorderSide(color: Colors.black, width: 5.0),
+                child: Obx(
+                  () => FloatingActionButton(
+                    onPressed: vm.myColor.value == Colors.amber
+                        ? () async {
+                            // 사진 찍기
+                            final image = await vm.takePicture();
+                            // 스트리밍 종료
+                            vm.isPageStreaming.value = false;
+                            // 다음 페이지로 이동하고, 찍은 사진을 전달
+                            Get.to(
+                              PredicrionScreen(
+                                image: image,
+                              ),
+                            )?.then((value) => vm.isPageStreaming.value = true);
+                          }
+                        : null,
+                    backgroundColor: Colors.white,
+                    foregroundColor: vm.myColor.value,
+                    elevation: 0,
+                    shape: const CircleBorder(
+                      side: BorderSide(color: Colors.black, width: 5.0),
+                    ),
+                    child: const Icon(Icons.photo_camera),
                   ),
-                  child: const Icon(Icons.photo_camera),
                 ),
               ),
             ],
