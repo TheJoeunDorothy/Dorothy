@@ -59,6 +59,8 @@ dependencies:
   permission_handler: ^11.0.1
   # 카메라 얼굴 인식
   google_mlkit_face_detection: ^0.9.0
+  # 온보딩 스크린
+  introduction_screen: ^3.1.12
   
 dev_dependencies:
   flutter_test:

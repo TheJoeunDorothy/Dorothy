@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/view/camera_screen.dart';
+import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:dorothy/view/permission_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,11 +13,12 @@ void main() async {
 
   // 권한설정 페이지를 한 번이라도 들어갔으면 true로 저장되어있음.
   bool isFirstAppRun = await _getFirstAppRunState();
-  // 권한 확인
+  // 온보딩 페이지 기본값 false
+  bool hasSeenOnboarding = await _getOnboardingState();
 
   // 권한 상태에 따라 화면 결정
   Widget initialScreen =
-      (isFirstAppRun) ? const PermissionScreen() : CameraScreen();
+      (!hasSeenOnboarding) ? const OnBoardingScreen() : CameraScreen();
 
   runApp(MyApp(
     initialScreen: initialScreen,
@@ -56,4 +58,10 @@ Future<bool> _getFirstAppRunState() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool permissionState = prefs.getBool('permissionState') ?? true;
   return permissionState;
+}
+
+Future<bool> _getOnboardingState() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+  return hasSeenOnboarding;
 }

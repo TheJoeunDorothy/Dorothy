@@ -126,7 +126,7 @@ class PermissionScreen extends StatelessWidget {
     //await _handleCameraAndLibrary(Permission.photos);
     await _handleCameraAndLibrary(Permission.microphone);
 
-    Get.to(CameraScreen());
+    Get.offAll(() => CameraScreen());
     // if (cameraStatus.isGranted && photosStatus.isGranted && microphoneStatus.isGranted) {
     //   Get.to(const CameraScreen());
     // } else {
