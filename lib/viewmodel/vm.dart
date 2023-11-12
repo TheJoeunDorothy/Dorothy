@@ -23,6 +23,8 @@ class VM extends GetxController {
   RxBool isStreaming = false.obs;
   // 얼굴인식 변수
   Rx<Color> myColor = Colors.white.obs;
+  // 페이지 이동 했을 시 카메라 스트리밍 확인
+  RxBool isPageStreaming = true.obs;
 
   Future<void> getStates() async {
     cameraState.value = await Permission.camera.status.isGranted;
@@ -34,13 +36,15 @@ class VM extends GetxController {
     super.onInit();
     final options = FaceDetectorOptions();
     faceDetector.value = FaceDetector(options: options);
+    // 설정 값이 변경 될때마다 실행
+    ever(isPageStreaming, handlePageStreaming);
     initCamera();
   }
 
   // 카메라 설정
   Future<void> initCamera() async {
     cameras?.value = await availableCameras();
-    final frontCamera = cameras?.value.firstWhere(
+    final frontCamera = cameras?.firstWhere(
       (camera) => camera.lensDirection == CameraLensDirection.front,
     );
 
@@ -48,8 +52,8 @@ class VM extends GetxController {
       frontCamera!,
       ResolutionPreset.medium,
       imageFormatGroup: Platform.isAndroid
-          ? ImageFormatGroup.nv21 // for Android
-          : ImageFormatGroup.bgra8888, // for iOS
+          ? ImageFormatGroup.nv21 // Android
+          : ImageFormatGroup.bgra8888, // iOS
     );
     controller.value!.initialize().then(
       (_) async {
@@ -106,14 +110,14 @@ class VM extends GetxController {
   }
 
   // 카메라 얼굴 인식 중지
-  void stopImageStream({bool restartStream = true}) {
+  void stopImageStream() {
     if (!isStreaming.value) {
       return;
     }
     isStreaming.value = false;
     controller.value!.stopImageStream();
 
-    if (restartStream) {
+    if (isPageStreaming.value) {
       // 중지 후 다시 시작하는 코드 추가
       Future.delayed(const Duration(seconds: 1), () => startImageStream());
     }
@@ -168,6 +172,14 @@ class VM extends GetxController {
         bytesPerRow: plane.bytesPerRow, // used only in iOS
       ),
     );
+  }
+
+  void handlePageStreaming(bool isStreaming) {
+    if (isStreaming) {
+      startImageStream();
+    } else {
+      stopImageStream();
+    }
   }
 
   @override

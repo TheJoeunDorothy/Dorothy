@@ -31,14 +31,10 @@ class CameraScreen extends StatelessWidget {
             icon: const Icon(Icons.info_outlined),
           ),
           IconButton(
-            onPressed: () {
-              vm.stopImageStream(restartStream: false); // 카메라 스트리밍 중지
-              Get.to(const SettingsScreen())?.then(
-                (value) => {
-                  vm.initCamera(), // 설정 페이지에서 돌아올 때 카메라를 다시 초기화
-                  vm.startImageStream(), // 카메라 스트리밍 시작
-                },
-              );
+            onPressed: () async {
+              vm.isPageStreaming.value = false;
+              await Get.to(const SettingsScreen());
+              vm.isPageStreaming.value = true;
             },
             icon: const Icon(Icons.settings),
           ),
