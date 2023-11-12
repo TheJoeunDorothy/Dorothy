@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/widget/slider_indicator.dart';
+import 'package:dorothy/widget/slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,15 +22,26 @@ class CameraScreen extends StatelessWidget {
         automaticallyImplyLeading: false, // 뒤로가기 제한
         actions: [
           IconButton(
-            onPressed: () => Get.defaultDialog(
-              backgroundColor: Colors.white,
-              title: '설명창',
-              actions: [
-                CupertinoButton.filled(
-                  child: const Text('확인'),
-                  onPressed: () => Get.back(),
+            onPressed: () => Get.dialog(
+              Dialog(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      sliderWidget(vm),
+                      sliderIndicator(vm),
+                      SizedBox(
+                        width: 270.w,
+                        child: CupertinoButton.filled(
+                          child: const Text('확인'),
+                          onPressed: () => Get.back(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
             icon: const Icon(Icons.info_outlined),
           ),

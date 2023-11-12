@@ -9,6 +9,7 @@ import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class VM extends GetxController {
+  RxInt currentPage = 0.obs;
   RxBool cameraState = true.obs;
   RxBool microphoneState = true.obs;
   // 카메라 컨트롤러
