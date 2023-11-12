@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 class PredicrionScreen extends StatelessWidget {
   final VM vm = Get.find<VM>();
 
+  PredicrionScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,11 @@ class PredicrionScreen extends StatelessWidget {
       body: Transform(
         alignment: Alignment.center,
         transform: Matrix4.rotationY(pi),
-        child: Image.file(File(vm.image.value!.path)),
+        child: Image.file(
+          File(
+            vm.image.value!.path,
+          ),
+        ),
       ),
     );
   }

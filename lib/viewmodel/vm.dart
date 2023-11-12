@@ -34,11 +34,11 @@ class VM extends GetxController {
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
-    
+
     await getStates();
-    if(cameraState.value && microphoneState.value){
+    if (cameraState.value && microphoneState.value) {
       final options = FaceDetectorOptions();
       faceDetector.value = FaceDetector(options: options);
       // 설정 값이 변경 될때마다 실행
@@ -182,10 +182,12 @@ class VM extends GetxController {
 
   // 페이지 이동 스트리밍 설정
   void handlePageStreaming(bool isStreaming) {
-    if (isStreaming) {
-      startImageStream();
-    } else {
-      stopImageStream();
+    if (cameraState.value && microphoneState.value) {
+      if (isStreaming) {
+        startImageStream();
+      } else {
+        stopImageStream();
+      }
     }
   }
 
