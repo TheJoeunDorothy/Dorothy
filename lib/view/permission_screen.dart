@@ -11,7 +11,6 @@ class PermissionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     _setPermissionState();
 
     return Scaffold(
@@ -61,11 +60,16 @@ class PermissionScreen extends StatelessWidget {
                   width: double.infinity,
                   child: CupertinoButton.filled(
                     onPressed: () => onJoin(),
-                    child: Text('확인', style: TextStyle(fontSize: 17.sp),),
+                    child: Text(
+                      '확인',
+                      style: TextStyle(fontSize: 17.sp),
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 30.h,)
+              SizedBox(
+                height: 30.h,
+              )
             ],
           ),
         ),
@@ -81,7 +85,10 @@ class PermissionScreen extends StatelessWidget {
       leading: CircleAvatar(
         radius: 30.r,
         backgroundColor: Colors.grey[200],
-        child: Icon(icon,size: 25.r,),
+        child: Icon(
+          icon,
+          size: 25.r,
+        ),
       ),
       title: Wrap(
         children: [
@@ -119,7 +126,7 @@ class PermissionScreen extends StatelessWidget {
     //await _handleCameraAndLibrary(Permission.photos);
     await _handleCameraAndLibrary(Permission.microphone);
 
-    Get.to(const CameraScreen());
+    Get.to(CameraScreen());
     // if (cameraStatus.isGranted && photosStatus.isGranted && microphoneStatus.isGranted) {
     //   Get.to(const CameraScreen());
     // } else {

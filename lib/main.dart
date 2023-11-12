@@ -15,9 +15,12 @@ void main() async {
   // 권한 확인
 
   // 권한 상태에 따라 화면 결정
-  Widget initialScreen = (isFirstAppRun) ? const PermissionScreen() : const CameraScreen();
+  Widget initialScreen =
+      (isFirstAppRun) ? const PermissionScreen() : CameraScreen();
 
-  runApp(MyApp(initialScreen: initialScreen,));
+  runApp(MyApp(
+    initialScreen: initialScreen,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -49,9 +52,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 Future<bool> _getFirstAppRunState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool permissionState = prefs.getBool('permissionState') ?? true;
-    return permissionState;
-  }
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool permissionState = prefs.getBool('permissionState') ?? true;
+  return permissionState;
+}
