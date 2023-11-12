@@ -34,13 +34,17 @@ class VM extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-    final options = FaceDetectorOptions();
-    faceDetector.value = FaceDetector(options: options);
-    // 설정 값이 변경 될때마다 실행
-    ever(isPageStreaming, handlePageStreaming);
-    initCamera();
+    
+    await getStates();
+    if(cameraState.value && microphoneState.value){
+      final options = FaceDetectorOptions();
+      faceDetector.value = FaceDetector(options: options);
+      // 설정 값이 변경 될때마다 실행
+      ever(isPageStreaming, handlePageStreaming);
+      initCamera();
+    }
   }
 
   // 카메라 설정

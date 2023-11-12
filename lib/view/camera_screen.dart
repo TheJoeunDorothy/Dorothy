@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatelessWidget {
   final VM vm = Get.put(VM());
@@ -45,38 +46,60 @@ class CameraScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            Obx(
-              () {
-                // 컨트롤러가 초기화가 되지 않았다면 인디케이터를 띄어줌
-                if (vm.controller.value == null ||
-                    !vm.controller.value!.value.isInitialized) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return Positioned.fill(
-                    child: AspectRatio(
-                      aspectRatio: vm.controller.value!.value.aspectRatio,
-                      child: CameraPreview(vm.controller.value!),
+        child: (!vm.cameraState.value || !vm.microphoneState.value)
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '필수 권한을 허용해 주세요',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  );
-                }
-              },
-            ),
-            Center(
-              child: Obx(
-                () => Container(
-                  width: 230.w, // 사람 얼굴 사이즈에 맞게 조정
-                  height: 300.h, // 사람 얼굴 사이즈에 맞게 조정
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle, // 모서리 틀로 변경
-                    border: Border.all(color: vm.myColor.value, width: 5),
-                  ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    CupertinoButton.filled(
+                      child: const Text('권한 허용하기'),
+                      onPressed: () async => await openAppSettings(),
+                    ),
+                  ],
                 ),
+              )
+            : Stack(
+                children: [
+                  Obx(
+                    () {
+                      // 컨트롤러가 초기화가 되지 않았다면 인디케이터를 띄어줌
+                      if (vm.controller.value == null ||
+                          !vm.controller.value!.value.isInitialized) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else {
+                        return Positioned.fill(
+                          child: AspectRatio(
+                            aspectRatio: vm.controller.value!.value.aspectRatio,
+                            child: CameraPreview(vm.controller.value!),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  Center(
+                    child: Obx(
+                      () => Container(
+                        width: 230.w, // 사람 얼굴 사이즈에 맞게 조정
+                        height: 300.h, // 사람 얼굴 사이즈에 맞게 조정
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle, // 모서리 틀로 변경
+                          border: Border.all(color: vm.myColor.value, width: 5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
       // 촬영 버튼
       bottomNavigationBar: Container(
