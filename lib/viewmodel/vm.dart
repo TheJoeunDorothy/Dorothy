@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:image/image.dart' as img;
+import 'package:http/http.dart' as http;
 
 class VM extends GetxController {
   RxInt currentPage = 0.obs;
@@ -203,6 +206,37 @@ class VM extends GetxController {
     }
 
     image.value = await controller.value!.takePicture();
+
+    // 사진 찍은 후 서버로 이미지 전송 (퍼스널컬러 테스트)
+    await sendImage(image.value!.path,
+        'https://glg5eceso8.execute-api.ap-northeast-2.amazonaws.com/Prod/color');
+  }
+
+  Future<void> sendImage(String imagePath, String url) async {
+    // 이미지 파일 로드
+    img.Image? image = img.decodeImage(File(imagePath).readAsBytesSync());
+
+    // 이미지 크기 조정
+    img.Image resized = img.copyResize(image!, width: 500);
+
+    // 이미지 품질 조정
+    List<int> resizedBytes = img.encodeJpg(resized, quality: 75);
+
+    // 바이트 데이터를 Base64 문자열로 인코딩
+    String base64Image = base64Encode(resizedBytes);
+
+    var response = await http.post(
+      Uri.parse(url),
+      body: base64Image,
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      var result = responseData['result'];
+      print(result);
+    } else {
+      print('Failed to upload image: ${response.statusCode}');
+    }
   }
 
   @override

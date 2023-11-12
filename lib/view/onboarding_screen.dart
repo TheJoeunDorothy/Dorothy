@@ -1,5 +1,6 @@
 import 'package:dorothy/view/permission_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,22 +11,61 @@ class OnBoardingScreen extends StatelessWidget {
   List<PageViewModel> getPages() {
     return [
       PageViewModel(
-        image: Image.asset('assets/images/face_age.jpeg'),
-        title: "Face Age",
-        body: "당신의 얼굴을 분석하여 나이를 예측해보세요.",
-        footer: const Text("임시"),
+        title: '',
+        body: '당신의 얼굴을 분석하여 나이를 예측해보세요.',
+        image: Center(
+          child: Image.asset(
+            "assets/images/face_age.jpeg",
+            width: 450.w,
+            height: 500.h,
+          ),
+        ),
+        //getPageDecoration, a method to customise the page style
+        decoration: const PageDecoration(
+          imagePadding: EdgeInsets.only(top: 120),
+          pageColor: Colors.white,
+          bodyPadding: EdgeInsets.only(top: 8, left: 20, right: 20),
+          titlePadding: EdgeInsets.only(top: 50),
+          bodyTextStyle: TextStyle(color: Colors.black54, fontSize: 15),
+        ),
       ),
       PageViewModel(
-        image: Image.asset('assets/images/personal_color.jpeg'),
-        title: "personal_color",
-        body: "당신의 얼굴을 분석하여 가장 잘 어울리는 컬러를 찾아보세요.",
-        footer: const Text("임시"),
+        title: '',
+        body: '당신의 얼굴을 분석하여 가장 잘 어울리는 컬러를 찾아보세요.',
+        image: Center(
+          child: Image.asset(
+            "assets/images/personal_color.jpeg",
+            width: 450.w,
+            height: 500.h,
+          ),
+        ),
+        //getPageDecoration, a method to customise the page style
+        decoration: const PageDecoration(
+          imagePadding: EdgeInsets.only(top: 120),
+          pageColor: Colors.white,
+          bodyPadding: EdgeInsets.only(top: 8, left: 20, right: 20),
+          titlePadding: EdgeInsets.only(top: 50),
+          bodyTextStyle: TextStyle(color: Colors.black54, fontSize: 15),
+        ),
       ),
       PageViewModel(
-        image: Image.asset('assets/images/face_recognition.jpeg'),
-        title: "face_recognition",
-        body: "당신의 얼굴을 카메라로 찍어보세요. 얼굴을 인식하여 분석을 시작합니다.",
-        footer: const Text("임시"),
+        title: '',
+        body: '당신의 얼굴을 카메라로 찍어보세요. 얼굴을 인식하여 분석을 시작합니다.',
+        image: Center(
+          child: Image.asset(
+            "assets/images/face_recognition.jpeg",
+            width: 450.w,
+            height: 500.h,
+          ),
+        ),
+        //getPageDecoration, a method to customise the page style
+        decoration: const PageDecoration(
+          imagePadding: EdgeInsets.only(top: 120),
+          pageColor: Colors.white,
+          bodyPadding: EdgeInsets.only(top: 8, left: 20, right: 20),
+          titlePadding: EdgeInsets.only(top: 50),
+          bodyTextStyle: TextStyle(color: Colors.black54, fontSize: 15),
+        ),
       ),
     ];
   }
