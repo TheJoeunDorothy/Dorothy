@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:camera/camera.dart';
+import 'package:dorothy/viewmodel/vm.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PredicrionScreen extends StatelessWidget {
-  final XFile image;
-
-  const PredicrionScreen({super.key, required this.image});
+  final VM vm = Get.find<VM>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class PredicrionScreen extends StatelessWidget {
       body: Transform(
         alignment: Alignment.center,
         transform: Matrix4.rotationY(pi),
-        child: Image.file(File(image.path)),
+        child: Image.file(File(vm.image.value!.path)),
       ),
     );
   }

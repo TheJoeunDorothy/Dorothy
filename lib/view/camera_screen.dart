@@ -97,14 +97,14 @@ class CameraScreen extends StatelessWidget {
                     onPressed: vm.myColor.value == Colors.amber
                         ? () async {
                             // 사진 찍기
-                            final image = await vm.takePicture();
+                            await vm.takePicture();
+                            // 이미지 서버 전달 이쪽!!!!
+
                             // 스트리밍 종료
                             vm.isPageStreaming.value = false;
                             // 다음 페이지로 이동하고, 찍은 사진을 전달
                             Get.to(
-                              PredicrionScreen(
-                                image: image,
-                              ),
+                              PredicrionScreen(),
                             )?.then((value) => vm.isPageStreaming.value = true);
                           }
                         : null,

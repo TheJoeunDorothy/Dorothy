@@ -25,6 +25,8 @@ class VM extends GetxController {
   Rx<Color> myColor = Colors.white.obs;
   // 페이지 이동 했을 시 카메라 스트리밍 확인
   RxBool isPageStreaming = true.obs;
+  // 찍은 사진 저장 변수
+  Rx<XFile?> image = Rx<XFile?>(null);
 
   Future<void> getStates() async {
     cameraState.value = await Permission.camera.status.isGranted;
@@ -184,14 +186,12 @@ class VM extends GetxController {
   }
 
   // 카메라 촬영
-  Future<XFile> takePicture() async {
+  Future<void> takePicture() async {
     if (!isStreaming.value) {
       throw Exception('스트리밍이 시작되지 않았습니다.');
     }
 
-    final image = await controller.value!.takePicture();
-
-    return image;
+    image.value = await controller.value!.takePicture();
   }
 
   @override
