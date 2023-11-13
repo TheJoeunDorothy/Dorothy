@@ -14,15 +14,15 @@ Widget infoFirst() {
       SizedBox(
         height: 20.h,
       ),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ✅',
           subtitle: '어둡고 흐린 사진은...'),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ✅',
           subtitle: '어둡고 흐린 사진은...'),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ✅',
           subtitle: '어둡고 흐린 사진은...'),
@@ -43,15 +43,15 @@ Widget infoSecond() {
       SizedBox(
         height: 20.h,
       ),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ❌',
           subtitle: '어둡고 흐린 사진은...'),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ❌',
           subtitle: '어둡고 흐린 사진은...'),
-      infoTile(
+      _infoTile(
           image: 'assets/images/Dorothy.jpg',
           title: '밝고 선명한 사진 ❌',
           subtitle: '어둡고 흐린 사진은...'),
@@ -59,7 +59,7 @@ Widget infoSecond() {
   );
 }
 
-Widget infoTile(
+Widget _infoTile(
     {required String image, required String title, required String subtitle}) {
   return ListTile(
     leading: ClipRRect(

@@ -34,14 +34,20 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            appBarTheme: const AppBarTheme(
+            scaffoldBackgroundColor: Colors.white,
+            appBarTheme: AppBarTheme(
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
+              titleTextStyle: TextStyle(
+                fontSize: 18.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.bold
+              )
             ),
             dialogTheme: DialogTheme(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                 )),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: false,

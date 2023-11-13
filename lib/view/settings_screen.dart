@@ -31,12 +31,12 @@ class SettingsScreen extends StatelessWidget {
                     '버전',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.sp,
+                      fontSize: 15.sp,
                     ),
                   ),
                   Text(
                     'v1.0.0 ',
-                    style: TextStyle(fontSize: 15.sp, color: Colors.grey),
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
                   ),
                 ],
               ),
@@ -71,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
               settingText,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
+                fontSize: 15.sp,
               ),
             ),
             Icon(
