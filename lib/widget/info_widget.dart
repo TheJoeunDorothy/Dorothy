@@ -17,7 +17,7 @@ Widget infoFirst() {
       _infoTile(
           image: 'assets/images/good1.png',
           title: '정면을 바라보는 사진 ✅',
-          subtitle: '측면 사진은 정확한 분석이 어려워요.'),
+          subtitle: '측면 사진은 정확한 분석이 어려워요'),
       _infoTile(
           image: 'assets/images/good2.png',
           title: '밝고 선명한 사진 ✅',
@@ -25,7 +25,7 @@ Widget infoFirst() {
       _infoTile(
           image: 'assets/images/good3.png',
           title: '얼굴이 가까운 사진 ✅',
-          subtitle: '얼굴을 인식하기 쉬운 사진이 좋아요.'),
+          subtitle: '얼굴을 인식하기 쉬운 사진이 좋아요'),
     ],
   );
 }
@@ -50,7 +50,7 @@ Widget infoSecond() {
       _infoTile(
           image: 'assets/images/bad2.png',
           title: '측면 사진 ❌',
-          subtitle: '측면 얼굴은 얼굴 인식이 불가능해요'),
+          subtitle: '측면 사진은 얼굴 인식이 불가능해요'),
       _infoTile(
           image: 'assets/images/bad3.png',
           title: '전신 사진 ❌',
