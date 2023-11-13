@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
+import 'package:dorothy/view/result_screen.dart';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -26,7 +27,7 @@ void main() async {
       (!hasSeenOnboarding) ? const OnBoardingScreen() : CameraScreen();
 
   runApp(MyApp(
-    initialScreen: ResultScreen(),
+    initialScreen: initialScreen,
   ));
 }
 
