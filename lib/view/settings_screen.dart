@@ -1,4 +1,4 @@
-import 'package:dorothy/view/dummy_screen.dart';
+import 'package:dorothy/view/agreement_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -41,14 +41,10 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              _getSetting(settingText: '이용 약관', screen: const DummyScreen()),
+              _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
               SizedBox(
                 height: 30.h,
-              ),
-              _getSetting(
-                  settingText: '개인정보 처리방침', screen: const DummyScreen()),
-              SizedBox(
-                height: 30.h,
+                child: _getSetting(settingText: '다크 모드', screen: const AgreementScreen()),
               ),
             ],
           ),
