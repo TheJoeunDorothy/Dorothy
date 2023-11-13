@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/widget/google_ads_widget.dart';
 import 'package:dorothy/widget/info_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class CameraScreen extends StatelessWidget {
         child: BottomAppBar(
           color: Colors.transparent,
           elevation: 0,
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // 카메라 촬영시 예측 페이지
@@ -132,6 +133,7 @@ class CameraScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const AdBanner(),
             ],
           ),
         ),
