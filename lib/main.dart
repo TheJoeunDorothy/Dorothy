@@ -12,7 +12,7 @@ void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(); // .env 파일 로드
-  await LogsHandler().initalizeDB();
+  await LogsHandler().initalizeDB(); // LOG용 SQLite 로드
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 

@@ -1,4 +1,5 @@
 import 'package:dorothy/view/agreement_screen.dart';
+import 'package:dorothy/view/logs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,15 +15,15 @@ class SettingsScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30.h,
-              ),
-              Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 30.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -38,41 +39,45 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 30.h,
-              ),
-              _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
-              SizedBox(
-                height: 30.h,
-                child: _getSetting(settingText: '다크 모드', screen: const AgreementScreen()),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+            _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
+            SizedBox(
+              height: 30.h,
+            ),
+            _getSetting(settingText: '사진 기록', screen: const LogsScreen()),
+          ],
         ),
       ),
     );
   }
 
   Widget _getSetting({required String settingText, required Widget screen}) {
-    return InkWell(
-      onTap: () => Get.to(screen),
-      child: Container(
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              settingText,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17.sp,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: InkWell(
+        onTap: () => Get.to(screen),
+        child: Container(
+          height: 50.h,
+          color: Colors.transparent,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                settingText,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.sp,
+                ),
               ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 17.sp,
-            ),
-          ],
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 17.sp,
+              ),
+            ],
+          ),
         ),
       ),
     );

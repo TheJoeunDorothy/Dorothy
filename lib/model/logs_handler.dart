@@ -14,7 +14,7 @@ class LogsHandler {
         await db.execute('''CREATE TABLE logs(
               id INTEGER PRIMARY KEY AUTOINCREMENT, 
               image TEXT, 
-              timestamp TEXT)'''); // sqllite는 varchar없음
+              datetime TEXT)'''); // sqllite는 varchar없음
       },
       version: 1,
     );
@@ -31,19 +31,19 @@ class LogsHandler {
   }
 
   //  insert
-  Future<int> insertLogs(String imageBase64) async {
+  insertLogs(String imageBase64) async {
     // model의 Student생성자 타입으로 insert
     int result = 0;
     final Database db = await initalizeDB(); // sql에 connect
     result = await db.rawInsert(
-        'INSERT INTO logs(images, datetime) VALUES (?,?)', [
+        'INSERT INTO logs(image, datetime) VALUES (?,?)', [
       imageBase64,
       DateFormat('yyyy-MM-dd hh:mm aaa').format(DateTime.now())
     ]);
     return result;
   }
 
-  Future<void> deleteLogs(int id) async {
+  deleteLogs(int id) async {
     final Database db = await initalizeDB();
     await db.rawDelete('DELETE FROM logs WHERE id =?', [id]);
   }
