@@ -1,11 +1,8 @@
-import 'package:dorothy/viewmodel/vm.dart';
 import 'package:dorothy/widget/info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-Widget sliderWidget(vm) {
-  final vm = Get.find<VM>();
+Widget infoSliderWidget(vm) {
 
   return SizedBox(
     height: 290.h,
