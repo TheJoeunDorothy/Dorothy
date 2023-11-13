@@ -6,7 +6,7 @@ Widget sliderWidget(vm) {
   final PageController _pageController = PageController();
 
   return SizedBox(
-    height: 300.h,
+    height: 290.h,
     child: PageView.builder(
       controller: _pageController,
       itemCount: 2,

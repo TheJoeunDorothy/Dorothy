@@ -9,10 +9,8 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0, // 그림자 제거
         title: const Text(
           '설정',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: SafeArea(
@@ -31,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                     '버전',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
+                      fontSize: 17.sp,
                     ),
                   ),
                   Text(
@@ -71,12 +69,12 @@ class SettingsScreen extends StatelessWidget {
               settingText,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15.sp,
+                fontSize: 17.sp,
               ),
             ),
             Icon(
               Icons.arrow_forward_ios,
-              size: 20.sp,
+              size: 17.sp,
             ),
           ],
         ),
