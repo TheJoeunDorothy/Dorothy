@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
@@ -209,7 +210,7 @@ class VM extends GetxController {
 
     // 사진 찍은 후 서버로 이미지 전송 (퍼스널컬러 테스트)
     await sendImage(image.value!.path,
-        'https://glg5eceso8.execute-api.ap-northeast-2.amazonaws.com/Prod/color');
+        '${dotenv.env['API_ENDPOINT']}color');
   }
 
   Future<void> sendImage(String imagePath, String url) async {
@@ -227,6 +228,7 @@ class VM extends GetxController {
 
     var response = await http.post(
       Uri.parse(url),
+      headers: {"x-api-key" : dotenv.env['API_KEY']!},
       body: base64Image,
     );
 
