@@ -46,6 +46,7 @@ class VM extends GetxController {
     super.onInit();
     init();
   }
+
   /// 인포페이지 인덱스 리셋
   Future<void> resetInfoPage() async {
     await Future.delayed(const Duration(milliseconds: 300));
@@ -111,8 +112,8 @@ class VM extends GetxController {
         // 얼굴 영역 설정
         final Rect iconRect = Rect.fromCenter(
           center: Offset(image.width / 2, image.height / 2),
-          width: 290.w,
-          height: 300.h,
+          width: 350.w,
+          height: 400.h,
         );
 
         // 얼굴이 넣어져 있으면
@@ -124,15 +125,12 @@ class VM extends GetxController {
                 iconRect.contains(
                     Offset(face.boundingBox.right, face.boundingBox.bottom))) {
               myColor.value = Colors.amber;
-              print("얼굴이다!!!!!!!!!!!!");
             } else {
-              print("인식 안된다~~~~~~~");
               myColor.value = Colors.white;
               stopImageStream();
             }
           }
         } else {
-          print("인식 안된다~~~~~~~");
           myColor.value = Colors.white;
           stopImageStream();
         }
@@ -248,8 +246,9 @@ class VM extends GetxController {
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = jsonDecode(response.body);
       var result = responseData['result'];
-      print(result);
+      // result 값 넘겨줘야됨
     } else {
+      // alert 메세지 띄어줘야됨
       print('Failed to upload image: ${response.statusCode}');
     }
   }

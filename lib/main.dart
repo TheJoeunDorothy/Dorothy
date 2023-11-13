@@ -1,16 +1,23 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
+import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(); // .env 파일 로드
+  // 광고 초기화
+  MobileAds.instance.initialize();
+  // .env 파일 로드
+  await dotenv.load();
+  // 광고 컨트롤러
+  Get.put(ADS());
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 
@@ -37,15 +44,13 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
-              elevation: 0,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              titleTextStyle: TextStyle(
-                fontSize: 18.sp,
-                color: Colors.black,
-                fontWeight: FontWeight.bold
-              )
-            ),
+                elevation: 0,
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                titleTextStyle: TextStyle(
+                    fontSize: 18.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold)),
             dialogTheme: DialogTheme(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
