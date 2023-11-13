@@ -2,8 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
-import 'package:dorothy/widget/slider_indicator.dart';
-import 'package:dorothy/widget/slider_widget.dart';
+import 'package:dorothy/widget/info_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,25 +22,10 @@ class CameraScreen extends StatelessWidget {
         elevation: 0, // 그림자 제거
         actions: [
           IconButton(
-            onPressed: () => Get.dialog(Dialog(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 20.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    sliderWidget(vm),
-                    sliderIndicator(vm),
-                    SizedBox(
-                      width: 278.w,
-                      child: CupertinoButton.filled(
-                        child: const Text('확인'),
-                        onPressed: () => Get.back(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )),
+            onPressed: () async {
+              await Get.dialog(infoDialog());
+              vm.resetInfoPage();
+            },
             icon: const Icon(Icons.info_outlined),
           ),
           IconButton(

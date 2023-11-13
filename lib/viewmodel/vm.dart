@@ -13,8 +13,16 @@ import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
 
 class VM extends GetxController {
+  /// 페이지뷰 컨트롤러
+  var pageController = PageController();
+
+  /// 페이지뷰 현재 페이지
   RxInt currentPage = 0.obs;
+
+  /// 앱 카메라 권한 상태
   RxBool cameraState = true.obs;
+
+  /// 앱 마이크 권한 상태
   RxBool microphoneState = true.obs;
   // 카메라 컨트롤러
   Rx<CameraController?> controller = Rx<CameraController?>(null);
@@ -33,15 +41,21 @@ class VM extends GetxController {
   // 찍은 사진 저장 변수
   Rx<XFile?> image = Rx<XFile?>(null);
 
-  Future<void> getStates() async {
-    cameraState.value = await Permission.camera.status.isGranted;
-    microphoneState.value = await Permission.microphone.status.isGranted;
-  }
-
   @override
   void onInit() {
     super.onInit();
     init();
+  }
+  /// 인포페이지 인덱스 리셋
+  Future<void> resetInfoPage() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    currentPage.value = 0;
+    pageController.jumpToPage(0);
+  }
+
+  Future<void> getStates() async {
+    cameraState.value = await Permission.camera.status.isGranted;
+    microphoneState.value = await Permission.microphone.status.isGranted;
   }
 
   Future<void> init() async {
@@ -209,8 +223,7 @@ class VM extends GetxController {
     image.value = await controller.value!.takePicture();
 
     // 사진 찍은 후 서버로 이미지 전송 (퍼스널컬러 테스트)
-    await sendImage(image.value!.path,
-        '${dotenv.env['API_ENDPOINT']}color');
+    await sendImage(image.value!.path, '${dotenv.env['API_ENDPOINT']}color');
   }
 
   Future<void> sendImage(String imagePath, String url) async {
@@ -228,7 +241,7 @@ class VM extends GetxController {
 
     var response = await http.post(
       Uri.parse(url),
-      headers: {"x-api-key" : dotenv.env['API_KEY']!},
+      headers: {"x-api-key": dotenv.env['API_KEY']!},
       body: base64Image,
     );
 
