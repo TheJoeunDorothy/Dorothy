@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:dorothy/model/logs_handler.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(); // .env 파일 로드
+  await LogsHandler().initalizeDB();
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 
