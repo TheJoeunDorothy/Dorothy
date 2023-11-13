@@ -219,9 +219,6 @@ class VM extends GetxController {
     }
 
     image.value = await controller.value!.takePicture();
-
-    // 사진 찍은 후 서버로 이미지 전송 (퍼스널컬러 테스트)
-    await sendImage(image.value!.path, '${dotenv.env['API_ENDPOINT']}color');
   }
 
   Future<void> sendImage(String imagePath, String url) async {

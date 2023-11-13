@@ -113,7 +113,7 @@ class CameraScreen extends StatelessWidget {
                   () => FloatingActionButton(
                     onPressed: vm.myColor.value == Colors.amber
                         ? () async {
-                            // 사진 찍기, 서버로 전송
+                            // 사진 찍기
                             await vm.takePicture();
                             // 스트리밍 종료
                             vm.isPageStreaming.value = false;
