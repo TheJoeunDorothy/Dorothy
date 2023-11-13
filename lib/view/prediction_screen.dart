@@ -14,7 +14,6 @@ class PredicrionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('결과 페이지(임시)'),
-        elevation: 0, // 그림자 제거
       ),
       // 이미지 좌우 반전
       body: Transform(
