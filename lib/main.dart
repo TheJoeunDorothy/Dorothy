@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:dorothy/model/logs_handler.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:dorothy/view/result_screen.dart';
@@ -19,6 +20,7 @@ void main() async {
   await dotenv.load();
   // 광고 컨트롤러
   Get.put(ADS());
+  await LogsHandler().initalizeDB(); // LOG용 SQLite 로드
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 
