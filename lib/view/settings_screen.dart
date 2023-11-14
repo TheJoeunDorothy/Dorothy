@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: InkWell(
-        onTap: () => Get.to(screen),
+        onTap: () => Get.to(()=> screen),
         child: Container(
           height: 50.h,
           color: Colors.transparent,

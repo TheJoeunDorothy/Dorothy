@@ -19,7 +19,9 @@ class LogsVM extends GetxController {
   }
 
   Future<int> addDummyLogs() async {
-    handler.insertLogs(dummyImage);
+    Logs log =
+        Logs(originalimage: dummyImage, personalimage: dummyImage,ageimage: dummyImage);
+    handler.insertLogs(log);
     return 0;
   }
 
