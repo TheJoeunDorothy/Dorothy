@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:dorothy/view/result_screen.dart';
 import 'package:dorothy/viewmodel/vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,8 +65,15 @@ class PredicrionScreen extends StatelessWidget {
                   width: 155.w,
                   height: 50.h,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // 서버로 요청
+                    onPressed: () async {
+                      // 서버 통신 시간에 광고나, 로딩중 화면 띄어준 다음에 결과 페이지로 이동 해야됨
+                      vm.sendImage().then((result) {
+                        Get.off(const ResultScreen(), arguments: result);
+                        // 결과 출력
+                        print('Result: ${result['result']}');
+                        print('Age: ${result['age']}');
+                        print('Percent: ${result['percent']}');
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
