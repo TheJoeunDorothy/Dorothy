@@ -11,7 +11,7 @@ class AdBanner extends GetView<ADS> {
     return Obx(
       () => controller.isAdLoaded.value
           ? SizedBox(
-              width: controller.bannerAd.value!.size.width.toDouble(),
+              width: MediaQuery.of(context).size.width,
               height: controller.bannerAd.value!.size.height.toDouble(),
               child: AdWidget(ad: controller.bannerAd.value!),
             )

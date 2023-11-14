@@ -21,6 +21,10 @@ class CameraScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 제한
         elevation: 0, // 그림자 제거
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: AdBanner(),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -81,6 +85,23 @@ class CameraScreen extends StatelessWidget {
                           child: CameraPreview(vm.controller.value!),
                         ),
                       ),
+                    Positioned(
+                      top: MediaQuery.of(context).size.height / 2 -
+                          370.h, // 텍스트 위치 조절
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          vm.myColor.value == Colors.amber
+                              ? "지금 촬영 버튼을 눌러주세요!"
+                              : "네모난 영역에 얼굴을 맞추고\n정면을 바라보세요!",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Container(
                         width: 230.w, // 사람 얼굴 사이즈에 맞게 조정
@@ -98,7 +119,7 @@ class CameraScreen extends StatelessWidget {
       // 촬영 버튼
       bottomNavigationBar: Container(
         color: Colors.white,
-        height: 230.h,
+        height: 150.h,
         child: BottomAppBar(
           color: Colors.transparent,
           elevation: 0,
@@ -117,7 +138,7 @@ class CameraScreen extends StatelessWidget {
                             await vm.takePicture();
                             // 스트리밍 종료
                             vm.isPageStreaming.value = false;
-                            // 다음 페이지로 이동하고, 찍은 사진을 전달
+                            // 다시 카메라 화면으로 돌아왔을때 이미지 스트리밍 활성
                             Get.to(
                               PredicrionScreen(),
                             )?.then((value) => vm.isPageStreaming.value = true);
@@ -133,7 +154,6 @@ class CameraScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const AdBanner(),
             ],
           ),
         ),
