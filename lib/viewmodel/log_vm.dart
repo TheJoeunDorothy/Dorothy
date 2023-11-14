@@ -5,12 +5,14 @@ import 'package:dorothy/model/logs.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
-
+/// LogScreen을 위한 Controller
 class LogVm extends GetxController{
   Rx<Logs> log = Logs().obs;
   RxString nowImage = ''.obs;
 
-
+  /// image 를 받아서, 공유하기
+  /// 
+  /// @params : `String[Base64]`
   void shareImage(String? imageBytes) async {
     try {
       if (imageBytes == null) {
@@ -25,7 +27,7 @@ class LogVm extends GetxController{
       // share 패키지를 사용하여 이미지 파일을 공유
       Share.shareFiles([file.path]);
     } catch (e) {
-      print('Error sharing image: $e');
+      return;
     }
   }
 }

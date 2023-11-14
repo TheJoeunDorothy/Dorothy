@@ -19,6 +19,9 @@ class LogScreen extends StatelessWidget {
               icon: const Icon(Icons.share),
               tooltip: '공유하기',
               onPressed: () {
+                if(logController.nowImage.value == ""){
+                  logController.nowImage.value = logController.log.value.personalimage!;
+                }
                 logController.shareImage(logController.nowImage.value);
               },
             ),
