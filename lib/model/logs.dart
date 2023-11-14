@@ -1,16 +1,16 @@
 class Logs{
   int? id;  // ai라서 required받지 않을 거라서 이렇게함
-  String originalimage;
-  String personalimage;
-  String ageimage;
+  String? originalimage;
+  String? personalimage;
+  String? ageimage;
   String? datetime;
 
   Logs(
     {
       this.id,
-      required this.originalimage,
-      required this.personalimage,
-      required this.ageimage,
+      this.originalimage,
+      this.personalimage,
+      this.ageimage,
       this.datetime,
     }
   );

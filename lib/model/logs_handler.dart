@@ -2,8 +2,9 @@ import 'package:dorothy/model/logs.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
+/// SQLite에 관련 로그 클래스
 class LogsHandler {
+  /// Logs DB를 시작하기
   Future<Database> initalizeDB() async {
     // 여기서 init해줘야 db에 연결해서 insert 가능함
     String path = await getDatabasesPath(); // 데이터 위치 알기위해 만들기
@@ -22,7 +23,7 @@ class LogsHandler {
     );
   }
 
-  //Future가 있어야 async가 돼서 Future안에 List 넣어주기
+  /// 모든 LogsDB에 관련된 함수 가져오기
   Future<List<Logs>> selectAllLogs() async {
     final Database db = await initalizeDB();
     // null data가 있을수도 있어서 ?
@@ -32,7 +33,11 @@ class LogsHandler {
     return queryResults.map((e) => Logs.fromMap(e)).toList();
   }
 
-  //  insert
+  /// Logs를 입력
+  /// 
+  /// `@param [Logs]` 
+  /// 
+  /// `@return int = 0` => Success
   insertLogs(Logs log) async {
     // model의 Student생성자 타입으로 insert
     int result = 0;
@@ -47,7 +52,9 @@ class LogsHandler {
         ]);
     return result;
   }
-
+  /// Logs 삭제
+  /// 
+  /// `@param [int] id값` 
   deleteLogs(int id) async {
     final Database db = await initalizeDB();
     await db.rawDelete('DELETE FROM logs WHERE id =?', [id]);

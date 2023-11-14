@@ -1,3 +1,4 @@
+import 'package:dorothy/static/version.dart';
 import 'package:dorothy/view/agreement_screen.dart';
 import 'package:dorothy/view/logs_screen.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'v1.0.0 ',
+                    Version.now,
                     style: TextStyle(fontSize: 13.sp, color: Colors.grey),
                   ),
                 ],
@@ -54,6 +56,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  /// Card 대신 만든 페이지 라우트용 위젯
   Widget _getSetting({required String settingText, required Widget screen}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
