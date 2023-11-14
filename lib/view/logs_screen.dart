@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dorothy/view/log_screen.dart';
+import 'package:dorothy/viewmodel/log_vm.dart';
 import 'package:dorothy/viewmodel/logs_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +21,9 @@ class LogsScreen extends StatelessWidget {
         body: FutureBuilder(
             future: controller.selectAllLogs(),
             builder: (context, snapshot) {
-              // c언어의 포인터개념으로 snapshot(위치에 직접 접속한다.)
               if (snapshot.hasData) {
                 return ListView.builder(
-                    itemCount: snapshot.data?.length, // null값 있을 수 있어서 ?
+                    itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
                       return Dismissible(
                         direction: DismissDirection.endToStart,
@@ -40,14 +40,16 @@ class LogsScreen extends StatelessWidget {
                         },
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(const LogScreen(), arguments:snapshot.data![index]); 
+                            LogVm logController = Get.put(LogVm());
+                            logController.log.value = snapshot.data![index];
+                            Get.to(()=>const LogScreen()); 
                           },
                           child: Card(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox( width: 50.w,),
-                                Image.memory(base64Decode(snapshot.data![index].originalimage), height: 100.h,),
+                                Image.memory(base64Decode(snapshot.data![index].originalimage!), height: 100.h,),
                                 SizedBox( width: 100.w,),
                                 Text(snapshot.data![index].datetime!),
                               ],

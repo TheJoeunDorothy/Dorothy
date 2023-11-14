@@ -1,7 +1,6 @@
 import 'dart:convert';
-
+import 'package:dorothy/viewmodel/log_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -10,36 +9,42 @@ class LogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IntroductionScreen(
-      globalHeader: AppBar(
-        title: Text(Get.arguments.datetime),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            tooltip: '공유하기',
-            onPressed: () {
-              // handle the press
-            },
-          ),
-        ],
+    LogVm logController = Get.find<LogVm>();
+    return Obx(
+      () => IntroductionScreen(
+        globalHeader: AppBar(
+          title: Text(logController.log.value.datetime!),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.share),
+              tooltip: '공유하기',
+              onPressed: () {
+                logController.shareImage(logController.nowImage.value);
+              },
+            ),
+          ],
+        ),
+        onChange: (index) {
+          logController.nowImage.value = (index == 0
+              ? logController.log.value.personalimage
+              : logController.log.value.ageimage)!;
+        },
+        pages: getPages(),
+        showSkipButton: false,
+        showNextButton: false,
+        showDoneButton: false,
       ),
-      onChange: (index) {
-        print('Current page: $index');
-      },
-      pages: getPages(),
-      showSkipButton: false,
-      showNextButton: false,
-      showDoneButton: false,
     );
   }
 
   List<PageViewModel> getPages() {
+    LogVm logController = Get.find<LogVm>();
     return [
       PageViewModel(
         title: "",
-        bodyWidget: Text('퍼스널 컬러 결과 이미지'),
+        bodyWidget: const Text('퍼스널 컬러 결과 이미지'),
         image: Image.memory(
-          base64Decode(Get.arguments.personalimage),
+          base64Decode(logController.log.value.personalimage!),
           fit: BoxFit.contain,
         ),
         decoration: const PageDecoration(
@@ -51,9 +56,9 @@ class LogScreen extends StatelessWidget {
       ),
       PageViewModel(
         title: "",
-        bodyWidget: Text('나이 예측 결과 이미지'),
+        bodyWidget: const Text('나이 예측 결과 이미지'),
         image: Image.memory(
-          base64Decode(Get.arguments.ageimage),
+          base64Decode(logController.log.value.ageimage!),
           fit: BoxFit.contain,
         ),
         decoration: const PageDecoration(
