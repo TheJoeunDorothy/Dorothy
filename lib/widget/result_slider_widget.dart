@@ -9,6 +9,7 @@ Widget resultSliderWidget(vm) {
     child: PageView.builder(
       controller: vm.pageController,
       itemCount: 2,
+      
       onPageChanged: (index) {
         vm.currentPage.value = index;
       },

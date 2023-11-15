@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget colorResult(context, String base64Image, Map<String, dynamic> result) {
-  return RepaintBoundary(
-    child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start, 
+      children: [
       SizedBox(
         height: 50.h,
       ),
@@ -31,12 +31,6 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result) {
       SizedBox(
         height: 20.h,
       ),
-      SizedBox(
-        height: 50.h,
-      ),
-      SizedBox(
-        height: 50.h,
-      ),
-    ]),
+    ]
   );
 }
