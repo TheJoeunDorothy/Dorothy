@@ -71,12 +71,14 @@ dependencies:
   flutter_markdown: ^0.6.18+2
   # 구글 광고
   google_mobile_ads: ^3.1.0
-  # 공유기능
-  share:
+  # 위젯 캡처 및 공유
+  screenshot: ^2.1.0
   # 퍼센트 인디케이터
   percent_indicator: ^4.2.3
-  # 파일 시스템 경로 찾기
+  # 파일 경로
   path_provider: ^2.1.1
+  # 이미지 갤러리에 저장
+  image_gallery_saver: ^2.0.3
   
 dev_dependencies:
   flutter_test:
