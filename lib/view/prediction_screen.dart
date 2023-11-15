@@ -68,17 +68,45 @@ class PredicrionScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       // 서버 통신 시간에 광고나, 로딩중 화면 띄어준 다음에 결과 페이지로 이동 해야됨
-                      vm.sendImage().then((result) {
-                        Get.off(() => const ResultScreen());  
-                        ResultVM controller = Get.put(ResultVM());
-                        controller.result = result;
-                        controller.originalImage = vm.base64Image;
-                        
-                        // 결과 출력
-                        print('Result: ${result['result']}');
-                        print('Age: ${result['age']}');
-                        print('Percent: ${result['percent']}');
-                      });
+                      vm.sendImage().then(
+                        (result) {
+                          if (result['result'] == null ||
+                              result['age'] == null ||
+                              result['percent'] == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Row(
+                                  children: [
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '오류가 발생했어요. 사진을 다시 찍어주세요.',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                duration: const Duration(seconds: 1),
+                                width: 310.w,
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            );
+                          } else {
+                            Get.off(() => const ResultScreen());
+                            ResultVM controller = Get.put(ResultVM());
+                            controller.result = result;
+                            controller.originalImage = vm.base64Image;
+                          }
+                        },
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
