@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
+/// 나이 퍼센트
+///@Param : Context, `int`age, `double`percent,`Color`color
 Widget agePercentIndicator(context, int age, double percent, Color color) {
   return Padding(
     padding: EdgeInsets.fromLTRB(5.w, 2.h, 5.w, 2.h),

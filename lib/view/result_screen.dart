@@ -21,7 +21,7 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen> {
   final gKey = GlobalKey();
-  final vm = Get.put(ResultVM());
+  final vm = Get.find<ResultVM>();
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
