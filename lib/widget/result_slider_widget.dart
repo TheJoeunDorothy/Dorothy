@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget resultSliderWidget(vm) {
-
   return SizedBox(
     height: 570.h,
     child: PageView.builder(
@@ -14,7 +13,9 @@ Widget resultSliderWidget(vm) {
         vm.currentPage.value = index;
       },
       itemBuilder: (BuildContext context, int index) {
-        return index == 0 ? ageResult(context) : colorResult(context);
+        return index == 0
+            ? ageResult(context, vm.originalImage, vm.result)
+            : colorResult(context, vm.originalImage, vm.result);
       },
     ),
   );
