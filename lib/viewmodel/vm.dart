@@ -226,7 +226,6 @@ class VM extends GetxController {
   // 서버 데이터
   Future<Map<String, dynamic>> sendImage() async {
     String url = dotenv.env['API_ENDPOINT']!;
-
     String imagePath = this.image.value!.path;
 
     // 이미지 파일 로드
@@ -241,36 +240,41 @@ class VM extends GetxController {
     // 바이트 데이터를 Base64 문자열로 인코딩
     base64Image = base64Encode(resizedBytes);
 
-    // 퍼스널 컬러
-    var response1 = await http.post(
-      Uri.parse("${url}color"),
-      headers: {"x-api-key": dotenv.env['API_KEY']!},
-      body: base64Image,
-    );
-
-    // 나이 예측
-    var response2 = await http.post(
-      Uri.parse("${url}age"),
-      headers: {"x-api-key": dotenv.env['API_KEY']!},
-      body: base64Image,
-    );
-
-    String? result = "";
-    String? age = "";
+    // API 호출 결과를 담을 변수
+    String? result;
+    String? age;
     List<dynamic>? percent;
 
-    if (response1.statusCode == 200) {
-      Map<String, dynamic> responseData = jsonDecode(response1.body);
-      result = responseData['result'];
-    } else {
+    try {
+      // 퍼스널 컬러
+      var response1 = await http.post(
+        Uri.parse("${url}color"),
+        headers: {"x-api-key": dotenv.env['API_KEY']!},
+        body: base64Image,
+      );
+
+      if (response1.statusCode == 200) {
+        Map<String, dynamic> responseData = jsonDecode(response1.body);
+        result = responseData['result'];
+      }
+    } catch (e) {
       result = null;
     }
 
-    if (response2.statusCode == 200) {
-      Map<String, dynamic> responseData = jsonDecode(response2.body);
-      age = responseData['age'];
-      percent = responseData['percent'];
-    } else {
+    try {
+      // 나이 예측
+      var response2 = await http.post(
+        Uri.parse("${url}age"),
+        headers: {"x-api-key": dotenv.env['API_KEY']!},
+        body: base64Image,
+      );
+
+      if (response2.statusCode == 200) {
+        Map<String, dynamic> responseData = jsonDecode(response2.body);
+        age = responseData['age'];
+        percent = responseData['percent'];
+      }
+    } catch (e) {
       age = null;
       percent = null;
     }
