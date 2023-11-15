@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:dorothy/view/result_screen.dart';
+import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:dorothy/viewmodel/vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,7 +69,11 @@ class PredicrionScreen extends StatelessWidget {
                     onPressed: () async {
                       // 서버 통신 시간에 광고나, 로딩중 화면 띄어준 다음에 결과 페이지로 이동 해야됨
                       vm.sendImage().then((result) {
-                        Get.off(const ResultScreen(), arguments: result);
+                        Get.off(() => const ResultScreen());  
+                        ResultVM controller = Get.put(ResultVM());
+                        controller.result = result;
+                        controller.originalImage = vm.base64Image;
+                        
                         // 결과 출력
                         print('Result: ${result['result']}');
                         print('Age: ${result['age']}');

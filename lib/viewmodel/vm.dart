@@ -41,6 +41,8 @@ class VM extends GetxController {
   // 찍은 사진 저장 변수
   Rx<XFile?> image = Rx<XFile?>(null);
 
+  String base64Image = '';
+
   @override
   void onInit() {
     super.onInit();
@@ -237,7 +239,7 @@ class VM extends GetxController {
     List<int> resizedBytes = img.encodeJpg(resized, quality: 75);
 
     // 바이트 데이터를 Base64 문자열로 인코딩
-    String base64Image = base64Encode(resizedBytes);
+    base64Image = base64Encode(resizedBytes);
 
     // 퍼스널 컬러
     var response1 = await http.post(
