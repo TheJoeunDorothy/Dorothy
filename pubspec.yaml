@@ -79,6 +79,8 @@ dependencies:
   path_provider: ^2.1.1
   # 이미지 갤러리에 저장
   image_gallery_saver: ^2.0.3
+  # 이미지 공유하기
+  share: ^2.0.4
   
 dev_dependencies:
   flutter_test:
