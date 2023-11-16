@@ -46,9 +46,8 @@ class LogsScreen extends StatelessWidget {
                           },
                           child: GestureDetector(
                             onTap: () {
-                              LogVm logController = Get.put(LogVm());
-                              logController.log.value = snapshot.data![index];
-                              // Get.to(() => const LogScreen());
+                              Get.lazyPut<LogVM>(()=> LogVM(log: snapshot.data![index]));
+                              Get.to(() => const LogScreen());
                             },
                             child: Card(
                               child: Row(
@@ -65,7 +64,7 @@ class LogsScreen extends StatelessWidget {
                                   SizedBox(
                                     width: 100.w,
                                   ),
-                                  Text(snapshot.data![index].datetime),
+                                  Text(snapshot.data![index].datetime!),
                                 ],
                               ),
                             ),
