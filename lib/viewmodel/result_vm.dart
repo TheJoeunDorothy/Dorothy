@@ -10,7 +10,6 @@ class ResultVM extends GetxController{
   late String originalImage;
   /// 페이지뷰 현재 페이지
   RxInt currentPage = 0.obs;
-  GlobalKey key = GlobalKey();
 
   @override
   void onInit() {
