@@ -3,14 +3,14 @@ class Logs {
   String originalImage;
   String colorResult;
   String ageResult;
-  int onePercent;
-  int twoPercent;
-  int threePercent;
-  int fourPercent;
-  int fivePercent;
-  int sixPercent;
-  int sevenPercent;
-  String datetime;
+  double onePercent;
+  double twoPercent;
+  double threePercent;
+  double fourPercent;
+  double fivePercent;
+  double sixPercent;
+  double sevenPercent;
+  String? datetime;
 
   Logs({
     this.id,
@@ -24,7 +24,7 @@ class Logs {
     required this.fivePercent,
     required this.sixPercent,
     required this.sevenPercent,
-    required this.datetime,
+    this.datetime,
   });
 
   Logs.fromMap(Map<String, dynamic> map)

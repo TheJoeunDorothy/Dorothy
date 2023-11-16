@@ -19,13 +19,13 @@ class LogsHandler {
         originalImage TEXT, 
         colorResult TEXT, 
         ageResult TEXT, 
-        onePercent INTEGER, 
-        twoPercent INTEGER, 
-        threePercent INTEGER, 
-        fourPercent INTEGER, 
-        fivePercent INTEGER, 
-        sixPercent INTEGER, 
-        sevenPercent INTEGER,
+        onePercent REAL, 
+        twoPercent REAL, 
+        threePercent REAL, 
+        fourPercent REAL, 
+        fivePercent REAL, 
+        sixPercent REAL, 
+        sevenPercent REAL,
         datetime String
           )
         ''');
