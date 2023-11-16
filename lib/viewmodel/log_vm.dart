@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// LogScreen을 위한 Controller
 class LogVM extends GetxController {
@@ -67,13 +67,11 @@ class LogVM extends GetxController {
       // 이미지를 저장할 임시 디렉토리 가져오기
       final tempDir = await getTemporaryDirectory();
       // 이미지 파일로 저장
-      File file =
-          await File('${tempDir.path}/image.png').writeAsBytes(imageBytes);
-
+      File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
-      Share.shareFiles([file.path]);
+      Share.shareXFiles([XFile(file.path)]);
     } catch (e) {
-      print('Error sharing image: $e');
+      //print('Error sharing image: $e');
     }
   }
 }
