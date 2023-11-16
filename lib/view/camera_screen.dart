@@ -135,7 +135,10 @@ class CameraScreen extends StatelessWidget {
                     onPressed: vm.myColor.value == Colors.amber
                         ? () async {
                             // 사진 찍기
-                            await vm.takePicture();
+                            bool success = await vm.takePicture(context);
+                            if (!success) {
+                              return;
+                            }
                             // 스트리밍 종료
                             vm.isPageStreaming.value = false;
                             // 다시 카메라 화면으로 돌아왔을때 이미지 스트리밍 활성
