@@ -15,13 +15,49 @@ class LogsScreen extends StatelessWidget {
     final LogsVM controller = Get.put(LogsVM());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("기록 보기"),
+        title: const Text("사용 기록"),
         actions: [
           IconButton(
             onPressed: () {
-              controller.deleteAllLogs();
+              Get.dialog(
+                AlertDialog(
+                  title: const Text(
+                    '⚠️ 삭제',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  content: const Text('사용 기록이 전부 삭제됩니다.'),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        "취소",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onPressed: () => Get.back(),
+                    ),
+                    Obx(
+                      () => TextButton(
+                        onPressed: controller.logs.isEmpty
+                            ? null
+                            : () async {
+                                await controller.deleteAllLogs();
+                                Get.back();
+                                Get.snackbar(
+                                  '삭제 완료',
+                                  '전부 삭제되었습니다.',
+                                  colorText: Colors.redAccent,
+                                );
+                              },
+                        child: const Text("삭제하기"),
+                      ),
+                    ),
+                  ],
+                ),
+              );
             },
-            icon: const Icon(Icons.delete_forever),
+            icon: const Icon(
+              Icons.delete_forever_rounded,
+              color: Colors.redAccent,
+            ),
           )
         ],
       ),
@@ -34,49 +70,96 @@ class LogsScreen extends StatelessWidget {
             );
           } else {
             return ListView.builder(
-                itemCount: controller.logs.length, // logs 상태를 사용하여 위젯 빌드
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: const Icon(Icons.delete_forever),
-                    ),
-                    key: ValueKey<int>(controller.logs[index].id!),
-                    onDismissed: (direction) async {
-                      int id = controller.logs[index].id!;
-                      controller.deleteLogs(id);
+              itemCount: controller.logs.length, // logs 상태를 사용하여 위젯 빌드
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: const Icon(Icons.delete_forever),
+                  ),
+                  key: ValueKey<int>(controller.logs[index].id!),
+                  onDismissed: (direction) async {
+                    int id = controller.logs[index].id!;
+                    controller.deleteLogs(id);
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.lazyPut<LogVM>(
+                          () => LogVM(log: controller.logs[index]));
+                      Get.to(() => const LogScreen());
                     },
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.lazyPut<LogVM>(
-                            () => LogVM(log: controller.logs[index]));
-                        Get.to(() => const LogScreen());
-                      },
-                      child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            Image.memory(
-                              base64Decode(
-                                  controller.logs[index].originalImage),
-                              height: 100.h,
-                            ),
-                            SizedBox(
-                              width: 100.w,
-                            ),
-                            Text(controller.logs[index].datetime!),
-                          ],
+                    child: Column(
+                      children: [
+                        Card(
+                          color: Colors.grey[100],
+                          shadowColor: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10.0), // 모서리를 둥글게 하는 정도
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                // padding: EdgeInsets.all(10.0.w),
+                                padding: EdgeInsets.fromLTRB(
+                                    20.w, 5.0.w, 20.0.w, 5.0.w),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.memory(
+                                    base64Decode(
+                                        controller.logs[index].originalImage),
+                                    height: 100.h,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 55.0.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${controller.logs[index].datetime!.substring(0, 4)}년 ${controller.logs[index].datetime!.substring(5, 7)}월 ${controller.logs[index].datetime!.substring(8, 10)}일 ${controller.logs[index].datetime!.substring(17, 19) == "PM" ? "오후" : "오전"} ${controller.logs[index].datetime!.substring(11, 13)}시 ${controller.logs[index].datetime!.substring(14, 16)}분',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(height: 25.0.h), // 간격 추가
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          '나이 예측 결과 :  ',
+                                        ),
+                                        Text(
+                                          controller.logs[index].ageResult,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8.0), // 간격 추가
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          '색상 예측 결과 :  ',
+                                        ),
+                                        Text(
+                                          controller.logs[index].colorResult,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  );
-                });
+                  ),
+                );
+              },
+            );
           }
         },
       ),

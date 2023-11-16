@@ -12,17 +12,22 @@ class AgreementScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("이용 약관"),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(30.0.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                MarkdownBody(softLineBreak: true, data: Agreement.personalCollection, )
-              ],
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20.0.h),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  MarkdownBody(
+                    softLineBreak: true,
+                    data: Agreement.personalCollection,
+                  )
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
