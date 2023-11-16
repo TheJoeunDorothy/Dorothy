@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:dorothy/static/personal_color.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:dorothy/widget/info_slider_indicator.dart';
 import 'package:dorothy/widget/result_slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -21,32 +23,54 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   final resultVM = Get.find<ResultVM>();
   static final GlobalKey<_ResultScreenState> key = GlobalKey<_ResultScreenState>();
+  Color backgroundColor = Colors.white;
+  Color foregroundColor = Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    String colorResult = resultVM.result['result'];
+    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
+    backgroundColor = theme.primaryColor;
+    foregroundColor = theme.onPrimaryColor;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('예측 결과'),
+        backgroundColor: backgroundColor,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          RepaintBoundary(
-            key: key,
-            child: Container(
-              color: Colors.white,
-              child: resultSliderWidget(resultVM),
+      body: Container(
+        color: backgroundColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            RepaintBoundary(
+              key: key,
+              child: Container(
+                color: backgroundColor,
+                child: resultSliderWidget(resultVM, foregroundColor, backgroundColor),
+              ),
             ),
-          ),
-          infoSliderIndicator(resultVM),
-          CupertinoButton.filled(
-            onPressed: () async {
-              Uint8List? resultImageByte = await captureImage(key: key);
-              shareImage(resultImageByte);
-            },
-            child: const Text('공유하기'),
-          ),
-        ],
+            infoSliderIndicator(resultVM),
+            CupertinoButton(
+              color: foregroundColor,
+              onPressed: () async {
+                Uint8List? resultImageByte = await captureImage(key: key);
+                shareImage(resultImageByte);
+              },
+              child: Text(
+                '공유하기',
+                style: TextStyle(
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
