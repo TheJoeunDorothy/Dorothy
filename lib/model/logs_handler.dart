@@ -82,4 +82,8 @@ class LogsHandler {
     final Database db = await initalaizeDB();
     await db.rawDelete('DELETE FROM logs WHERE id =?', [id]);
   }
+  deleteAllLogs() async {
+    final Database db = await initalaizeDB();
+    db.rawDelete('DELETE FROM logs');
+  }
 } // End

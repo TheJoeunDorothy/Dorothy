@@ -143,7 +143,7 @@ class CameraScreen extends StatelessWidget {
                             vm.isPageStreaming.value = false;
                             // 다시 카메라 화면으로 돌아왔을때 이미지 스트리밍 활성
                             Get.to(
-                              PredicrionScreen(),
+                              () => PredicrionScreen(),
                             )?.then((value) => vm.isPageStreaming.value = true);
                           }
                         : null,
