@@ -75,8 +75,8 @@ dependencies:
   percent_indicator: ^4.2.3
   # 파일 경로
   path_provider: ^2.1.1
-  # 이미지 공유하기
-  share: ^2.0.4
+  # 파일 공유
+  share_plus: ^7.2.1
   
 dev_dependencies:
   flutter_test:

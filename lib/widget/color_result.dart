@@ -10,8 +10,7 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result) {
         height: 50.h,
       ),
       SizedBox(
-        width: 150.w,
-        height: 150.h,
+        height: 220.h,
         child: Image.memory(base64Decode(base64Image)),
       ),
       SizedBox(
