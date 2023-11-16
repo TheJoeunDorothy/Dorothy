@@ -18,10 +18,4 @@ class ResultVM extends GetxController{
     handler = LogsHandler();
   }
 
-  Future<void> saveLog(base64AgeImage, base64ColorImage) async {
-    Logs log = Logs(originalimage: originalImage, ageimage: base64AgeImage, personalimage: base64ColorImage);
-    await handler.insertLogs(log);
-  }
-
-  
 }

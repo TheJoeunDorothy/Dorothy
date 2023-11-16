@@ -48,7 +48,7 @@ class LogsScreen extends StatelessWidget {
                             onTap: () {
                               LogVm logController = Get.put(LogVm());
                               logController.log.value = snapshot.data![index];
-                              Get.to(() => const LogScreen());
+                              // Get.to(() => const LogScreen());
                             },
                             child: Card(
                               child: Row(
@@ -59,13 +59,13 @@ class LogsScreen extends StatelessWidget {
                                   ),
                                   Image.memory(
                                     base64Decode(
-                                        snapshot.data![index].originalimage!),
+                                        snapshot.data![index].originalImage),
                                     height: 100.h,
                                   ),
                                   SizedBox(
                                     width: 100.w,
                                   ),
-                                  Text(snapshot.data![index].datetime!),
+                                  Text(snapshot.data![index].datetime),
                                 ],
                               ),
                             ),

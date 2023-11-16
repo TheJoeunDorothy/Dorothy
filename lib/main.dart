@@ -19,7 +19,7 @@ void main() async {
   await dotenv.load();
   // 광고 컨트롤러
   Get.put(ADS());
-  await LogsHandler().initalizeDB(); // LOG용 SQLite 로드
+  await LogsHandler().initalaizeDB(); // LOG용 SQLite 로드
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
 

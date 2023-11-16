@@ -1,34 +1,60 @@
-class Logs{
-  int? id;  // ai라서 required받지 않을 거라서 이렇게함
-  String? originalimage;
-  String? personalimage;
-  String? ageimage;
-  String? datetime;
+class Logs {
+  int? id;
+  String originalImage;
+  String colorResult;
+  String ageResult;
+  int onePercent;
+  int twoPercent;
+  int threePercent;
+  int fourPercent;
+  int fivePercent;
+  int sixPercent;
+  int sevenPercent;
+  String datetime;
 
-  Logs(
-    {
-      this.id,
-      this.originalimage,
-      this.personalimage,
-      this.ageimage,
-      this.datetime,
-    }
-  );
-  Logs.fromMap(Map<String, dynamic> res)  // 생성자 만들기
-    : id = res['id'],
-    originalimage = res['originalimage'],
-    personalimage = res['personalimage'],
-    ageimage = res['ageimage'],
-    datetime = res['datetime'];
-  
-  Map<String, Object?> toMap(){ // method 만들기(그림타입이 있을 수 있어서 Object)
+  Logs({
+    this.id,
+    required this.originalImage,
+    required this.colorResult,
+    required this.ageResult,
+    required this.onePercent,
+    required this.twoPercent,
+    required this.threePercent,
+    required this.fourPercent,
+    required this.fivePercent,
+    required this.sixPercent,
+    required this.sevenPercent,
+    required this.datetime,
+  });
+
+  Logs.fromMap(Map<String, dynamic> map)
+      : id = map['id'],
+        originalImage = map['originalImage'],
+        colorResult = map['colorResult'],
+        ageResult = map['ageResult'],
+        onePercent = map['onePercent'],
+        twoPercent = map['twoPercent'],
+        threePercent = map['threePercent'],
+        fourPercent = map['fourPercent'],
+        fivePercent = map['fivePercent'],
+        sixPercent = map['sixPercent'],
+        sevenPercent = map['sevenPercent'],
+        datetime = map['datetime'];
+
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'originalimage': originalimage,
-      'personalimage': personalimage,
-      'ageimage': ageimage,
+      'originalImage': originalImage,
+      'colorResult': colorResult,
+      'ageResult': ageResult,
+      'onePercent': onePercent,
+      'twoPercent': twoPercent,
+      'threePercent': threePercent,
+      'fourPercent': fourPercent,
+      'fivePercent': fivePercent,
+      'sixPercent': sixPercent,
+      'sevenPercent': sevenPercent,
       'datetime': datetime,
     };
   }
 }
-
