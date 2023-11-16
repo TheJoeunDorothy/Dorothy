@@ -18,6 +18,13 @@ class LogsVM extends GetxController {
   Future<List<Logs>> selectAllLogs() async {
     return await handler.selectAllLogs();
   }
+
+  deleteAllLogs() async {
+    await handler.deleteAllLogs();
+    logs.clear();
+    logs.addAll(await selectAllLogs());
+  }
+
   /// 로그의 기록 지우기
   /// @Params : id
   deleteLogs(int id) async {
