@@ -18,7 +18,7 @@ class AgreementScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                MarkdownBody(data: Agreement.personalCollection)
+                MarkdownBody(softLineBreak: true, data: Agreement.personalCollection, )
               ],
             ),
           ),
