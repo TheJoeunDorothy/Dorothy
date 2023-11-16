@@ -40,13 +40,13 @@ class LogsScreen extends StatelessWidget {
                           ),
                           key: ValueKey<int>(snapshot.data![index].id!),
                           onDismissed: (direction) async {
-                            await controller
-                                .deleteLogs(snapshot.data![index].id!);
-                            snapshot.data!.remove(snapshot.data![index]);
+                            int id = snapshot.data![index].id!;
+                            controller.deleteLogs(id);
                           },
                           child: GestureDetector(
                             onTap: () {
-                              Get.lazyPut<LogVM>(()=> LogVM(log: snapshot.data![index]));
+                              Get.lazyPut<LogVM>(
+                                  () => LogVM(log: snapshot.data![index]));
                               Get.to(() => const LogScreen());
                             },
                             child: Card(
