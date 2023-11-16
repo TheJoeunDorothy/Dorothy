@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'dart:ui';
 import 'package:dorothy/static/personal_color.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
+import 'package:dorothy/widget/age_result.dart';
+import 'package:dorothy/widget/color_result.dart';
 import 'package:dorothy/widget/info_slider_indicator.dart';
-import 'package:dorothy/widget/result_slider_widget.dart';
+import 'package:dorothy/widget/slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -51,10 +53,17 @@ class _ResultScreenState extends State<ResultScreen> {
               key: key,
               child: Container(
                 color: backgroundColor,
-                child: resultSliderWidget(resultVM, foregroundColor, backgroundColor),
+                child: sliderWidget(
+                  pageHeight: 590.h,
+                  vm: resultVM,
+                  firstWidget: ageResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
+                  secondWidget: colorResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
+                  textColor: foregroundColor, 
+                  primaryColor: backgroundColor
+                ),
               ),
             ),
-            infoSliderIndicator(resultVM),
+            sliderIndicator(resultVM),
             CupertinoButton(
               color: foregroundColor,
               onPressed: () async {
