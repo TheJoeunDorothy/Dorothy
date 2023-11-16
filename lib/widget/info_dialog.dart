@@ -1,6 +1,7 @@
 import 'package:dorothy/viewmodel/vm.dart';
 import 'package:dorothy/widget/info_slider_indicator.dart';
-import 'package:dorothy/widget/info_slider_widget.dart';
+import 'package:dorothy/widget/info_widget.dart';
+import 'package:dorothy/widget/result_slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,12 @@ Widget infoDialog() {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          infoSliderWidget(vm),
+          sliderWidget(
+            vm: vm, 
+            pageHeight: 290.h, 
+            firstWidget: infoFirst(), 
+            secondWidget: infoSecond(),
+          ),
           infoSliderIndicator(vm),
           SizedBox(
             width: 278.w,

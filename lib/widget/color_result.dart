@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget colorResult(context, String base64Image, Map<String, dynamic> result, textColor, primaryColor) {
+Widget colorResult(context, String base64Image, Map<String, dynamic> result, Color textColor, Color primaryColor) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start, 
     children: [
@@ -26,7 +26,7 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result, tex
               Center(
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(width: 5.w, color: primaryColor),
+                    border: Border.all(width: 4.w, color: textColor),
                     borderRadius: BorderRadius.circular(55.r),
                   ),
                   height: 230.h,

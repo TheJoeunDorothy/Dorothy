@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+/// pageView 인디케이터
 Widget infoSliderIndicator(vm) {
   return Obx(
     () => Row(
