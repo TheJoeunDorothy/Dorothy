@@ -37,7 +37,7 @@ class CameraScreen extends StatelessWidget {
             onPressed: () async {
               vm.isPageStreaming.value = false;
               await Get.to(
-                const SettingsScreen(),
+                () => const SettingsScreen(),
               )?.then(
                 (value) => vm.isPageStreaming.value = true,
               );
