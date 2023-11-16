@@ -100,10 +100,11 @@ class PredicrionScreen extends StatelessWidget {
                               ),
                             );
                           } else {
-                            Get.off(() => const ResultScreen());
                             ResultVM controller = Get.put(ResultVM());
                             controller.result = result;
                             controller.originalImage = vm.base64Image;
+                            vm.insertLogs();
+                            Get.off(() => const ResultScreen());
                           }
                         },
                       );

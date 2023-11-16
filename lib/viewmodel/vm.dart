@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:dorothy/model/logs.dart';
+import 'package:dorothy/model/logs_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -42,6 +44,12 @@ class VM extends GetxController {
   Rx<XFile?> image = Rx<XFile?>(null);
 
   String base64Image = '';
+  // API 호출 결과를 담을 변수
+  String? result;
+  String? age;
+  List<dynamic>? percent;
+
+  var handler = LogsHandler();
 
   @override
   void onInit() {
@@ -261,11 +269,6 @@ class VM extends GetxController {
     // 바이트 데이터를 Base64 문자열로 인코딩
     base64Image = base64Encode(resizedBytes);
 
-    // API 호출 결과를 담을 변수
-    String? result;
-    String? age;
-    List<dynamic>? percent;
-
     try {
       // 퍼스널 컬러
       var response1 = await http.post(
@@ -305,6 +308,27 @@ class VM extends GetxController {
       'age': age,
       'percent': percent,
     };
+  }
+
+  /// Auth : Oh-Kang94
+  ///
+  /// Sqlite DB로 Insert
+  ///
+  /// @Params : `log`
+  insertLogs() async {
+    Logs log = Logs(
+        originalImage: base64Image,
+        colorResult: result!,
+        ageResult: age!,
+        onePercent: percent![0],
+        twoPercent: percent![1],
+        threePercent: percent![2],
+        fourPercent: percent![3],
+        fivePercent: percent![4],
+        sixPercent: percent![5],
+        sevenPercent: percent![6],
+        );
+    return handler.insertLogs(log);
   }
 
   @override
