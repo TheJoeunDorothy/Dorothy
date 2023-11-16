@@ -115,7 +115,7 @@ class VM extends GetxController {
         final Rect iconRect = Rect.fromCenter(
           center: Offset(image.width / 2, image.height / 2),
           width: 350.w,
-          height: 400.h,
+          height: 395.h,
         );
 
         // 얼굴이 넣어져 있으면
@@ -215,12 +215,33 @@ class VM extends GetxController {
   }
 
   // 카메라 촬영
-  Future<void> takePicture() async {
+  Future<bool> takePicture(BuildContext context) async {
     if (!isStreaming.value) {
-      throw Exception('스트리밍이 시작되지 않았습니다.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Row(
+            children: [
+              Icon(
+                Icons.error,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  '스트리밍이 시작되지 않았습니다. 잠시 후에 시도해 주세요.',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+      return false;
     }
 
     image.value = await controller.value!.takePicture();
+    return true;
   }
 
   // 서버 데이터
