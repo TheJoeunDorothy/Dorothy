@@ -45,8 +45,8 @@ class LogVM extends GetxController {
     // resultSliderWidget 에 종속 되어있는 초기화
     String colorResult = result['result'];
     SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
-    backgroundColor = theme.primaryColor;
-    foregroundColor = theme.onPrimaryColor;
+    backgroundColor = theme.backgroundColor;
+    foregroundColor = theme.foregroundColor;
   }
 
   Future<Uint8List?> captureImage({required key}) async {

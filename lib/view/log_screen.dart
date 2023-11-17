@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:dorothy/viewmodel/log_vm.dart';
 import 'package:dorothy/widget/age_result.dart';
 import 'package:dorothy/widget/color_result.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LogScreen extends StatefulWidget {
   const LogScreen({super.key});
@@ -54,14 +52,23 @@ class _LogScreenState extends State<LogScreen> {
                 ),
               ),
               sliderIndicator(vm),
-              CupertinoButton(
+              SizedBox(
+              width: 230.w,
+              child: CupertinoButton(
                 color: vm.foregroundColor,
                 onPressed: () async {
                   Uint8List? resultImageByte = await vm.captureImage(key: key);
                   vm.shareImage(resultImageByte);
                 },
-                child: const Text('공유하기'),
+                child: Text(
+                  '공유하기',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
+            ),
             ],
           ),
         ),
