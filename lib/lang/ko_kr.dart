@@ -26,8 +26,9 @@ const Map<String, String> koKR = {
   'info_2_3_title': '전신 사진 ❌',
   'info_2_3_subtitle': '얼굴 위주의 사진이 좋아요',
   // setting screen
-  'version' : '버전',
-  'photo_log': '사진 기록',
+  'version_setting' : '버전',
+  'photo_log_setting': '사진 기록',
+  'terms_of_service_setting': '서비스 이용 약관',
   // result screen
   'age_result': '인공지능이 분석한 당신의 외모 나이는?',
   'color_result': '인공지능이 분석한 당신의 퍼스널컬러는?',

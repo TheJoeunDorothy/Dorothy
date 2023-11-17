@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'version'.tr,
+                    'version_setting'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18.sp,
@@ -43,41 +43,39 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             _getSetting(false,
-                settingText: '이용 약관', screen: const AgreementScreen()),
-            _getSetting(true, settingText: '사진 기록', screen: LogsScreen()),
+                settingText: 'terms_of_service_setting'.tr, screen: const AgreementScreen()),
+            _getSetting(true, settingText: 'photo_log_setting'.tr, screen: LogsScreen()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-              child: InkWell(
-                child: Container(
-                  height: 50.h,
-                  color: Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "잠금 모드",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17.sp,
-                        ),
+              child: Container(
+                height: 50.h,
+                color: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "잠금 모드",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.sp,
                       ),
-                      Obx(
-                        () => CupertinoSwitch(
-                            value: controller.isPrivated.value,
-                            onChanged: (value) async {
-                              try {
-                                await controller.authenticate();
-                                if (controller.authorized.value) {
-                                  controller.isPrivated.value = value;
-                                  controller.setisPrivatedState(value);
-                                }
-                              } catch (e) {
-                                controller.cancelAuthentication();
+                    ),
+                    Obx(
+                      () => CupertinoSwitch(
+                          value: controller.isPrivated.value,
+                          onChanged: (value) async {
+                            try {
+                              await controller.authenticate();
+                              if (controller.authorized.value) {
+                                controller.isPrivated.value = value;
+                                controller.setisPrivatedState(value);
                               }
-                            }),
-                      ),
-                    ],
-                  ),
+                            } catch (e) {
+                              controller.cancelAuthentication();
+                            }
+                          }),
+                    ),
+                  ],
                 ),
               ),
             ),
