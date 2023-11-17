@@ -32,15 +32,16 @@ class _LogScreenState extends State<LogScreen> {
               TextStyle(color: vm.foregroundColor, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        color: vm.backgroundColor,
-        child: Center(
+      body: Center(
+        child: Container(
+           color: vm.backgroundColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               RepaintBoundary(
                 key: key,
                 child: Container(
+                  color: vm.backgroundColor,
                   child: sliderWidget(
                       pageHeight: 590.h,
                       vm: vm,
