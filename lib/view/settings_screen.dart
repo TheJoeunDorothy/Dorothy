@@ -75,12 +75,18 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       Obx(
                         () => CupertinoSwitch(
-                          value: controller.isPrivated.value,
-                          onChanged: (value) {
-                            controller.isPrivated.value = value;
-                            controller.setisPrivatedState(value);
-                          },
-                        ),
+                            value: controller.isPrivated.value,
+                            onChanged: (value) async {
+                              try {
+                                await controller.authenticate();
+                                if (controller.authorized.value) {
+                                  controller.isPrivated.value = value;
+                                  controller.setisPrivatedState(value);
+                                }
+                              } catch (e) {
+                                controller.cancelAuthentication();
+                              }
+                            }),
                       ),
                     ],
                   ),
