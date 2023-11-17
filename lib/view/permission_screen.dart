@@ -91,7 +91,7 @@ class PermissionScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(5.r),
-                ),
+                  ),
                   child: CupertinoScrollbar(
                     thickness: 5.w,
                     child: CustomScrollView(
@@ -100,15 +100,14 @@ class PermissionScreen extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(12.w),
                             child: MarkdownBody(
-                              softLineBreak: true,
-                              data: Agreement.personalCollection,
-                              styleSheet: MarkdownStyleSheet(
-                                h2: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                ),
-                              )
-                            ),
+                                softLineBreak: true,
+                                data: Agreement.personalCollection,
+                                styleSheet: MarkdownStyleSheet(
+                                  h2: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                  ),
+                                )),
                           ),
                         )
                       ],
@@ -121,9 +120,12 @@ class PermissionScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Row(
                   children: [
-                    Obx(()=> CupertinoCheckbox(
-                        value: permissionVM.isTermsCheck.value, 
-                        onChanged: (value) => permissionVM.checkBoxChangeAction(),),
+                    Obx(
+                      () => CupertinoCheckbox(
+                        value: permissionVM.isTermsCheck.value,
+                        onChanged: (value) =>
+                            permissionVM.checkBoxChangeAction(),
+                      ),
                     ),
                     Text(
                       'agreement_service'.tr,
@@ -135,10 +137,9 @@ class PermissionScreen extends StatelessWidget {
                     Text(
                       'mandatory'.tr,
                       style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue
-                      ),
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
                     ),
                   ],
                 ),
@@ -150,13 +151,13 @@ class PermissionScreen extends StatelessWidget {
                   width: double.infinity,
                   child: Obx(
                     () => CupertinoButton.filled(
-                      onPressed: permissionVM.isTermsCheck.value ? () => onJoin() : null,
+                      onPressed: permissionVM.isTermsCheck.value
+                          ? () => onJoin()
+                          : null,
                       child: Text(
                         'confirm_button'.tr,
                         style: TextStyle(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold
-                        ),
+                            fontSize: 17.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
