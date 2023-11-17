@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class LogsVM extends GetxController {
   late LogsHandler handler;
   RxList<Logs> logs = RxList<Logs>(); // RxList 추가
-
+  
   @override
   void onInit() async {
     super.onInit();
@@ -19,6 +19,7 @@ class LogsVM extends GetxController {
     return await handler.selectAllLogs();
   }
 
+  /// 로그의 모든 기록을 지우기
   deleteAllLogs() async {
     await handler.deleteAllLogs();
     logs.clear();
@@ -32,3 +33,4 @@ class LogsVM extends GetxController {
     logs.removeWhere((log) => log.id == id); // logs 업데이트
   }
 }
+

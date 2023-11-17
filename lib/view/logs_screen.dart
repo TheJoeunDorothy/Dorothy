@@ -8,11 +8,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class LogsScreen extends StatelessWidget {
-  const LogsScreen({super.key});
+  final LogsVM controller = Get.put(LogsVM());
+  LogsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final LogsVM controller = Get.put(LogsVM());
     return Scaffold(
       appBar: AppBar(
         title: const Text("사용 기록"),

@@ -77,6 +77,8 @@ dependencies:
   path_provider: ^2.1.1
   # 파일 공유
   share_plus: ^7.2.1
+  # 앱 기능 잠금 기능
+  local_auth: ^2.1.7
   
 dev_dependencies:
   flutter_test:
