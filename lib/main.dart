@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/model/logs_handler.dart';
+import 'package:dorothy/services/translation_service.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
@@ -50,13 +51,19 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844), // iphone 13 & 14 사이즈.
       builder: (_, child) {
         return GetMaterialApp(
-          title: 'Flutter Demo',
+          title: 'Dorothy',
           // 기기의 폰트사이즈를 따라가지 않고 고정
           builder: (context, child) {
-          return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: child!);
-        },
+            return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: child!);
+          },
+          // 지역 설정
+          locale: Get.deviceLocale,
+          // 번역 서비스
+          translations: TranslationService(),
+          // 지원하지 않는 언어일 때의 locale
+          fallbackLocale: const Locale('ko', 'KR'),
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             textTheme: TextTheme(

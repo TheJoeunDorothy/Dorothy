@@ -26,7 +26,7 @@ class _LogScreenState extends State<LogScreen> {
       appBar: AppBar(
         backgroundColor: vm.backgroundColor,
         title: Text(
-          '기록 보기',
+          'log_button'.tr,
           style:
               TextStyle(color: vm.foregroundColor, fontWeight: FontWeight.bold),
         ),
@@ -62,7 +62,7 @@ class _LogScreenState extends State<LogScreen> {
                   vm.shareImage(resultImageByte);
                 },
                 child: Text(
-                  '공유하기',
+                  'share_button'.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,

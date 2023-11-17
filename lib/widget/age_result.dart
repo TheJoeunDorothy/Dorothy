@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/widget/age_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 /// 나이 예측 결과 화면
 Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> result, Color textColor, Color primaryColor) {
@@ -14,6 +16,15 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
     Colors.blue,
     Color(0xFF0D47A1),
     Colors.purple
+  ];
+  List<String> ageList = [
+    'age_10'.tr,
+    'age_20'.tr,
+    'age_30'.tr,
+    'age_40'.tr,
+    'age_50'.tr,
+    'age_60'.tr,
+    'age_70'.tr,
   ];
   // 모델 나이예측 결과값 (10대~70대)
   final String ageResultString = result['age'];
@@ -33,7 +44,7 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
               SizedBox(width: 245.w,),
               SizedBox(
                 height: 55.h,
-                child: Image.asset('assets/images/top_right_effect.png'),
+                child: Image.asset(AssetsImage.EMPHASIZING_EFFECT),
               ),
             ],
           ),
@@ -58,7 +69,7 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
       ),
       SizedBox(height: 25.h,),
       Text(
-        '인공지능이 분석한 당신의 외모 나이는?',
+        'age_result'.tr,
         style: TextStyle(
           fontSize: 18.sp,
           color: textColor,
@@ -77,7 +88,7 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
       SizedBox(height: 10.h,),
       // 나이 예측 퍼센트 게이지 바 반복 생성
       for (int i = 0; i <= 6; i++)
-        agePercentIndicator(context, (i + 1) * 10, result['percent'][i] * 100, colorList[i], textColor, resultList[i]),
+        agePercentIndicator(context, ageList[i], result['percent'][i] * 100, colorList[i], textColor, resultList[i]),
       SizedBox(height: 30.h,),
     ]
   );

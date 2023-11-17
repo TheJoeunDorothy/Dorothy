@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:dorothy/static/assets_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 Widget colorResult(context, String base64Image, Map<String, dynamic> result, Color textColor, Color primaryColor) {
   return Column(
@@ -14,7 +16,7 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result, Col
                 padding: EdgeInsets.only(left: 245.w),
                 child: SizedBox(
                   height: 55.h,
-                  child: Image.asset('assets/images/top_right_effect.png'),
+                  child: Image.asset(AssetsImage.EMPHASIZING_EFFECT),
                 ),
               ),
             ],
@@ -45,7 +47,7 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result, Col
         height: 25.h,
       ),
       Text(
-        '인공지능이 분석한 당신의 퍼스널컬러는?',
+        'color_result'.tr,
         style: TextStyle(
           fontSize: 18.sp,
           color: textColor,

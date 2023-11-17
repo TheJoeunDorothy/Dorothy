@@ -15,8 +15,8 @@ class SettingsScreen extends StatelessWidget {
     final SettingVM controller = Get.put(SettingVM());
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '설정',
+        title: Text(
+          'setting_appbar'.tr,
         ),
       ),
       body: SafeArea(
@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '버전',
+                    'version'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18.sp,
