@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 titleTextStyle: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 20.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold)),
             dialogTheme: DialogTheme(
