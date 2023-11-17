@@ -23,11 +23,8 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 30.h,
-            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              padding: EdgeInsets.fromLTRB(15.w, 40.h, 15.w, 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -45,20 +42,11 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 30.h,
-            ),
             _getSetting(false,
                 settingText: '이용 약관', screen: const AgreementScreen()),
-            SizedBox(
-              height: 30.h,
-            ),
             _getSetting(true, settingText: '사진 기록', screen: LogsScreen()),
-            SizedBox(
-              height: 30.h,
-            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               child: InkWell(
                 child: Container(
                   height: 50.h,
@@ -104,8 +92,8 @@ class SettingsScreen extends StatelessWidget {
       {required String settingText, required Widget screen}) {
     final SettingVM controller = Get.find<SettingVM>();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: InkWell(
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      child: GestureDetector(
         onTap: () async {
           if (isLocked) {
             // 비밀 기능이 필요한 경우
