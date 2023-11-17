@@ -51,6 +51,12 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetMaterialApp(
           title: 'Flutter Demo',
+          // 기기의 폰트사이즈를 따라가지 않고 고정
+          builder: (context, child) {
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: child!);
+        },
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             textTheme: TextTheme(
