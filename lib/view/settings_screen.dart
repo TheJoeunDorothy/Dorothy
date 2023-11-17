@@ -16,42 +16,43 @@ class SettingsScreen extends StatelessWidget {
           '설정',
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 30.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 8.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: SizedBox(
+              height: 50.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '버전',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18.sp,
                     ),
                   ),
                   Text(
                     Version.now,
-                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                    style: TextStyle(fontSize: 15.sp, color: Colors.grey),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 30.h,
-            ),
-            _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
-            SizedBox(
-              height: 30.h,
-            ),
-            _getSetting(settingText: '사진 기록', screen: const LogsScreen()),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 0.h,
+          ),
+          _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
+          SizedBox(
+            height: 0.h,
+          ),
+          _getSetting(settingText: '사진 기록', screen: const LogsScreen()),
+        ],
       ),
     );
   }
@@ -71,8 +72,8 @@ class SettingsScreen extends StatelessWidget {
               Text(
                 settingText,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
                 ),
               ),
               Icon(
