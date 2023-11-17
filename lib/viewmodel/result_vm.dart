@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class ResultVM extends GetxController {
   late LogsHandler handler;
-  var pageController = PageController();
+  PageController pageController = PageController();
   late Map<String, dynamic> result;
   late String originalImage;
 

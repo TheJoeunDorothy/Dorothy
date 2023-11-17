@@ -25,24 +25,25 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   final resultVM = Get.find<ResultVM>();
   static final GlobalKey<_ResultScreenState> key = GlobalKey<_ResultScreenState>();
-  Color backgroundColor = Colors.white;
-  Color foregroundColor = Colors.black;
+  late Color backgroundColor;
+  late Color foregroundColor;
 
   @override
   void initState() {
     super.initState();
     String colorResult = resultVM.result['result'];
     SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
-    backgroundColor = theme.primaryColor;
-    foregroundColor = theme.onPrimaryColor;
+    backgroundColor = theme.backgroundColor;
+    foregroundColor = theme.foregroundColor;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('예측 결과'),
+        title: Text('예측 결과', style: TextStyle(color: foregroundColor),),
         backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
       ),
       body: Container(
         color: backgroundColor,
@@ -64,17 +65,20 @@ class _ResultScreenState extends State<ResultScreen> {
               ),
             ),
             sliderIndicator(resultVM),
-            CupertinoButton(
-              color: foregroundColor,
-              onPressed: () async {
-                Uint8List? resultImageByte = await captureImage(key: key);
-                shareImage(resultImageByte);
-              },
-              child: Text(
-                '공유하기',
-                style: TextStyle(
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.bold,
+            SizedBox(
+              width: 230.w,
+              child: CupertinoButton(
+                color: foregroundColor,
+                onPressed: () async {
+                  Uint8List? resultImageByte = await captureImage(key: key);
+                  shareImage(resultImageByte);
+                },
+                child: Text(
+                  '공유하기',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
