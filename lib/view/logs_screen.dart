@@ -123,8 +123,7 @@ class LogsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       '${controller.logs[index].datetime!.substring(0, 4)}년 ${controller.logs[index].datetime!.substring(5, 7)}월 ${controller.logs[index].datetime!.substring(8, 10)}일 ${controller.logs[index].datetime!.substring(17, 19) == "PM" ? "오후" : "오전"} ${controller.logs[index].datetime!.substring(11, 13)}시 ${controller.logs[index].datetime!.substring(14, 16)}분',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700),
+                                      style: Theme.of(context).textTheme.titleMedium,
                                     ),
                                     SizedBox(height: 25.0.h), // 간격 추가
                                     Row(
