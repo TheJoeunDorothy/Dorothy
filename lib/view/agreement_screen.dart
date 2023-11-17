@@ -22,6 +22,11 @@ class AgreementScreen extends StatelessWidget {
                   MarkdownBody(
                     softLineBreak: true,
                     data: Agreement.personalCollection,
+                    styleSheet: MarkdownStyleSheet(
+                      h2: TextStyle(
+                          fontSize: 20.sp, 
+                          fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),

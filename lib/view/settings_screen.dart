@@ -19,16 +19,12 @@ class SettingsScreen extends StatelessWidget {
           '설정',
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 8.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: SizedBox(
-              height: 50.h,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(15.w, 40.h, 15.w, 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -46,50 +42,47 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 30.h,
-          ),
-          _getSetting(false,
-              settingText: '이용 약관', screen: const AgreementScreen()),
-          SizedBox(
-            height: 30.h,
-          ),
-          _getSetting(true, settingText: '사진 기록', screen: LogsScreen()),
-          SizedBox(
-            height: 30.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: InkWell(
-              child: Container(
-                height: 50.h,
-                color: Colors.transparent,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "잠금 모드",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.sp,
+            _getSetting(false,
+                settingText: '이용 약관', screen: const AgreementScreen()),
+            _getSetting(true, settingText: '사진 기록', screen: LogsScreen()),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+              child: InkWell(
+                child: Container(
+                  height: 50.h,
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "잠금 모드",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17.sp,
+                        ),
                       ),
-                    ),
-                    Obx(
-                      () => CupertinoSwitch(
-                        value: controller.isPrivated.value,
-                        onChanged: (value) {
-                          controller.isPrivated.value = value;
-                          controller.setisPrivatedState(value);
-                        },
+                      Obx(
+                        () => CupertinoSwitch(
+                            value: controller.isPrivated.value,
+                            onChanged: (value) async {
+                              try {
+                                await controller.authenticate();
+                                if (controller.authorized.value) {
+                                  controller.isPrivated.value = value;
+                                  controller.setisPrivatedState(value);
+                                }
+                              } catch (e) {
+                                controller.cancelAuthentication();
+                              }
+                            }),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -99,8 +92,8 @@ class SettingsScreen extends StatelessWidget {
       {required String settingText, required Widget screen}) {
     final SettingVM controller = Get.find<SettingVM>();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: InkWell(
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      child: GestureDetector(
         onTap: () async {
           if (isLocked) {
             // 비밀 기능이 필요한 경우
