@@ -53,6 +53,12 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
+            textTheme: TextTheme(
+              titleMedium: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             appBarTheme: AppBarTheme(
                 elevation: 0,
                 backgroundColor: Colors.white,

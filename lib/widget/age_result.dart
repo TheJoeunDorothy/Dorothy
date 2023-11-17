@@ -58,7 +58,7 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
       ),
       SizedBox(height: 25.h,),
       Text(
-        '인공지능이 분석한 당신의 외모 나는?',
+        '인공지능이 분석한 당신의 외모 나이는?',
         style: TextStyle(
           fontSize: 18.sp,
           color: textColor,
