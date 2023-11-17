@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:dorothy/model/logs.dart';
+import 'package:dorothy/static/personal_color.dart';
+import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,9 @@ import 'package:share_plus/share_plus.dart';
 class LogVM extends GetxController {
   late Logs log;
   var pageController = PageController();
+  var resultVM = ResultVM();
+  late Color backgroundColor;
+  late Color foregroundColor;
 
   RxInt currentPage = 0.obs;
   late Map<String, dynamic> result;
@@ -37,6 +42,11 @@ class LogVM extends GetxController {
         log.sevenPercent,
       ]
     };
+    // resultSliderWidget 에 종속 되어있는 초기화
+    String colorResult = result['result'];
+    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
+    backgroundColor = theme.primaryColor;
+    foregroundColor = theme.onPrimaryColor;
   }
 
   Future<Uint8List?> captureImage({required key}) async {

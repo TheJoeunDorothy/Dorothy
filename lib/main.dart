@@ -4,6 +4,7 @@ import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   // main 함수 비동기 처리 위해서 꼭 적어야 함.
   WidgetsFlutterBinding.ensureInitialized();
+  // landscpae 막기
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   // 광고 초기화
   MobileAds.instance.initialize();
   // .env 파일 로드

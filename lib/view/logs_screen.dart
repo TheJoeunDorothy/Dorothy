@@ -14,69 +14,155 @@ class LogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final LogsVM controller = Get.put(LogsVM());
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("기록 보기"),
-        ),
-        body: FutureBuilder(
-            future: controller.selectAllLogs(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text("기록이 없습니다"),
-                  );
-                } else {
-                  return ListView.builder(
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                          direction: DismissDirection.endToStart,
-                          background: Container(
-                            color: Colors.red,
-                            alignment: Alignment.centerRight,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: const Icon(Icons.delete_forever),
+      appBar: AppBar(
+        title: const Text("사용 기록"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.dialog(
+                AlertDialog(
+                  title: const Text(
+                    '⚠️ 삭제',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  content: const Text('사용 기록이 전부 삭제됩니다.'),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        "취소",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onPressed: () => Get.back(),
+                    ),
+                    Obx(
+                      () => TextButton(
+                        onPressed: controller.logs.isEmpty
+                            ? null
+                            : () async {
+                                await controller.deleteAllLogs();
+                                Get.back();
+                                Get.snackbar(
+                                  '삭제 완료',
+                                  '전부 삭제되었습니다.',
+                                  colorText: Colors.redAccent,
+                                );
+                              },
+                        child: const Text("삭제하기"),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.delete_forever_rounded,
+              color: Colors.redAccent,
+            ),
+          )
+        ],
+      ),
+      body: Obx(
+        () {
+          if (controller.logs.isEmpty) {
+            // logs 상태를 사용하여 위젯 빌드
+            return const Center(
+              child: Text("기록이 없습니다"),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: controller.logs.length, // logs 상태를 사용하여 위젯 빌드
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: const Icon(Icons.delete_forever),
+                  ),
+                  key: ValueKey<int>(controller.logs[index].id!),
+                  onDismissed: (direction) async {
+                    int id = controller.logs[index].id!;
+                    controller.deleteLogs(id);
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.lazyPut<LogVM>(
+                          () => LogVM(log: controller.logs[index]));
+                      Get.to(() => const LogScreen());
+                    },
+                    child: Column(
+                      children: [
+                        Card(
+                          color: Colors.grey[100],
+                          shadowColor: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10.0), // 모서리를 둥글게 하는 정도
                           ),
-                          key: ValueKey<int>(snapshot.data![index].id!),
-                          onDismissed: (direction) async {
-                            await controller
-                                .deleteLogs(snapshot.data![index].id!);
-                            snapshot.data!.remove(snapshot.data![index]);
-                          },
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.lazyPut<LogVM>(()=> LogVM(log: snapshot.data![index]));
-                              Get.to(() => const LogScreen());
-                            },
-                            child: Card(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 50.w,
-                                  ),
-                                  Image.memory(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                // padding: EdgeInsets.all(10.0.w),
+                                padding: EdgeInsets.fromLTRB(
+                                    20.w, 5.0.w, 20.0.w, 5.0.w),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.memory(
                                     base64Decode(
-                                        snapshot.data![index].originalImage),
+                                        controller.logs[index].originalImage),
                                     height: 100.h,
                                   ),
-                                  SizedBox(
-                                    width: 100.w,
-                                  ),
-                                  Text(snapshot.data![index].datetime!),
-                                ],
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 55.0.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${controller.logs[index].datetime!.substring(0, 4)}년 ${controller.logs[index].datetime!.substring(5, 7)}월 ${controller.logs[index].datetime!.substring(8, 10)}일 ${controller.logs[index].datetime!.substring(17, 19) == "PM" ? "오후" : "오전"} ${controller.logs[index].datetime!.substring(11, 13)}시 ${controller.logs[index].datetime!.substring(14, 16)}분',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(height: 25.0.h), // 간격 추가
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          '나이 예측 결과 :  ',
+                                        ),
+                                        Text(
+                                          controller.logs[index].ageResult,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8.0), // 간격 추가
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          '색상 예측 결과 :  ',
+                                        ),
+                                        Text(
+                                          controller.logs[index].colorResult,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      });
-                }
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
-              }
-            }));
+              },
+            );
+          }
+        },
+      ),
+    );
   }
 }
