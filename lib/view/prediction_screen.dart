@@ -90,36 +90,7 @@ class PredicrionScreen extends StatelessWidget {
                                         if (result['result'] == null ||
                                             result['age'] == null ||
                                             result['percent'] == null) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.error,
-                                                    color: Colors.white,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      '오류가 발생했어요. 사진을 다시 찍어주세요.',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              duration:
-                                                  const Duration(seconds: 1),
-                                              width: 310.w,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                            ),
-                                          );
+                                          _predDialog(context);
                                         } else {
                                           ResultVM controller =
                                               Get.put(ResultVM());
@@ -135,6 +106,7 @@ class PredicrionScreen extends StatelessWidget {
                                     );
                                   } catch (e) {
                                     // 로딩 종료
+                                    _predDialog(context);
                                     vm.isLoading.value = false;
                                   }
                                 },
@@ -167,4 +139,50 @@ class PredicrionScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _predDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      // ScreenUtil 초기화
+      ScreenUtil screenUtil = ScreenUtil();
+
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // 다이얼로그의 모서리를 둥글게 만듭니다.
+        ),
+        title: Text(
+          '오류가 발생했어요.\n사진을 다시 찍어주세요.',
+          style: TextStyle(
+            fontSize: 20.sp,
+          ),
+          textAlign: TextAlign.center, // 텍스트를 중앙 정렬합니다.
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: screenUtil.screenWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // 버튼의 모서리를 둥글게 만듭니다.
+                ),
+              ),
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+              child: Text(
+                "사진 다시 찍으러 가기",
+                style: TextStyle(
+                  fontSize: 18.sp, // 버튼 텍스트의 크기를 조절합니다.
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
