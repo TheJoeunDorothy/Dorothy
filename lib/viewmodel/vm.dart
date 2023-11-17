@@ -42,7 +42,10 @@ class VM extends GetxController {
   RxBool isPageStreaming = true.obs;
   // 찍은 사진 저장 변수
   Rx<XFile?> image = Rx<XFile?>(null);
+  // 로딩 상태관리 변수
+  RxBool isLoading = false.obs;
 
+  // base64 변환 이미지
   String base64Image = '';
   // API 호출 결과를 담을 변수
   String? result;
@@ -284,7 +287,6 @@ class VM extends GetxController {
     } catch (e) {
       result = null;
     }
-
     try {
       // 나이 예측
       var response2 = await http.post(
@@ -317,17 +319,17 @@ class VM extends GetxController {
   /// @Params : `log`
   insertLogs() async {
     Logs log = Logs(
-        originalImage: base64Image,
-        colorResult: result!,
-        ageResult: age!,
-        onePercent: percent![0],
-        twoPercent: percent![1],
-        threePercent: percent![2],
-        fourPercent: percent![3],
-        fivePercent: percent![4],
-        sixPercent: percent![5],
-        sevenPercent: percent![6],
-        );
+      originalImage: base64Image,
+      colorResult: result!,
+      ageResult: age!,
+      onePercent: percent![0],
+      twoPercent: percent![1],
+      threePercent: percent![2],
+      fourPercent: percent![3],
+      fivePercent: percent![4],
+      sixPercent: percent![5],
+      sevenPercent: percent![6],
+    );
     return handler.insertLogs(log);
   }
 
