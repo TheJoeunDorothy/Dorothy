@@ -31,7 +31,7 @@ class OnBoardingScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
         onDone: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setBool('hasSeenOnboarding', false);
+          await prefs.setBool('hasSeenOnboarding', true);
           Get.offAll(() => const PermissionScreen());
         },
         dotsDecorator: DotsDecorator(
