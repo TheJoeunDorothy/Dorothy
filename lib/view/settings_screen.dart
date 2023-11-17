@@ -12,8 +12,8 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '설정',
+        title: Text(
+          'setting_appbar'.tr,
         ),
       ),
       body: Column(
@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '버전',
+                    'version'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18.sp,
@@ -47,11 +47,11 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: 0.h,
           ),
-          _getSetting(settingText: '이용 약관', screen: const AgreementScreen()),
+          _getSetting(settingText: 'terms_of_service'.tr, screen: const AgreementScreen()),
           SizedBox(
             height: 0.h,
           ),
-          _getSetting(settingText: '사진 기록', screen: const LogsScreen()),
+          _getSetting(settingText: 'photo_log'.tr, screen: const LogsScreen()),
         ],
       ),
     );

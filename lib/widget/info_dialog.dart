@@ -29,7 +29,7 @@ Widget infoDialog() {
                 height: 50.h,
                 child: CupertinoButton.filled(
                   child: Text(
-                    vm.currentPage.value == 0 ? '다음' : '확인',
+                    vm.currentPage.value == 0 ? 'next_button'.tr : 'confirm_button'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp

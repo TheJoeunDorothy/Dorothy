@@ -33,7 +33,7 @@ class PermissionScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      '도로시의 서비스를 이용하기 위해',
+                      'permisson_message_1'.tr,
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class PermissionScreen extends StatelessWidget {
                       height: 5.h,
                     ),
                     Text(
-                      '필수 권한들을 허용해 주세요',
+                      'permisson_message_2'.tr,
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
@@ -57,16 +57,16 @@ class PermissionScreen extends StatelessWidget {
               ),
               _buildListTile(
                 icon: Icons.camera_alt,
-                title: '카메라',
-                subtitle: '사진 촬영과 이미지 업로드를 통해 퍼스널 컬러와 나이 예측이 가능합니다.',
+                title: 'camera'.tr,
+                subtitle: 'camera_message'.tr,
               ),
               SizedBox(
                 height: 20.h,
               ),
               _buildListTile(
                 icon: Icons.mic,
-                title: '마이크',
-                subtitle: '카메라 기능을 사용하기 위해 마이크 권한이 필요합니다.',
+                title: 'microphone'.tr,
+                subtitle: 'microphone_message'.tr,
               ),
               SizedBox(
                 height: 40.h,
@@ -74,7 +74,7 @@ class PermissionScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.w),
                 child: Text(
-                  '서비스 이용 약관',
+                  'terms_of_service'.tr,
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
@@ -126,14 +126,14 @@ class PermissionScreen extends StatelessWidget {
                         onChanged: (value) => permissionVM.checkBoxChangeAction(),),
                     ),
                     Text(
-                      '서비스 이용약관 동의',
+                      'agreement_service'.tr,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      ' (필수)',
+                      'mandatory'.tr,
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class PermissionScreen extends StatelessWidget {
                     () => CupertinoButton.filled(
                       onPressed: permissionVM.isTermsCheck.value ? () => onJoin() : null,
                       child: Text(
-                        '확인',
+                        'confirm_button'.tr,
                         style: TextStyle(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.bold
@@ -189,7 +189,7 @@ class PermissionScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
           ),
           Text(
-            '(필수)',
+            'mandatory'.tr,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 17.sp,

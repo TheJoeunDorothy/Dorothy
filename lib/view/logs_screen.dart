@@ -15,22 +15,22 @@ class LogsScreen extends StatelessWidget {
     final LogsVM controller = Get.put(LogsVM());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("사용 기록"),
+        title: Text("usage_history_appbar".tr),
         actions: [
           IconButton(
             onPressed: () {
               Get.dialog(
                 AlertDialog(
-                  title: const Text(
-                    '⚠️ 삭제',
-                    style: TextStyle(color: Colors.red),
+                  title: Text(
+                    'delete_alert_title'.tr,
+                    style: const TextStyle(color: Colors.red),
                   ),
-                  content: const Text('사용 기록이 전부 삭제됩니다.'),
+                  content: Text('delete_alert_content'.tr),
                   actions: [
                     TextButton(
-                      child: const Text(
-                        "취소",
-                        style: TextStyle(color: Colors.black),
+                      child: Text(
+                        "cancle_button".tr,
+                        style: const TextStyle(color: Colors.black),
                       ),
                       onPressed: () => Get.back(),
                     ),
@@ -42,8 +42,8 @@ class LogsScreen extends StatelessWidget {
                                 await controller.deleteAllLogs();
                                 Get.back();
                                 Get.snackbar(
-                                  '삭제 완료',
-                                  '전부 삭제되었습니다.',
+                                  'delete_snackbar_title'.tr,
+                                  'delete_snackbar_content'.tr,
                                   colorText: Colors.redAccent,
                                 );
                               },

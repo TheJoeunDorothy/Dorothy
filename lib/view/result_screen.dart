@@ -41,7 +41,7 @@ class _ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('예측 결과', style: TextStyle(color: foregroundColor),),
+        title: Text('result_appbar'.tr, style: TextStyle(color: foregroundColor),),
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
       ),
@@ -74,7 +74,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   shareImage(resultImageByte);
                 },
                 child: Text(
-                  '공유하기',
+                  'share_button'.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class _ResultScreenState extends State<ResultScreen> {
       // 이미지 파일로 저장
       File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
-      Share.shareXFiles([XFile(file.path)]);
+      Share.shareXFiles([XFile(file.path)], text: '');
     } catch (e) {
       //print('Error sharing image: $e');
     }

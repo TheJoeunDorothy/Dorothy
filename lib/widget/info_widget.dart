@@ -1,5 +1,7 @@
+import 'package:dorothy/static/assets_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 Widget infoFirst() {
   return Column(
@@ -8,7 +10,7 @@ Widget infoFirst() {
         height: 30.h,
       ),
       Text(
-        '이런 사진으로 찍어주세요',
+        'info_1_message'.tr,
         style: TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 18.sp
@@ -18,17 +20,20 @@ Widget infoFirst() {
         height: 10.h,
       ),
       _infoTile(
-          image: 'assets/images/good1.png',
-          title: '정면을 바라보는 사진 ✅',
-          subtitle: '측면 사진은 정확한 분석이 어려워요'),
+          image: AssetsImage.INFO_GOOD_1,
+          title: 'info_1_1_title'.tr,
+          subtitle: 'info_1_1_subtitle'.tr,
+      ),
       _infoTile(
-          image: 'assets/images/good2.png',
-          title: '밝고 선명한 사진 ✅',
-          subtitle: '어둡고 흐린 사진은 인식하기 어려워요'),
+          image: AssetsImage.INFO_GOOD_2,
+          title: 'info_1_2_title'.tr,
+          subtitle: 'info_1_2_subtitle'.tr,
+      ),
       _infoTile(
-          image: 'assets/images/good3.png',
-          title: '얼굴 위주의 사진 ✅',
-          subtitle: '얼굴을 인식하기 쉬운 사진이 좋아요'),
+          image: AssetsImage.INFO_GOOD_3,
+          title: 'info_1_2_title'.tr,
+          subtitle: 'info_1_2_subtitle'.tr,
+      ),
     ],
   );
 }
@@ -40,7 +45,7 @@ Widget infoSecond() {
         height: 30.h,
       ),
       Text(
-        '이런 사진은 피해주세요',
+        'info_2_message'.tr,
         style: TextStyle(
           fontWeight: FontWeight.bold, 
           fontSize: 18.sp
@@ -50,17 +55,20 @@ Widget infoSecond() {
         height: 10.h,
       ),
       _infoTile(
-          image: 'assets/images/bad2.png',
-          title: '측면이 나온 사진 ❌',
-          subtitle: '측면 사진은 얼굴 인식이 불가능해요'),
+          image: AssetsImage.INFO_BAD_1,
+          title: 'info_2_1_title'.tr,
+          subtitle: 'info_2_1_subtitle'.tr,
+      ),
       _infoTile(
-          image: 'assets/images/bad1.png',
-          title: '안경을 착용한 사진 ❌',
-          subtitle: '안경 착용 시 정확한 결과를 받을 수 없어요'),
+          image: AssetsImage.INFO_BAD_2,
+          title: 'info_2_2_title'.tr,
+          subtitle: 'info_2_2_subtitle'.tr,
+      ),
       _infoTile(
-          image: 'assets/images/bad3.png',
-          title: '전신 사진 ❌',
-          subtitle: '얼굴 위주의 사진이 좋아요'),
+          image: AssetsImage.INFO_BAD_3,
+          title: 'info_2_3_title'.tr,
+          subtitle: 'info_2_3_subtitle'.tr,
+      ),
     ],
   );
 }
