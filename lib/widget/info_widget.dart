@@ -8,11 +8,14 @@ Widget infoFirst() {
         height: 30.h,
       ),
       Text(
-        '이런 사진이 좋아요',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+        '이런 사진으로 찍어주세요',
+        style: TextStyle(
+          fontWeight: FontWeight.bold, 
+          fontSize: 18.sp
+        ),
       ),
       SizedBox(
-        height: 20.h,
+        height: 10.h,
       ),
       _infoTile(
           image: 'assets/images/good1.png',
@@ -24,7 +27,7 @@ Widget infoFirst() {
           subtitle: '어둡고 흐린 사진은 인식하기 어려워요'),
       _infoTile(
           image: 'assets/images/good3.png',
-          title: '얼굴이 가까운 사진 ✅',
+          title: '얼굴 위주의 사진 ✅',
           subtitle: '얼굴을 인식하기 쉬운 사진이 좋아요'),
     ],
   );
@@ -38,19 +41,22 @@ Widget infoSecond() {
       ),
       Text(
         '이런 사진은 피해주세요',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+        style: TextStyle(
+          fontWeight: FontWeight.bold, 
+          fontSize: 18.sp
+        ),
       ),
       SizedBox(
-        height: 20.h,
+        height: 10.h,
       ),
+      _infoTile(
+          image: 'assets/images/bad2.png',
+          title: '측면이 나온 사진 ❌',
+          subtitle: '측면 사진은 얼굴 인식이 불가능해요'),
       _infoTile(
           image: 'assets/images/bad1.png',
           title: '안경을 착용한 사진 ❌',
-          subtitle: '안경 착용 시 정확한 결과가 안 나와요'),
-      _infoTile(
-          image: 'assets/images/bad2.png',
-          title: '측면 사진 ❌',
-          subtitle: '측면 사진은 얼굴 인식이 불가능해요'),
+          subtitle: '안경 착용 시 정확한 결과를 받을 수 없어요'),
       _infoTile(
           image: 'assets/images/bad3.png',
           title: '전신 사진 ❌',

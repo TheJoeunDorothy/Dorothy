@@ -17,25 +17,34 @@ Widget infoDialog() {
         children: [
           sliderWidget(
             vm: vm, 
-            pageHeight: 290.h, 
+            pageHeight: 300.h, 
             firstWidget: infoFirst(), 
             secondWidget: infoSecond(),
           ),
           sliderIndicator(vm),
           SizedBox(
-            width: 278.w,
+            width: 276.w,
             child: Obx(
-              () => CupertinoButton.filled(
-                child: Text(vm.currentPage.value == 0 ? '다음' : '확인'),
-                onPressed: () {
-                  if (vm.currentPage.value == 0) {
-                    vm.pageController.animateToPage(1,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn);
-                  } else {
-                    Get.back();
-                  }
-                },
+              () => SizedBox(
+                height: 50.h,
+                child: CupertinoButton.filled(
+                  child: Text(
+                    vm.currentPage.value == 0 ? '다음' : '확인',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp
+                    ),
+                  ),
+                  onPressed: () {
+                    if (vm.currentPage.value == 0) {
+                      vm.pageController.animateToPage(1,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    } else {
+                      Get.back();
+                    }
+                  },
+                ),
               ),
             ),
           ),
