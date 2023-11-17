@@ -95,9 +95,9 @@ class CameraScreen extends StatelessWidget {
                               ? "지금 촬영 버튼을 눌러주세요!"
                               : "네모난 영역에 얼굴을 맞추고\n정면을 바라보세요!",
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               color: Colors.white),
                         ),
                       ),
