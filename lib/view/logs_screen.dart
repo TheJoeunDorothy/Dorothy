@@ -5,6 +5,7 @@ import 'package:dorothy/viewmodel/log_vm.dart';
 import 'package:dorothy/viewmodel/logs_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 class LogsScreen extends StatelessWidget {
@@ -55,8 +56,8 @@ class LogsScreen extends StatelessWidget {
               );
             },
             icon: const Icon(
-              Icons.delete_forever_rounded,
-              color: Colors.redAccent,
+              Icons.delete,
+              color: Colors.red,
             ),
           )
         ],
@@ -72,19 +73,21 @@ class LogsScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: controller.logs.length, // logs 상태를 사용하여 위젯 빌드
               itemBuilder: (context, index) {
-                return Dismissible(
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    color: Colors.red,
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: const Icon(Icons.delete_forever),
+                return Slidable(
+                  endActionPane: ActionPane(
+                    motion: const BehindMotion(),
+                    children: [
+                      SlidableAction(
+                        backgroundColor: Colors.red,
+                        icon: Icons.delete,
+                        label: "Delete",
+                        onPressed: (context) {
+                          int id = controller.logs[index].id!;
+                          controller.deleteLogs(id);
+                        },
+                      ),
+                    ],
                   ),
-                  key: ValueKey<int>(controller.logs[index].id!),
-                  onDismissed: (direction) async {
-                    int id = controller.logs[index].id!;
-                    controller.deleteLogs(id);
-                  },
                   child: GestureDetector(
                     onTap: () {
                       Get.lazyPut<LogVM>(
@@ -123,7 +126,9 @@ class LogsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       '${controller.logs[index].datetime!.substring(0, 4)}년 ${controller.logs[index].datetime!.substring(5, 7)}월 ${controller.logs[index].datetime!.substring(8, 10)}일 ${controller.logs[index].datetime!.substring(17, 19) == "PM" ? "오후" : "오전"} ${controller.logs[index].datetime!.substring(11, 13)}시 ${controller.logs[index].datetime!.substring(14, 16)}분',
-                                      style: Theme.of(context).textTheme.titleMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
                                     ),
                                     SizedBox(height: 25.0.h), // 간격 추가
                                     Row(
