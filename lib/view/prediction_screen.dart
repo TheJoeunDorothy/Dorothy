@@ -41,7 +41,6 @@ class PredictionScreen extends StatelessWidget {
           ),
           iconTheme: const IconThemeData(color: Colors.black, size: 24),
         ),
-        // 이미지 좌우 반전
         body: Obx(
           () => Stack(
             // Stack 위젯으로 변경
@@ -49,19 +48,25 @@ class PredictionScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  child: Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.rotationY(pi),
-                    child: Image.file(
-                      File(
-                        cameraVM.image.value!.path,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    // 이미지 좌우 반전, 밝기 조절
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(pi),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.white.withOpacity(0.3),
+                          BlendMode.softLight,
+                        ),
+                        child: Image.file(
+                          File(
+                            cameraVM.image.value!.path,
+                          ),
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
+                    )),
               ),
               // 로딩 중 일때
               if (cameraVM.isLoading.value)
