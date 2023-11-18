@@ -1,6 +1,6 @@
 import 'package:dorothy/view/result_screen.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
-import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/viewmodel/camera_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +43,7 @@ class ADS extends GetxController {
 
   // 전면 광고 실행시 서버로 데이터 이동
   void loadAd() {
-    final VM vm = Get.put(VM());
+    final CameraVM cameraVM = Get.put(CameraVM());
     InterstitialAd.load(
       adUnitId: dotenv.env['GOOGLE_ADS_FRONT_KEY']!,
       request: const AdRequest(),
@@ -57,11 +57,11 @@ class ADS extends GetxController {
             // 광고 로드 시 호출
             onAdShowedFullScreenContent: (ad) async {
               // 서버 데이터 전송
-              result = await vm.sendImage();
+              result = await cameraVM.sendImage();
             },
             onAdDismissedFullScreenContent: (ad) async {
               // 사용자가 광고를 종료시 호출
-              handleResult(result, vm);
+              handleResult(result, cameraVM);
               ad.dispose();
               // 새로운 광고를 로드.
               loadAd();
@@ -82,7 +82,7 @@ class ADS extends GetxController {
   }
 
   // 서버 전송
-  void handleResult(Map<String, dynamic> result, VM vm) {
+  void handleResult(Map<String, dynamic> result, CameraVM cameraVM) {
     try {
       if (result['result'] == null ||
           result['age'] == null ||
@@ -91,15 +91,15 @@ class ADS extends GetxController {
       } else {
         ResultVM controller = Get.put(ResultVM());
         controller.result = result;
-        controller.originalImage = vm.base64Image;
-        vm.insertLogs();
+        controller.originalImage = cameraVM.base64Image;
+        cameraVM.insertLogs();
         Get.off(() => const ResultScreen());
       }
 
-      vm.isLoading.value = false;
+      cameraVM.isLoading.value = false;
     } catch (e) {
       _predDialog();
-      vm.isLoading.value = false;
+      cameraVM.isLoading.value = false;
     }
   }
 

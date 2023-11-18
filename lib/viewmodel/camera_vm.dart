@@ -14,7 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
 
-class VM extends GetxController {
+class CameraVM extends GetxController {
   /// 페이지뷰 컨트롤러
   var pageController = PageController();
 

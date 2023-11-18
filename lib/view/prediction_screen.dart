@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
-import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/viewmodel/camera_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PredicrionScreen extends StatelessWidget {
-  final vm = Get.find<VM>();
+class PredictionScreen extends StatelessWidget {
+  final cameraVM = Get.find<CameraVM>();
   final ads = Get.find<ADS>();
 
-  PredicrionScreen({super.key});
+  PredictionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PredicrionScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: Obx(
-            () => vm.isLoading.value
+            () => cameraVM.isLoading.value
                 ? Container() // 로딩 중일 때는 뒤로 가기 버튼을 비활성화
                 : IconButton(
                     icon: const Icon(Icons.arrow_back),
@@ -49,7 +49,7 @@ class PredicrionScreen extends StatelessWidget {
                       transform: Matrix4.rotationY(pi),
                       child: Image.file(
                         File(
-                          vm.image.value!.path,
+                          cameraVM.image.value!.path,
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -86,10 +86,10 @@ class PredicrionScreen extends StatelessWidget {
                           height: 50.h,
                           child: ElevatedButton(
                             // 로딩 시작 시 버튼 비활성화
-                            onPressed: vm.isLoading.value
+                            onPressed: cameraVM.isLoading.value
                                 ? null
                                 : () async {
-                                    vm.isLoading.value = true;
+                                    cameraVM.isLoading.value = true;
                                     ads.interstitialAd?.show();
                                   },
                             style: ElevatedButton.styleFrom(
@@ -113,7 +113,7 @@ class PredicrionScreen extends StatelessWidget {
                 ],
               ),
               // 로딩 중 일때
-              if (vm.isLoading.value)
+              if (cameraVM.isLoading.value)
                 const Center(
                   child: CircularProgressIndicator(),
                 ),

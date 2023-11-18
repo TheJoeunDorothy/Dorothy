@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
-import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/viewmodel/camera_vm.dart';
 import 'package:dorothy/widget/google_ads_widget.dart';
 import 'package:dorothy/widget/info_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatelessWidget {
-  final VM vm = Get.put(VM());
+  final CameraVM cameraVM = Get.put(CameraVM());
 
   CameraScreen({super.key});
 
@@ -29,17 +29,17 @@ class CameraScreen extends StatelessWidget {
           IconButton(
             onPressed: () async {
               await Get.dialog(infoDialog());
-              vm.resetInfoPage();
+              cameraVM.resetInfoPage();
             },
             icon: const Icon(Icons.info_outlined),
           ),
           IconButton(
             onPressed: () async {
-              vm.isPageStreaming.value = false;
+              cameraVM.isPageStreaming.value = false;
               await Get.to(
                 () => const SettingsScreen(),
               )?.then(
-                (value) => vm.isPageStreaming.value = true,
+                (value) => cameraVM.isPageStreaming.value = true,
               );
             },
             icon: const Icon(Icons.settings),
@@ -48,7 +48,7 @@ class CameraScreen extends StatelessWidget {
       ),
       body: Obx(
         () => SafeArea(
-          child: (!vm.cameraState.value || !vm.microphoneState.value)
+          child: (!cameraVM.cameraState.value || !cameraVM.microphoneState.value)
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -73,16 +73,16 @@ class CameraScreen extends StatelessWidget {
               : Stack(
                   children: [
                     // 컨트롤러가 초기화가 되지 않았다면 인디케이터를 띄어줌
-                    if (vm.controller.value == null ||
-                        !vm.controller.value!.value.isInitialized)
+                    if (cameraVM.controller.value == null ||
+                        !cameraVM.controller.value!.value.isInitialized)
                       const Center(
                         child: CircularProgressIndicator(),
                       )
                     else
                       Positioned.fill(
                         child: AspectRatio(
-                          aspectRatio: vm.controller.value!.value.aspectRatio,
-                          child: CameraPreview(vm.controller.value!),
+                          aspectRatio: cameraVM.controller.value!.value.aspectRatio,
+                          child: CameraPreview(cameraVM.controller.value!),
                         ),
                       ),
                     Positioned(
@@ -91,7 +91,7 @@ class CameraScreen extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
-                          vm.myColor.value == Colors.amber
+                          cameraVM.myColor.value == Colors.amber
                               ? "지금 촬영 버튼을 눌러주세요!"
                               : "네모난 영역에 얼굴을 맞추고\n정면을 바라보세요!",
                           textAlign: TextAlign.center,
@@ -108,7 +108,7 @@ class CameraScreen extends StatelessWidget {
                         height: 300.h, // 사람 얼굴 사이즈에 맞게 조정
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle, // 모서리 틀로 변경
-                          border: Border.all(color: vm.myColor.value, width: 5),
+                          border: Border.all(color: cameraVM.myColor.value, width: 5),
                         ),
                       ),
                     ),
@@ -132,23 +132,23 @@ class CameraScreen extends StatelessWidget {
                 height: 75.h,
                 child: Obx(
                   () => FloatingActionButton(
-                    onPressed: vm.myColor.value == Colors.amber
+                    onPressed: cameraVM.myColor.value == Colors.amber
                         ? () async {
                             // 사진 찍기
-                            bool success = await vm.takePicture(context);
+                            bool success = await cameraVM.takePicture(context);
                             if (!success) {
                               return;
                             }
                             // 스트리밍 종료
-                            vm.isPageStreaming.value = false;
+                            cameraVM.isPageStreaming.value = false;
                             // 다시 카메라 화면으로 돌아왔을때 이미지 스트리밍 활성
                             Get.to(
-                              () => PredicrionScreen(),
-                            )?.then((value) => vm.isPageStreaming.value = true);
+                              () => PredictionScreen(),
+                            )?.then((value) => cameraVM.isPageStreaming.value = true);
                           }
                         : null,
                     backgroundColor: Colors.white,
-                    foregroundColor: vm.myColor.value,
+                    foregroundColor: cameraVM.myColor.value,
                     elevation: 0,
                     shape: const CircleBorder(
                       side: BorderSide(color: Colors.black, width: 5.0),

@@ -2,6 +2,7 @@ import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/view/permission_screen.dart';
 import 'package:dorothy/widget/pageview_onbarding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,8 +29,8 @@ class OnBoardingScreen extends StatelessWidget {
         pages: getPages(context),
         showNextButton: true,
         next: const Icon(Icons.arrow_forward_ios, color: Colors.black),
-        done: const Text("시작하기",
-            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
+        done: Text("시작하기",
+            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 17.sp)),
         onDone: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('hasSeenOnboarding', true);
