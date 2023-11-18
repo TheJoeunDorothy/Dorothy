@@ -11,14 +11,12 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatelessWidget {
-  final CameraVM cameraVM = Get.put(CameraVM());
+  final cameraVM = Get.put(CameraVM());
 
   CameraScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // oninit이 아닌 build될 때 카메라 초기화
-    cameraVM.init();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 제한
@@ -83,7 +81,8 @@ class CameraScreen extends StatelessWidget {
                     else
                       Positioned.fill(
                         child: AspectRatio(
-                          aspectRatio: cameraVM.controller.value!.value.aspectRatio,
+                          aspectRatio:
+                              cameraVM.controller.value!.value.aspectRatio,
                           child: CameraPreview(cameraVM.controller.value!),
                         ),
                       ),
@@ -110,7 +109,8 @@ class CameraScreen extends StatelessWidget {
                         height: 300.h, // 사람 얼굴 사이즈에 맞게 조정
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle, // 모서리 틀로 변경
-                          border: Border.all(color: cameraVM.myColor.value, width: 5),
+                          border: Border.all(
+                              color: cameraVM.myColor.value, width: 5),
                         ),
                       ),
                     ),
@@ -146,7 +146,8 @@ class CameraScreen extends StatelessWidget {
                             // 다시 카메라 화면으로 돌아왔을때 이미지 스트리밍 활성
                             Get.to(
                               () => PredictionScreen(),
-                            )?.then((value) => cameraVM.isPageStreaming.value = true);
+                            )?.then((value) =>
+                                cameraVM.isPageStreaming.value = true);
                           }
                         : null,
                     backgroundColor: Colors.white,

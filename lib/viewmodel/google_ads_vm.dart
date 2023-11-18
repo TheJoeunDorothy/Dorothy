@@ -43,7 +43,6 @@ class ADS extends GetxController {
 
   // 전면 광고 실행시 서버로 데이터 이동
   void loadAd() {
-    final CameraVM cameraVM = Get.put(CameraVM());
     InterstitialAd.load(
       adUnitId: dotenv.env['GOOGLE_ADS_FRONT_KEY']!,
       request: const AdRequest(),
@@ -57,10 +56,12 @@ class ADS extends GetxController {
             // 광고 로드 시 호출
             onAdShowedFullScreenContent: (ad) async {
               // 서버 데이터 전송
+              final cameraVM = Get.find<CameraVM>();
               result = await cameraVM.sendImage();
             },
             onAdDismissedFullScreenContent: (ad) async {
               // 사용자가 광고를 종료시 호출
+              final cameraVM = Get.find<CameraVM>();
               handleResult(result, cameraVM);
               ad.dispose();
               // 새로운 광고를 로드.
