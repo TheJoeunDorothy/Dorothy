@@ -17,6 +17,8 @@ class CameraScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // oninit이 아닌 build될 때 카메라 초기화
+    cameraVM.init();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 제한
@@ -48,7 +50,7 @@ class CameraScreen extends StatelessWidget {
       ),
       body: Obx(
         () => SafeArea(
-          child: (!cameraVM.cameraState.value || !cameraVM.microphoneState.value)
+          child: (!cameraVM.isAllPermissionAllowed.value)
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
