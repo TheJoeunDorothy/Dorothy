@@ -1,4 +1,5 @@
 import 'package:dorothy/model/logs_handler.dart';
+import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/static/personal_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,25 +21,32 @@ class ResultVM extends GetxController {
   }
 
   /// 퍼스널컬러 결과에 따른 테마 색 변경 함수.
-  SeasonTheme changeThemeWithResult(String colorResult) {
+  Map<String, dynamic> changeThemeWithResult(String colorResult) {
     SeasonTheme theme;
+    String imagePath = '';
     switch (colorResult) {
       case '봄웜톤':
         theme = SeasonTheme.spring;
+        imagePath = AssetsImage.SPRING_IMAGE;
         break;
       case '여름쿨톤':
         theme = SeasonTheme.summer;
+        imagePath = AssetsImage.SUMMER_IMAGE;
         break;
       case '가을웜톤':
         theme = SeasonTheme.autumn;
+        imagePath = AssetsImage.AUTUMN_IMAGE;
         break;
       case '겨울쿨톤':
         theme = SeasonTheme.winter;
+        imagePath = AssetsImage.WINTER_IMAGE;
         break;
       default:
         theme = SeasonTheme.spring;
+        imagePath = AssetsImage.SPRING_IMAGE;
         break;
     }
-    return theme;
+    return {'theme':theme, 'imagePath':imagePath};
   }
+
 }

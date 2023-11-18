@@ -25,14 +25,16 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   final resultVM = Get.find<ResultVM>();
   static final GlobalKey<_ResultScreenState> key = GlobalKey<_ResultScreenState>();
-  late Color backgroundColor;
-  late Color foregroundColor;
+  late final Color backgroundColor;
+  late final Color foregroundColor;
+  late final String imagePath;
 
   @override
   void initState() {
     super.initState();
     String colorResult = resultVM.result['result'];
-    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
+    imagePath = resultVM.changeThemeWithResult(colorResult)['imagePath'];
+    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult)['theme'];
     backgroundColor = theme.backgroundColor;
     foregroundColor = theme.foregroundColor;
   }
@@ -58,7 +60,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   pageHeight: 590.h,
                   vm: resultVM,
                   firstWidget: ageResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
-                  secondWidget: colorResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
+                  secondWidget: colorResult(context, resultVM.originalImage, resultVM.result, imagePath, foregroundColor, backgroundColor),
                   textColor: foregroundColor, 
                   primaryColor: backgroundColor
                 ),
@@ -121,7 +123,10 @@ class _ResultScreenState extends State<ResultScreen> {
       // 이미지 파일로 저장
       File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
-      Share.shareXFiles([XFile(file.path)], text: '');
+      Share.shareXFiles(
+        [XFile(file.path)], 
+        text: (resultVM.currentPage.value == 0) ? 'share_face_message'.tr : 'share_color_message',
+      );
     } catch (e) {
       //print('Error sharing image: $e');
     }
