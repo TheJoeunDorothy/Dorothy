@@ -33,7 +33,7 @@ class _LogScreenState extends State<LogScreen> {
       ),
       body: Center(
         child: Container(
-           color: vm.backgroundColor,
+          color: vm.backgroundColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -47,7 +47,7 @@ class _LogScreenState extends State<LogScreen> {
                       firstWidget: ageResult(context, vm.originalImage, vm.result,
                           vm.foregroundColor, vm.backgroundColor),
                       secondWidget: colorResult(context, vm.originalImage,
-                          vm.result, vm.foregroundColor, vm.backgroundColor),
+                          vm.result, vm.imagePath, vm.foregroundColor, vm.backgroundColor),
                       textColor: vm.foregroundColor,
                       primaryColor: vm.backgroundColor),
                 ),

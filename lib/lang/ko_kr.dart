@@ -53,7 +53,11 @@ const Map<String, String> koKR = {
   'mandatory': ' (필수)',
   // logs screen
   'delete_alert_title': '⚠️ 삭제',
-  'delete_alert_content': '',
+  'delete_alert_content': '사용 기록이 전부 삭제됩니다.',
   'delete_snackbar_title': '삭제 완료',
   'delete_snackbar_content': '전부 삭제되었습니다.',
+  'slidable_delete': '삭제',
+  'no_log_message': '기록이 없습니다.',
+  'log_age_result': '나이 예측 결과 :',
+  'log_color_result': '색상 예측 결과 :',
 };

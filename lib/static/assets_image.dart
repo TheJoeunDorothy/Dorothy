@@ -10,4 +10,8 @@ class AssetsImage {
   static const ONBOARDING_AGE = 'assets/images/face_age.jpeg';
   static const ONBOARDING_COLOR = 'assets/images/personal_color.jpeg';
   static const ONBOARDING_FACE_RECOGNITION = 'assets/images/face_recognition.jpeg';
+  static const SPRING_IMAGE = 'assets/images/spring_color.png';
+  static const SUMMER_IMAGE = 'assets/images/summer_color.png';
+  static const AUTUMN_IMAGE = 'assets/images/autumn_color.png';
+  static const WINTER_IMAGE = 'assets/images/winter_color.png';
 }
