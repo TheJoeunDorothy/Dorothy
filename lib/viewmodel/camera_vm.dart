@@ -126,7 +126,6 @@ class CameraVM extends GetxController {
 
         // 플래쉬 끄기
         await controller.value!.setFlashMode(FlashMode.off);
-        // 소리 끄기
 
         startImageStream();
       },
@@ -253,19 +252,19 @@ class CameraVM extends GetxController {
   Future<bool> takePicture(BuildContext context) async {
     if (!isStreaming.value) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.error,
                 color: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: Text(
-                  '스트리밍이 시작되지 않았습니다. 잠시 후에 시도해 주세요.',
+                  'camera_streaming_text'.tr,
                 ),
               ),
             ],

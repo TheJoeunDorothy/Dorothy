@@ -54,7 +54,7 @@ class CameraScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '필수 권한을 허용해 주세요',
+                        'camera_permission_text'.tr,
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class CameraScreen extends StatelessWidget {
                         height: 15.h,
                       ),
                       CupertinoButton.filled(
-                        child: const Text('권한 허용하기'),
+                        child: Text('permission_button'.tr),
                         onPressed: () async => await openAppSettings(),
                       ),
                     ],
@@ -93,8 +93,8 @@ class CameraScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: Text(
                           cameraVM.myColor.value == Colors.purple
-                              ? "지금 촬영 버튼을 눌러주세요!"
-                              : "얼굴을 표시된 영역에 맞추고\n정면을 바라보세요!",
+                              ? "camera_face_recognition_text_1".tr
+                              : "camera_face_recognition_text_2".tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

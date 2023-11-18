@@ -12,12 +12,12 @@ class OnBoardingScreen extends StatelessWidget {
 
   List<PageViewModel> getPages(BuildContext context) {
     return [
-      buildPage(context, AssetsImage.ONBOARDING_AGE, "얼굴 나이 분석",
-          '당신의 얼굴을 분석하여\n나이를 예측해보세요.'),
-      buildPage(context, AssetsImage.ONBOARDING_COLOR, "퍼스널 컬러 분석",
-          '당신의 얼굴을 분석하여\n가장 잘 어울리는 컬러를 찾아보세요.'),
-      buildPage(context, AssetsImage.ONBOARDING_FACE_RECOGNITION, "얼굴 인식 AI",
-          '당신의 얼굴을 카메라로 찍어보세요.\n얼굴을 인식하여 분석을 시작합니다.'),
+      buildPage(context, AssetsImage.ONBOARDING_AGE, "onboarding_title_1".tr,
+          'onboarding_subtitle_1'.tr),
+      buildPage(context, AssetsImage.ONBOARDING_COLOR, "onboarding_title_2".tr,
+          'onboarding_subtitle_1'.tr),
+      buildPage(context, AssetsImage.ONBOARDING_FACE_RECOGNITION,
+          "onboarding_title_3".tr, 'onboarding_subtitle_1'.tr),
     ];
   }
 
@@ -29,8 +29,11 @@ class OnBoardingScreen extends StatelessWidget {
         pages: getPages(context),
         showNextButton: true,
         next: const Icon(Icons.arrow_forward_ios, color: Colors.black),
-        done: Text("시작하기",
-            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 17.sp)),
+        done: Text("nboarding_done".tr,
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 17.sp)),
         onDone: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('hasSeenOnboarding', true);
