@@ -6,4 +6,8 @@ class AssetsImage {
   static const INFO_BAD_2 = 'assets/images/bad2.png';
   static const INFO_BAD_3 = 'assets/images/bad3.png';
   static const EMPHASIZING_EFFECT = 'assets/images/top_right_effect.png';
+  static const SPLASH_IMAGE = 'assets/images/Dorothy.gif';
+  static const ONBOARDING_AGE = 'assets/images/face_age.jpeg';
+  static const ONBOARDING_COLOR = 'assets/images/personal_color.jpeg';
+  static const ONBOARDING_FACE_RECOGNITION = 'assets/images/face_recognition.jpeg';
 }

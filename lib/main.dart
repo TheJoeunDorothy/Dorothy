@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:dorothy/model/logs_handler.dart';
 import 'package:dorothy/services/translation_service.dart';
+import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
@@ -91,7 +92,7 @@ class MyApp extends StatelessWidget {
           home: AnimatedSplashScreen(
             splashIconSize: 400.h,
             splash: Image.asset(
-              'assets/images/Dorothy.gif',
+              AssetsImage.SPLASH_IMAGE,
             ),
             nextScreen: initialScreen,
             // backgroundColor: Colors.white,
