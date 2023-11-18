@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/widget/age_indicator.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,11 @@ Widget ageResult(BuildContext context, String base64Image, Map<String, dynamic> 
                 height: 230.h,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50.r),
-                  child: Image.memory(base64Decode(base64Image)),
+                  child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(pi),
+                    child: Image.memory(base64Decode(base64Image)),
+                  ),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:dorothy/static/assets_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,11 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result, Col
                   height: 230.h,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.r),
+                    child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(pi),
                     child: Image.memory(base64Decode(base64Image)),
+                  ),
                   ),
                 ),
               ),
