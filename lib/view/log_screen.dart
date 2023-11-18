@@ -44,10 +44,10 @@ class _LogScreenState extends State<LogScreen> {
                   child: sliderWidget(
                       pageHeight: 590.h,
                       vm: vm,
-                      firstWidget: ageResult(context, vm.originalImage, vm.result,
-                          vm.foregroundColor, vm.backgroundColor),
-                      secondWidget: colorResult(context, vm.originalImage,
+                      firstWidget: colorResult(context, vm.originalImage,
                           vm.result, vm.imagePath, vm.foregroundColor, vm.backgroundColor),
+                      secondWidget: ageResult(context, vm.originalImage, vm.result,
+                          vm.foregroundColor, vm.backgroundColor),
                       textColor: vm.foregroundColor,
                       primaryColor: vm.backgroundColor),
                 ),

@@ -59,8 +59,8 @@ class _ResultScreenState extends State<ResultScreen> {
                 child: sliderWidget(
                   pageHeight: 590.h,
                   vm: resultVM,
-                  firstWidget: ageResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
-                  secondWidget: colorResult(context, resultVM.originalImage, resultVM.result, imagePath, foregroundColor, backgroundColor),
+                  firstWidget: colorResult(context, resultVM.originalImage, resultVM.result, imagePath, foregroundColor, backgroundColor),
+                  secondWidget: ageResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
                   textColor: foregroundColor, 
                   primaryColor: backgroundColor
                 ),
