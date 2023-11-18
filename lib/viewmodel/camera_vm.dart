@@ -17,8 +17,10 @@ import 'package:http/http.dart' as http;
 class CameraVM extends GetxController {
   /// 페이지뷰 컨트롤러
   var pageController = PageController();
+
   /// 권한 허용 상태
   RxBool isAllPermissionAllowed = false.obs;
+
   /// 페이지뷰 현재 페이지
   RxInt currentPage = 0.obs;
   // 카메라 컨트롤러
@@ -49,6 +51,12 @@ class CameraVM extends GetxController {
 
   var handler = LogsHandler();
 
+  @override
+  void onInit() {
+    super.onInit();
+    checkPermissions().then((value) => init());
+  }
+
   /// 인포페이지 인덱스 리셋
   Future<void> resetInfoPage() async {
     await Future.delayed(const Duration(milliseconds: 300));
@@ -57,7 +65,8 @@ class CameraVM extends GetxController {
   }
 
   Future<void> checkPermissions() async {
-    if (await Permission.camera.isGranted && await Permission.microphone.isGranted) {
+    if (await Permission.camera.isGranted &&
+        await Permission.microphone.isGranted) {
       isAllPermissionAllowed.value = true;
     }
   }
@@ -70,6 +79,7 @@ class CameraVM extends GetxController {
       faceDetector.value = FaceDetector(options: options);
       // 설정 값이 변경 될때마다 실행
       ever(isPageStreaming, handlePageStreaming);
+      ever(isAllPermissionAllowed, (_) => checkPermissions());
       await initCamera();
     }
   }
