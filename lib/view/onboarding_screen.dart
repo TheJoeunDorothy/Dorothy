@@ -29,7 +29,7 @@ class OnBoardingScreen extends StatelessWidget {
         pages: getPages(context),
         showNextButton: true,
         next: const Icon(Icons.arrow_forward_ios, color: Colors.black),
-        done: Text("nboarding_done".tr,
+        done: Text("onboarding_done".tr,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
