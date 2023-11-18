@@ -72,9 +72,9 @@ class PredictionScreen extends StatelessWidget {
                               side: const BorderSide(
                                   color: Colors.purple, width: 3.0),
                             ),
-                            child: Text(
-                              'picture_again_button'.tr,
-                              style: const TextStyle(
+                            child: const Text(
+                              '다시 찍기',
+                              style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -97,9 +97,9 @@ class PredictionScreen extends StatelessWidget {
                               side: const BorderSide(
                                   color: Colors.purple, width: 3.0),
                             ),
-                            child: Text(
-                              'check_result_button'.tr,
-                              style: const TextStyle(
+                            child: const Text(
+                              '결과 확인하기',
+                              style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,

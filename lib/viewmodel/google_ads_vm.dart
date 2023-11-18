@@ -125,7 +125,7 @@ Future<void> _predDialog() {
         borderRadius: BorderRadius.circular(20),
       ),
       title: Text(
-        'preddialog_text'.tr,
+        '오류가 발생했어요.\n사진을 다시 찍어주세요.',
         style: TextStyle(
           fontSize: 20.sp,
         ),
@@ -145,7 +145,7 @@ Future<void> _predDialog() {
               Get.back();
             },
             child: Text(
-              "picture_again_dialog_button".tr,
+              "사진 다시 찍으러 가기",
               style: TextStyle(
                 fontSize: 18.sp,
               ),
