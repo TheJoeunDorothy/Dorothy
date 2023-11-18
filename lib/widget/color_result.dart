@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-Widget colorResult(context, String base64Image, Map<String, dynamic> result, Color textColor, Color primaryColor) {
+Widget colorResult(context, String base64Image, Map<String, dynamic> result, String imagePath, Color textColor, Color primaryColor) {
+  
   return Column(
     mainAxisAlignment: MainAxisAlignment.start, 
     children: [
@@ -68,6 +69,13 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result, Col
           color: textColor,
           fontWeight: FontWeight.w600,
         ),
+      ),
+      SizedBox(height: 10.h),
+      Container(
+        color: Colors.white,
+        height: 195.h,
+        width: 225.w,
+        child: Image.asset(imagePath),
       ),
       SizedBox(height: 20.h,),
     ]

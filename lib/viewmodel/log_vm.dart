@@ -22,6 +22,7 @@ class LogVM extends GetxController {
   RxInt currentPage = 0.obs;
   late Map<String, dynamic> result;
   late String originalImage;
+  late String imagePath;
 
   LogVM({required this.log});
 
@@ -44,7 +45,8 @@ class LogVM extends GetxController {
     };
     // resultSliderWidget 에 종속 되어있는 초기화
     String colorResult = result['result'];
-    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult);
+    SeasonTheme theme = resultVM.changeThemeWithResult(colorResult)['theme'];
+    imagePath = resultVM.changeThemeWithResult(colorResult)['imagePath'];
     backgroundColor = theme.backgroundColor;
     foregroundColor = theme.foregroundColor;
   }

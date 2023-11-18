@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dorothy/view/log_screen.dart';
 import 'package:dorothy/viewmodel/log_vm.dart';
@@ -26,7 +27,7 @@ class LogsScreen extends StatelessWidget {
                     'delete_alert_title'.tr,
                     style: const TextStyle(color: Colors.red),
                   ),
-                  content: Text('delete_alert_content'.tr),
+                  content: Text('delete_alert_content'.tr,),
                   actions: [
                     TextButton(
                       child: Text(
@@ -66,8 +67,8 @@ class LogsScreen extends StatelessWidget {
         () {
           if (controller.logs.isEmpty) {
             // logs 상태를 사용하여 위젯 빌드
-            return const Center(
-              child: Text("기록이 없습니다"),
+            return Center(
+              child: Text("no_log_message".tr),
             );
           } else {
             return ListView.builder(
@@ -80,7 +81,7 @@ class LogsScreen extends StatelessWidget {
                       SlidableAction(
                         backgroundColor: Colors.red,
                         icon: Icons.delete,
-                        label: "Delete",
+                        label: "slidable_delete".tr,
                         onPressed: (context) {
                           int id = controller.logs[index].id!;
                           controller.deleteLogs(id);
@@ -112,10 +113,14 @@ class LogsScreen extends StatelessWidget {
                                     20.w, 5.0.w, 20.0.w, 5.0.w),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.memory(
-                                    base64Decode(
-                                        controller.logs[index].originalImage),
-                                    height: 100.h,
+                                  child: Transform(
+                                    alignment: Alignment.center,
+                                    transform: Matrix4.rotationY(pi),
+                                    child: Image.memory(
+                                      base64Decode(
+                                          controller.logs[index].originalImage),
+                                      height: 100.h,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -134,19 +139,21 @@ class LogsScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Text(
-                                          '나이 예측 결과 :  ',
+                                          '나이 예측 결과 :',
                                         ),
+                                        SizedBox(width: 5.w,),
                                         Text(
                                           controller.logs[index].ageResult,
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 8.0), // 간격 추가
+                                    SizedBox(height: 8.0.h), // 간격 추가
                                     Row(
                                       children: [
                                         const Text(
-                                          '색상 예측 결과 :  ',
+                                          '색상 예측 결과 :',
                                         ),
+                                        SizedBox(width: 5.w,),
                                         Text(
                                           controller.logs[index].colorResult,
                                         ),
