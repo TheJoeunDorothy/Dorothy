@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:dorothy/view/result_screen.dart';
-import 'package:dorothy/viewmodel/result_vm.dart';
-import 'package:dorothy/viewmodel/vm.dart';
+import 'package:dorothy/viewmodel/google_ads_vm.dart';
+import 'package:dorothy/viewmodel/camera_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PredicrionScreen extends StatelessWidget {
-  final VM vm = Get.find<VM>();
+class PredictionScreen extends StatelessWidget {
+  final cameraVM = Get.find<CameraVM>();
+  final ads = Get.find<ADS>();
 
-  PredicrionScreen({super.key});
+  PredictionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PredicrionScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: Obx(
-            () => vm.isLoading.value
+            () => cameraVM.isLoading.value
                 ? Container() // 로딩 중일 때는 뒤로 가기 버튼을 비활성화
                 : IconButton(
                     icon: const Icon(Icons.arrow_back),
@@ -49,7 +49,7 @@ class PredicrionScreen extends StatelessWidget {
                       transform: Matrix4.rotationY(pi),
                       child: Image.file(
                         File(
-                          vm.image.value!.path,
+                          cameraVM.image.value!.path,
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -86,36 +86,11 @@ class PredicrionScreen extends StatelessWidget {
                           height: 50.h,
                           child: ElevatedButton(
                             // 로딩 시작 시 버튼 비활성화
-                            onPressed: vm.isLoading.value
+                            onPressed: cameraVM.isLoading.value
                                 ? null
                                 : () async {
-                                    vm.isLoading.value = true;
-                                    // 서버 통신 시간에 광고나, 로딩중 화면 띄어준 다음에 결과 페이지로 이동 해야됨
-                                    try {
-                                      vm.sendImage().then(
-                                        (result) {
-                                          if (result['result'] == null ||
-                                              result['age'] == null ||
-                                              result['percent'] == null) {
-                                            _predDialog(context);
-                                          } else {
-                                            ResultVM controller =
-                                                Get.put(ResultVM());
-                                            controller.result = result;
-                                            controller.originalImage =
-                                                vm.base64Image;
-                                            vm.insertLogs();
-                                            Get.off(() => const ResultScreen());
-                                          }
-                                          // 로딩 종료
-                                          vm.isLoading.value = false;
-                                        },
-                                      );
-                                    } catch (e) {
-                                      // 로딩 종료
-                                      _predDialog(context);
-                                      vm.isLoading.value = false;
-                                    }
+                                    cameraVM.isLoading.value = true;
+                                    ads.interstitialAd?.show();
                                   },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
@@ -137,8 +112,8 @@ class PredicrionScreen extends StatelessWidget {
                   )
                 ],
               ),
-              // 로딩 중 일때 -> 광고로 전환 예정
-              if (vm.isLoading.value)
+              // 로딩 중 일때
+              if (cameraVM.isLoading.value)
                 const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -148,50 +123,4 @@ class PredicrionScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> _predDialog(BuildContext context) {
-  return showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      // ScreenUtil 초기화
-      ScreenUtil screenUtil = ScreenUtil();
-
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // 다이얼로그의 모서리를 둥글게 만듭니다.
-        ),
-        title: Text(
-          '오류가 발생했어요.\n사진을 다시 찍어주세요.',
-          style: TextStyle(
-            fontSize: 20.sp,
-          ),
-          textAlign: TextAlign.center, // 텍스트를 중앙 정렬합니다.
-        ),
-        actions: <Widget>[
-          SizedBox(
-            width: screenUtil.screenWidth,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // 버튼의 모서리를 둥글게 만듭니다.
-                ),
-              ),
-              onPressed: () {
-                Get.back();
-                Get.back();
-              },
-              child: Text(
-                "사진 다시 찍으러 가기",
-                style: TextStyle(
-                  fontSize: 18.sp, // 버튼 텍스트의 크기를 조절합니다.
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    },
-  );
 }

@@ -14,18 +14,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
 
-class VM extends GetxController {
+class CameraVM extends GetxController {
   /// 페이지뷰 컨트롤러
   var pageController = PageController();
 
+  /// 권한 허용 상태
+  RxBool isAllPermissionAllowed = false.obs;
+
   /// 페이지뷰 현재 페이지
   RxInt currentPage = 0.obs;
-
-  /// 앱 카메라 권한 상태
-  RxBool cameraState = true.obs;
-
-  /// 앱 마이크 권한 상태
-  RxBool microphoneState = true.obs;
   // 카메라 컨트롤러
   Rx<CameraController?> controller = Rx<CameraController?>(null);
   // 스트리밍 이미지 저장 변수
@@ -57,7 +54,7 @@ class VM extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    init();
+    checkPermissions().then((value) => init());
   }
 
   /// 인포페이지 인덱스 리셋
@@ -67,18 +64,22 @@ class VM extends GetxController {
     pageController.jumpToPage(0);
   }
 
-  Future<void> getStates() async {
-    cameraState.value = await Permission.camera.status.isGranted;
-    microphoneState.value = await Permission.microphone.status.isGranted;
+  Future<void> checkPermissions() async {
+    if (await Permission.camera.isGranted &&
+        await Permission.microphone.isGranted) {
+      isAllPermissionAllowed.value = true;
+    }
   }
 
   Future<void> init() async {
-    await getStates();
-    if (cameraState.value && microphoneState.value) {
+    //await getStates();
+    await checkPermissions();
+    if (isAllPermissionAllowed.value) {
       final options = FaceDetectorOptions();
       faceDetector.value = FaceDetector(options: options);
       // 설정 값이 변경 될때마다 실행
       ever(isPageStreaming, handlePageStreaming);
+      ever(isAllPermissionAllowed, (_) => checkPermissions());
       await initCamera();
     }
   }
