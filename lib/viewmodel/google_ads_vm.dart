@@ -52,17 +52,20 @@ class ADS extends GetxController {
           interstitialAd = ad;
           isAdFrontLoaded.value = true;
 
+          Future<Map<String, dynamic>>? imageSendFuture;
+
           interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
             // 광고 로드 시 호출
-            onAdShowedFullScreenContent: (ad) async {
+            onAdShowedFullScreenContent: (ad) {
               // 서버 데이터 전송
               final cameraVM = Get.find<CameraVM>();
-              result = await cameraVM.sendImage();
+              imageSendFuture = cameraVM.sendImage();
             },
             onAdDismissedFullScreenContent: (ad) async {
               // 사용자가 광고를 종료시 호출
               final cameraVM = Get.find<CameraVM>();
-              handleResult(result, cameraVM);
+              Map<String, dynamic>? result = await imageSendFuture;
+              handleResult(result!, cameraVM);
               ad.dispose();
               // 새로운 광고를 로드.
               loadAd();

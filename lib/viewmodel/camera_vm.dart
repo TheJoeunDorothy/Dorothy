@@ -103,8 +103,31 @@ class CameraVM extends GetxController {
 
     controller.value!.initialize().then(
       (_) async {
-        // 줌 레벨 설정
-        await controller.value!.setZoomLevel(1.3);
+        // 줌 레벨 범위 계산
+        double minZoom = await controller.value!.getMinZoomLevel();
+        if (minZoom >= 1.3) {
+          // 줌 레벨 설정
+          await controller.value!.setZoomLevel(minZoom);
+        } else {
+          // 줌 레벨 설정
+          await controller.value!.setZoomLevel(1.3);
+        }
+
+        // 노출 값 범위 계산
+        double minExposure = await controller.value!.getMinExposureOffset();
+
+        if (minExposure >= -0.8) {
+          // 노출 값 설정
+          await controller.value!.setExposureOffset(minExposure);
+        } else {
+          // 노출 값 설정
+          await controller.value!.setExposureOffset(-0.8);
+        }
+
+        // 플래쉬 끄기
+        await controller.value!.setFlashMode(FlashMode.off);
+        // 소리 끄기
+
         startImageStream();
       },
     );
@@ -138,7 +161,7 @@ class CameraVM extends GetxController {
                     Offset(face.boundingBox.left, face.boundingBox.top)) &&
                 iconRect.contains(
                     Offset(face.boundingBox.right, face.boundingBox.bottom))) {
-              myColor.value = Colors.amber;
+              myColor.value = Colors.purple;
             } else {
               myColor.value = Colors.white;
               stopImageStream();

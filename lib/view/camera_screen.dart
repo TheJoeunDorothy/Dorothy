@@ -92,14 +92,21 @@ class CameraScreen extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
-                          cameraVM.myColor.value == Colors.amber
+                          cameraVM.myColor.value == Colors.purple
                               ? "지금 촬영 버튼을 눌러주세요!"
-                              : "네모난 영역에 얼굴을 맞추고\n정면을 바라보세요!",
+                              : "얼굴을 표시된 영역에 맞추고\n정면을 바라보세요!",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.sp,
+                            color: Colors.white,
+                            shadows: const <Shadow>[
+                              Shadow(
+                                offset: Offset(0.3, 0.3),
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -111,6 +118,7 @@ class CameraScreen extends StatelessWidget {
                           shape: BoxShape.rectangle, // 모서리 틀로 변경
                           border: Border.all(
                               color: cameraVM.myColor.value, width: 5),
+                          borderRadius: BorderRadius.circular(150),
                         ),
                       ),
                     ),
@@ -134,7 +142,7 @@ class CameraScreen extends StatelessWidget {
                 height: 75.h,
                 child: Obx(
                   () => FloatingActionButton(
-                    onPressed: cameraVM.myColor.value == Colors.amber
+                    onPressed: cameraVM.myColor.value == Colors.purple
                         ? () async {
                             // 사진 찍기
                             bool success = await cameraVM.takePicture(context);
@@ -153,10 +161,13 @@ class CameraScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     foregroundColor: cameraVM.myColor.value,
                     elevation: 0,
-                    shape: const CircleBorder(
-                      side: BorderSide(color: Colors.black, width: 5.0),
+                    shape: CircleBorder(
+                      side: BorderSide(
+                          color: cameraVM.myColor.value == Colors.purple
+                              ? cameraVM.myColor.value
+                              : Colors.black,
+                          width: 5.0),
                     ),
-                    child: const Icon(Icons.photo_camera),
                   ),
                 ),
               ),
