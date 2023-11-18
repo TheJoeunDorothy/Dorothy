@@ -26,91 +26,42 @@ class PredictionScreen extends StatelessWidget {
             () => cameraVM.isLoading.value
                 ? Container() // 로딩 중일 때는 뒤로 가기 버튼을 비활성화
                 : IconButton(
-                    icon: const Icon(Icons.arrow_back),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 22,
+                    ),
                     onPressed: () => Get.back(),
                   ),
           ),
-
-          title: Text('prediction_appbar'.tr),
-          elevation: 0, // 그림자 제거
+          title: Text(
+            'prediction_appbar'.tr,
+            style: const TextStyle(
+              fontSize: 17,
+            ),
+          ),
+          iconTheme: const IconThemeData(color: Colors.black, size: 24),
         ),
         // 이미지 좌우 반전
         body: Obx(
           () => Stack(
             // Stack 위젯으로 변경
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(pi),
-                      child: Image.file(
-                        File(
-                          cameraVM.image.value!.path,
-                        ),
-                        fit: BoxFit.cover,
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(pi),
+                    child: Image.file(
+                      File(
+                        cameraVM.image.value!.path,
                       ),
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: 130.w,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              side: const BorderSide(
-                                  color: Colors.purple, width: 3.0),
-                            ),
-                            child: Text(
-                              'picture_again_button'.tr,
-                              style: const TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 155.w,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            // 로딩 시작 시 버튼 비활성화
-                            onPressed: cameraVM.isLoading.value
-                                ? null
-                                : () async {
-                                    cameraVM.isLoading.value = true;
-                                    ads.interstitialAd?.show();
-                                  },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              side: const BorderSide(
-                                  color: Colors.purple, width: 3.0),
-                            ),
-                            child: Text(
-                              'check_result_button'.tr,
-                              style: const TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
               // 로딩 중 일때
               if (cameraVM.isLoading.value)
@@ -118,6 +69,74 @@ class PredictionScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 ),
             ],
+          ),
+        ),
+        bottomSheet: SizedBox(
+          height: 150.h,
+          child: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 140.w,
+                  height: 55.h,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      side: const BorderSide(
+                        color: Colors.purple,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Text(
+                      'picture_again_button'.tr,
+                      style: const TextStyle(
+                        color: Colors.purple,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 15.w,
+                ),
+                SizedBox(
+                  width: 200.w,
+                  height: 55.h,
+                  child: ElevatedButton(
+                    // 로딩 시작 시 버튼 비활성화
+                    onPressed: cameraVM.isLoading.value
+                        ? null
+                        : () async {
+                            cameraVM.isLoading.value = true;
+                            ads.interstitialAd?.show();
+                          },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: Colors.purple,
+                    ),
+
+                    child: Text(
+                      'check_result_button'.tr,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
