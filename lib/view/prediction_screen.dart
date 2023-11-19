@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:dorothy/viewmodel/camera_vm.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +71,14 @@ class PredictionScreen extends StatelessWidget {
               ),
               // 로딩 중 일때
               if (cameraVM.isLoading.value)
-                const Center(
-                  child: CircularProgressIndicator(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Image.asset(AssetsImage.LOADING_IMAGE),
+                    ),
+                    SizedBox(height: 120.h,)
+                  ],
                 ),
             ],
           ),
