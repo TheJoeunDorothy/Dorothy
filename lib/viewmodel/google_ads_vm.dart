@@ -79,7 +79,8 @@ class ADS extends GetxController {
         },
         // 광고 로드 실패시
         onAdFailedToLoad: (LoadAdError error) {
-          _predDialog();
+          print(error);
+          isAdFrontLoaded.value = false;
         },
       ),
     );

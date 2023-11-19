@@ -121,7 +121,13 @@ class PredictionScreen extends StatelessWidget {
                         ? null
                         : () async {
                             cameraVM.isLoading.value = true;
-                            ads.interstitialAd?.show();
+                            if (ads.isAdFrontLoaded.value) {
+                              ads.interstitialAd?.show();
+                            } else {
+                              Map<String, dynamic>? result =
+                                  await cameraVM.sendImage();
+                              ads.handleResult(result, cameraVM);
+                            }
                           },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
