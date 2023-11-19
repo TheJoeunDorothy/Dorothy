@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:dorothy/model/logs.dart';
 import 'package:dorothy/model/logs_handler.dart';
+import 'package:dorothy/view/result_screen.dart';
+import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -335,6 +337,29 @@ class CameraVM extends GetxController {
     };
   }
 
+  void handleResult(Map<String, dynamic> result) {
+    try {
+      if (result['result'] == null ||
+          result['age'] == null ||
+          result['percent'] == null) {
+        _predDialog();
+      } else {
+        ResultVM controller = Get.put(ResultVM());
+        controller.result = result;
+        controller.originalImage = base64Image;
+        insertLogs();
+        Get.off(() => const ResultScreen());
+      }
+
+      isLoading.value = false;
+    } catch (e) {
+      _predDialog();
+      isLoading.value = false;
+    }
+  }
+
+  // 다이얼로그
+
   /// Auth : Oh-Kang94
   ///
   /// Sqlite DB로 Insert
@@ -354,6 +379,48 @@ class CameraVM extends GetxController {
       sevenPercent: percent![6],
     );
     return handler.insertLogs(log);
+  }
+
+  Future<void> _predDialog() {
+    ScreenUtil screenUtil = ScreenUtil();
+    return Get.dialog(
+      barrierDismissible: false,
+      // ScreenUtil 초기화
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          'preddialog_text'.tr,
+          style: TextStyle(
+            fontSize: 20.sp,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: screenUtil.screenWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+              child: Text(
+                "picture_again_dialog_button".tr,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

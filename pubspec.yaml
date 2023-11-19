@@ -69,8 +69,6 @@ dependencies:
   intl: ^0.18.1
   # markdown 쓰기
   flutter_markdown: ^0.6.18+2
-  # 구글 광고
-  google_mobile_ads: ^3.1.0
   # 퍼센트 인디케이터
   percent_indicator: ^4.2.3
   # 파일 경로

@@ -128,7 +128,7 @@ class _ResultScreenState extends State<ResultScreen> {
         text: (resultVM.currentPage.value == 0) ? 'share_face_message'.tr : 'share_color_message',
       );
     } catch (e) {
-      //print('Error sharing image: $e');
+      return;
     }
   }
 }
