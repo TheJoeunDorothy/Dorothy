@@ -39,7 +39,13 @@ Widget colorResult(context, String base64Image, Map<String, dynamic> result,
                   child: Transform(
                     alignment: Alignment.center,
                     transform: Matrix4.rotationY(pi),
-                    child: Image.memory(base64Decode(base64Image)),
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                          Colors.white.withOpacity(0.3),
+                          BlendMode.softLight,
+                      ),
+                      child: Image.memory(base64Decode(base64Image)),
+                    ),
                   ),
                 ),
               ),

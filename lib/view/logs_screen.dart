@@ -116,10 +116,16 @@ class LogsScreen extends StatelessWidget {
                                   child: Transform(
                                     alignment: Alignment.center,
                                     transform: Matrix4.rotationY(pi),
-                                    child: Image.memory(
-                                      base64Decode(
-                                          controller.logs[index].originalImage),
-                                      height: 100.h,
+                                    child: ColorFiltered(
+                                      colorFilter: ColorFilter.mode(
+                                        Colors.white.withOpacity(0.3),
+                                          BlendMode.softLight,
+                                      ),
+                                      child: Image.memory(
+                                        base64Decode(
+                                            controller.logs[index].originalImage),
+                                        height: 100.h,
+                                      ),
                                     ),
                                   ),
                                 ),
