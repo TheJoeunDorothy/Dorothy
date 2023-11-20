@@ -1,6 +1,6 @@
-# dorothy
+# Dorothy
 
-A new Flutter project.
+![도로시목업](https://github.com/TheJoeunDorothy/Dorothy/assets/130451718/e0259a08-cdd0-4750-a102-51dcb834f9b6)
 
 ## Getting Started
 
