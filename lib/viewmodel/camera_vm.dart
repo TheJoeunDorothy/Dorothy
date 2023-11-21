@@ -67,8 +67,7 @@ class CameraVM extends GetxController {
   }
 
   Future<void> checkPermissions() async {
-    if (await Permission.camera.isGranted &&
-        await Permission.microphone.isGranted) {
+    if (await Permission.camera.isGranted) {
       isAllPermissionAllowed.value = true;
     }
   }
@@ -101,6 +100,7 @@ class CameraVM extends GetxController {
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21 // Android
           : ImageFormatGroup.bgra8888, // iOS
+      enableAudio : false,
     );
 
     controller.value!.initialize().then(

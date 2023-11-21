@@ -32,7 +32,7 @@ const Map<String, String> koKR = {
   'info_2_3_subtitle': '얼굴 위주의 사진이 좋아요',
   // setting screen
   'version_setting': '버전',
-  'photo_log_setting': '사진 기록',
+  'photo_log_setting': '사용 기록',
   'terms_of_service_setting': '서비스 이용 약관',
   // result screen
   'age_result': '인공지능이 분석한 당신의 외모 나이는?',
@@ -53,8 +53,6 @@ const Map<String, String> koKR = {
   'permisson_message_2': '필수 권한들을 허용해 주세요',
   'camera': '카메라',
   'camera_message': '사진 촬영과 이미지 업로드를 통해 퍼스널 컬러와 나이 예측이 가능합니다.',
-  'microphone': '마이크',
-  'microphone_message': '카메라 기능을 사용하기 위해 마이크 권한이 필요합니다.',
   'terms_of_service': '서비스 이용 약관',
   'agreement_service': '서비스 이용약관 동의',
   'mandatory': ' (필수)',
