@@ -6,11 +6,11 @@ Flutter를 사용하여 제작한 iOS용 모바일 어플리케이션입니다.
 3만장의 데이터를 학습한 AI 모델을 활용하여 얼굴 나이를 예측합니다.
 
 
-# 어플리케이션 목업
+# App Mockup Image
 ![mockup](https://github.com/TheJoeunDorothy/Dorothy/assets/130451718/e0259a08-cdd0-4750-a102-51dcb834f9b6)
 
 
-# 기능 설명
+# Features
 
 ### 1. 도로시 홈 화면
 
@@ -76,7 +76,7 @@ Flutter를 사용하여 제작한 iOS용 모바일 어플리케이션입니다.
 
 
 
-# 사용한 패키지
+# Packages
 ```yaml
 # 상태 관리
 get: ^4.6.6
@@ -127,21 +127,25 @@ flutter_slidable: ^3.0.1
 ```
 
 
-# 데이터베이스
+# Database
     SQLITE  
 
 
-# 시연 영상
-<a href="https://drive.google.com/file/d/1JyNa9-KblflPKlbP4i5j0ed9QuL3vkuI/view?usp=sharing">
+# Demo Video
+<a href="https://drive.google.com/file/d/1r9Hl-Kkf4U-UXZTX6_Mbrg2D2y_-Vd_z/view?usp=sharing">
   <img src="https://github.com/TheJoeunDorothy/Dorothy/assets/130552875/b693b2e8-64be-4305-afec-330d0629e627" alt="이미지" height= "600">
 </a>
 
 
 
-# 기술 스택
+# Stacks
 <img src="https://skillicons.dev/icons?i=flutter,dart,git,github,vscode" /></a>
 
 
 
-# 서버 깃허브 주소
+# Github Server Link
 https://github.com/TheJoeunDorothy/Dorothy_server_lambda
+<a href="https://github.com/TheJoeunDorothy/Dorothy_server_lambda">
+  <img src="https://github.com/TheJoeunDorothy/Dorothy_server_lambda/blob/main/Readme/Dorothy_구성도.png" alt="이미지" height= "300">
+</a>
+
