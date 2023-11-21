@@ -63,7 +63,6 @@ class LogVM extends GetxController {
           (await image.toByteData(format: ImageByteFormat.png))!;
       return byteData.buffer.asUint8List();
     } catch (e) {
-      print('error captureImage: $e');
       return null;
     }
   }
