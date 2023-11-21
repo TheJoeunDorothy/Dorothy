@@ -80,7 +80,12 @@ class LogVM extends GetxController {
       // 이미지 파일로 저장
       File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
-      Share.shareXFiles([XFile(file.path)]);
+      Share.shareXFiles(
+        [XFile(file.path)],
+        text: (currentPage.value == 0)
+            ? 'share_color_message'.tr
+            : 'share_face_message'.tr,
+      );
     } catch (e) {
       //print('Error sharing image: $e');
     }
