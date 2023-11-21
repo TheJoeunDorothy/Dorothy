@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'Dorothy',
           // 기기의 폰트사이즈를 따라가지 않고 고정
+          debugShowCheckedModeBanner: false,
           builder: (context, child) {
             return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

@@ -63,14 +63,6 @@ class PermissionScreen extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              _buildListTile(
-                icon: Icons.mic,
-                title: 'microphone'.tr,
-                subtitle: 'microphone_message'.tr,
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.w),
                 child: Text(
@@ -216,8 +208,6 @@ class PermissionScreen extends StatelessWidget {
   onJoin() async {
     // 카메라, 갤러리 권한 상태 저장
     await _handleCameraAndLibrary(Permission.camera);
-    //await _handleCameraAndLibrary(Permission.photos);
-    await _handleCameraAndLibrary(Permission.microphone);
 
     Get.offAll(() => CameraScreen());
   }
