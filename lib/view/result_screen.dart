@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:dorothy/static/app_url.dart';
 import 'package:dorothy/static/personal_color.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:dorothy/widget/age_result.dart';
@@ -125,7 +126,7 @@ class _ResultScreenState extends State<ResultScreen> {
       // share 패키지를 사용하여 이미지 파일을 공유
       Share.shareXFiles(
         [XFile(file.path)], 
-        text: (resultVM.currentPage.value == 0) ? 'share_face_message'.tr : 'share_color_message',
+        text: (resultVM.currentPage.value == 0) ? 'share_color_message'.tr + AppUrl.APP_URL : 'share_face_message'.tr + AppUrl.APP_URL,
       );
     } catch (e) {
       //print('Error sharing image: $e');
