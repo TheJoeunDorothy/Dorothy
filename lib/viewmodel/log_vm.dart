@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:dorothy/model/logs.dart';
+import 'package:dorothy/static/app_url.dart';
 import 'package:dorothy/static/personal_color.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,7 +82,10 @@ class LogVM extends GetxController {
       // 이미지 파일로 저장
       File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
-      Share.shareXFiles([XFile(file.path)]);
+      Share.shareXFiles(
+        [XFile(file.path)], 
+        text: (currentPage.value == 0) ? 'share_color_message'.tr + AppUrl.APP_URL : 'share_face_message'.tr + AppUrl.APP_URL,
+      );
     } catch (e) {
       //print('Error sharing image: $e');
     }
