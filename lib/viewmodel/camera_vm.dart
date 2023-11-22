@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:dorothy/model/logs.dart';
 import 'package:dorothy/model/logs_handler.dart';
+import 'package:dorothy/view/result_screen.dart';
+import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -65,8 +67,7 @@ class CameraVM extends GetxController {
   }
 
   Future<void> checkPermissions() async {
-    if (await Permission.camera.isGranted &&
-        await Permission.microphone.isGranted) {
+    if (await Permission.camera.isGranted) {
       isAllPermissionAllowed.value = true;
     }
   }
@@ -99,12 +100,35 @@ class CameraVM extends GetxController {
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21 // Android
           : ImageFormatGroup.bgra8888, // iOS
+      enableAudio: false,
     );
 
     controller.value!.initialize().then(
       (_) async {
-        // 줌 레벨 설정
-        await controller.value!.setZoomLevel(1.3);
+        // 줌 레벨 범위 계산
+        double minZoom = await controller.value!.getMinZoomLevel();
+        if (minZoom >= 1.3) {
+          // 줌 레벨 설정
+          await controller.value!.setZoomLevel(minZoom);
+        } else {
+          // 줌 레벨 설정
+          await controller.value!.setZoomLevel(1.3);
+        }
+
+        // 노출 값 범위 계산
+        double minExposure = await controller.value!.getMinExposureOffset();
+
+        if (minExposure >= -0.8) {
+          // 노출 값 설정
+          await controller.value!.setExposureOffset(minExposure);
+        } else {
+          // 노출 값 설정
+          await controller.value!.setExposureOffset(-0.8);
+        }
+
+        // 플래쉬 끄기
+        await controller.value!.setFlashMode(FlashMode.off);
+
         startImageStream();
       },
     );
@@ -138,7 +162,7 @@ class CameraVM extends GetxController {
                     Offset(face.boundingBox.left, face.boundingBox.top)) &&
                 iconRect.contains(
                     Offset(face.boundingBox.right, face.boundingBox.bottom))) {
-              myColor.value = Colors.amber;
+              myColor.value = Colors.purple;
             } else {
               myColor.value = Colors.white;
               stopImageStream();
@@ -230,19 +254,19 @@ class CameraVM extends GetxController {
   Future<bool> takePicture(BuildContext context) async {
     if (!isStreaming.value) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.error,
                 color: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: Text(
-                  '스트리밍이 시작되지 않았습니다. 잠시 후에 시도해 주세요.',
+                  'camera_streaming_text'.tr,
                 ),
               ),
             ],
@@ -313,6 +337,27 @@ class CameraVM extends GetxController {
     };
   }
 
+  void handleResult(Map<String, dynamic> result) {
+    try {
+      if (result['result'] == null ||
+          result['age'] == null ||
+          result['percent'] == null) {
+        predDialog();
+      } else {
+        ResultVM controller = Get.put(ResultVM());
+        controller.result = result;
+        controller.originalImage = base64Image;
+        insertLogs();
+        Get.off(() => const ResultScreen());
+      }
+
+      isLoading.value = false;
+    } catch (e) {
+      predDialog();
+      isLoading.value = false;
+    }
+  }
+
   /// Auth : Oh-Kang94
   ///
   /// Sqlite DB로 Insert
@@ -332,6 +377,49 @@ class CameraVM extends GetxController {
       sevenPercent: percent![6],
     );
     return handler.insertLogs(log);
+  }
+
+  // 다이얼로그
+  Future<void> predDialog() {
+    ScreenUtil screenUtil = ScreenUtil();
+    return Get.dialog(
+      barrierDismissible: false,
+      // ScreenUtil 초기화
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          'preddialog_text'.tr,
+          style: TextStyle(
+            fontSize: 20.sp,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: screenUtil.screenWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+              child: Text(
+                "picture_again_dialog_button".tr,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

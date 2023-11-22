@@ -64,7 +64,6 @@ class LogVM extends GetxController {
           (await image.toByteData(format: ImageByteFormat.png))!;
       return byteData.buffer.asUint8List();
     } catch (e) {
-      print('error captureImage: $e');
       return null;
     }
   }
@@ -85,6 +84,7 @@ class LogVM extends GetxController {
       Share.shareXFiles(
         [XFile(file.path)], 
         text: (currentPage.value == 0) ? 'share_color_message'.tr + AppUrl.APP_URL : 'share_face_message'.tr + AppUrl.APP_URL,
+
       );
     } catch (e) {
       //print('Error sharing image: $e');

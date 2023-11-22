@@ -1,9 +1,5 @@
-import 'package:dorothy/view/result_screen.dart';
-import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:dorothy/viewmodel/camera_vm.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -52,104 +48,37 @@ class ADS extends GetxController {
           interstitialAd = ad;
           isAdFrontLoaded.value = true;
 
+          Future<Map<String, dynamic>>? imageSendFuture;
+
           interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
             // 광고 로드 시 호출
-            onAdShowedFullScreenContent: (ad) async {
+            onAdShowedFullScreenContent: (ad) {
               // 서버 데이터 전송
               final cameraVM = Get.find<CameraVM>();
-              result = await cameraVM.sendImage();
+              imageSendFuture = cameraVM.sendImage();
             },
             onAdDismissedFullScreenContent: (ad) async {
               // 사용자가 광고를 종료시 호출
               final cameraVM = Get.find<CameraVM>();
-              handleResult(result, cameraVM);
+              Map<String, dynamic>? result = await imageSendFuture;
+              cameraVM.handleResult(result!);
               ad.dispose();
               // 새로운 광고를 로드.
               loadAd();
             },
             //광고 실패시 호출
             onAdFailedToShowFullScreenContent: (ad, error) {
-              _predDialog();
+              final cameraVM = Get.find<CameraVM>();
+              cameraVM.predDialog();
               ad.dispose();
             },
           );
         },
         // 광고 로드 실패시
         onAdFailedToLoad: (LoadAdError error) {
-          _predDialog();
+          isAdFrontLoaded.value = false;
         },
       ),
     );
   }
-
-  // 서버 전송
-  void handleResult(Map<String, dynamic> result, CameraVM cameraVM) {
-    try {
-      if (result['result'] == null ||
-          result['age'] == null ||
-          result['percent'] == null) {
-        _predDialog();
-      } else {
-        ResultVM controller = Get.put(ResultVM());
-        controller.result = result;
-        controller.originalImage = cameraVM.base64Image;
-        cameraVM.insertLogs();
-        Get.off(() => const ResultScreen());
-      }
-
-      cameraVM.isLoading.value = false;
-    } catch (e) {
-      _predDialog();
-      cameraVM.isLoading.value = false;
-    }
-  }
-
-  @override
-  void onClose() {
-    bannerAd.value?.dispose();
-    super.onClose();
-  }
-}
-
-// 다이얼로그
-Future<void> _predDialog() {
-  ScreenUtil screenUtil = ScreenUtil();
-  return Get.dialog(
-    barrierDismissible: false,
-    // ScreenUtil 초기화
-    AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      title: Text(
-        '오류가 발생했어요.\n사진을 다시 찍어주세요.',
-        style: TextStyle(
-          fontSize: 20.sp,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      actions: <Widget>[
-        SizedBox(
-          width: screenUtil.screenWidth,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            onPressed: () {
-              Get.back();
-              Get.back();
-            },
-            child: Text(
-              "사진 다시 찍으러 가기",
-              style: TextStyle(
-                fontSize: 18.sp,
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
 }

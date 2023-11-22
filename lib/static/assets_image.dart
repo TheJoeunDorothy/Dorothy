@@ -16,4 +16,5 @@ class AssetsImage {
   static const SUMMER_IMAGE = 'assets/images/summer_color.png';
   static const AUTUMN_IMAGE = 'assets/images/autumn_color.png';
   static const WINTER_IMAGE = 'assets/images/winter_color.png';
+  static const LOADING_IMAGE = 'assets/images/loading_image.gif';
 }
