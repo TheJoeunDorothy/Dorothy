@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AssetsImage {
   static const INFO_GOOD_1 = 'assets/images/good1.png';
   static const INFO_GOOD_2 = 'assets/images/good2.png';
