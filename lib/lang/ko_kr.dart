@@ -11,6 +11,7 @@ const Map<String, String> koKR = {
   'confirm_button': '확인',
   'next_button': '다음',
   'cancle_button': '취소',
+  'delete': '삭제하기',
   'permission_button': '권한 허용하기',
   'picture_again_dialog_button': '사진 다시 찍으러 가기',
   'picture_again_button': '다시 찍기',
