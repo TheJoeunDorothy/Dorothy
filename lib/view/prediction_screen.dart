@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:dorothy/static/assets_image.dart';
-import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:dorothy/viewmodel/camera_vm.dart';
+import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -77,7 +77,9 @@ class PredictionScreen extends StatelessWidget {
                     Center(
                       child: Image.asset(AssetsImage.LOADING_IMAGE),
                     ),
-                    SizedBox(height: 120.h,)
+                    SizedBox(
+                      height: 120.h,
+                    )
                   ],
                 ),
             ],
@@ -133,7 +135,7 @@ class PredictionScreen extends StatelessWidget {
                             } else {
                               Map<String, dynamic>? result =
                                   await cameraVM.sendImage();
-                              ads.handleResult(result, cameraVM);
+                              cameraVM.handleResult(result);
                             }
                           },
                     style: ElevatedButton.styleFrom(

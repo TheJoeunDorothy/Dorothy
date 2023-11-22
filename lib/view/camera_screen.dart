@@ -80,6 +80,7 @@ class CameraScreen extends StatelessWidget {
                       )
                     else
                       Positioned.fill(
+                        bottom: 3.0,
                         child: AspectRatio(
                           aspectRatio:
                               cameraVM.controller.value!.value.aspectRatio,

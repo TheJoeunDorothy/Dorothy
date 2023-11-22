@@ -12,6 +12,7 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<!-- google_ads -->
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1652817597495815~3063793405</string>
 	<key>SKAdNetworkItems</key>
@@ -213,6 +214,7 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
+	<!-- google_ads -->
 	<key>CFBundleName</key>
 	<string>dorothy</string>
 	<key>CFBundlePackageType</key>
@@ -249,9 +251,6 @@
     <!-- Permission options for the `camera` group -->
     <key>NSCameraUsageDescription</key>
     <string>'Dorothy'는 카메라 엑세스 권한을 예측 결과 획득을 위한 용도로만 사용합니다.</string>
-	<!-- Permission options for the `Microphone` group -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>'Dorothy'는 마이크 엑세스 권한을 카메라 기능을 위한 용도로만 사용합니다.</string>
 	<!-- Permission options for the `FaceID` group -->
 	<key>NSFaceIDUsageDescription</key>
 	<string>허용 안 함 선택 시에는 iPhone 암호를 입력하여 사용 기록 잠금 기능을 사용하실 수 있습니다.</string>
