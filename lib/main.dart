@@ -4,11 +4,13 @@ import 'package:dorothy/services/translation_service.dart';
 import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/view/camera_screen.dart';
 import 'package:dorothy/view/onboarding_screen.dart';
+import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -21,14 +23,20 @@ void main() async {
       DeviceOrientation.portraitDown,
     ],
   );
+  // 광고 초기화
+  MobileAds.instance.initialize();
   // .env 파일 로드
   await dotenv.load();
+  // 광고 컨트롤러
+  Get.put(ADS());
   await LogsHandler().initalaizeDB(); // LOG용 SQLite 로드
   // 온보딩 페이지 기본값 false
   bool hasSeenOnboarding = await _getOnboardingState();
+
   // 권한 상태에 따라 화면 결정
   Widget initialScreen =
       (!hasSeenOnboarding) ? const OnBoardingScreen() : CameraScreen();
+
   runApp(MyApp(
     initialScreen: initialScreen,
   ));
@@ -46,7 +54,6 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'Dorothy',
           // 기기의 폰트사이즈를 따라가지 않고 고정
-          debugShowCheckedModeBanner: false,
           builder: (context, child) {
             return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

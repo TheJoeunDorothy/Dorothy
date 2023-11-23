@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:dorothy/view/prediction_screen.dart';
 import 'package:dorothy/view/settings_screen.dart';
 import 'package:dorothy/viewmodel/camera_vm.dart';
+import 'package:dorothy/widget/google_ads_widget.dart';
 import 'package:dorothy/widget/info_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class CameraScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 제한
         elevation: 0, // 그림자 제거
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: Container(),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: AdBanner(),
         ),
         actions: [
           IconButton(

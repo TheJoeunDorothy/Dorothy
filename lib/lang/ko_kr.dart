@@ -11,6 +11,7 @@ const Map<String, String> koKR = {
   'confirm_button': '확인',
   'next_button': '다음',
   'cancle_button': '취소',
+  'delete': '삭제하기',
   'permission_button': '권한 허용하기',
   'picture_again_dialog_button': '사진 다시 찍으러 가기',
   'picture_again_button': '다시 찍기',
@@ -37,10 +38,8 @@ const Map<String, String> koKR = {
   // result screen
   'age_result': '인공지능이 분석한 당신의 외모 나이는?',
   'color_result': '인공지능이 분석한 당신의 퍼스널컬러는?',
-  'share_face_message':
-      '[도로시] 얼굴 나이 예측 결과에요!\n도로시 앱에서 AI가 예측한 퍼스널 컬러와 나이 예측 결과를 받아보세요.',
-  'share_color_message':
-      '[도로시] 퍼스널 컬러 예측 결과에요!\n도로시 앱에서 AI가 예측한 퍼스널 컬러와 나이 예측 결과를 받아보세요.',
+  'share_face_message': '[도로시] 얼굴 나이 예측 결과에요!\n도로시 앱에서 AI가 예측한 퍼스널 컬러와 나이 예측 결과를 받아보세요.\n\n링크: ',
+  'share_color_message': '[도로시] 퍼스널 컬러 예측 결과에요!\n도로시 앱에서 AI가 예측한 퍼스널 컬러와 나이 예측 결과를 받아보세요.\n\n링크: ',
   'age_10': '10대',
   'age_20': '20대',
   'age_30': '30대',

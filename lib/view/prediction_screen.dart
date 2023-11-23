@@ -2,12 +2,14 @@ import 'dart:io';
 import 'dart:math';
 import 'package:dorothy/static/assets_image.dart';
 import 'package:dorothy/viewmodel/camera_vm.dart';
+import 'package:dorothy/viewmodel/google_ads_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PredictionScreen extends StatelessWidget {
   final cameraVM = Get.find<CameraVM>();
+  final ads = Get.find<ADS>();
 
   PredictionScreen({super.key});
 
@@ -128,9 +130,13 @@ class PredictionScreen extends StatelessWidget {
                         ? null
                         : () async {
                             cameraVM.isLoading.value = true;
-                            Map<String, dynamic>? result =
-                                await cameraVM.sendImage();
-                            cameraVM.handleResult(result);
+                            if (ads.isAdFrontLoaded.value) {
+                              ads.interstitialAd?.show();
+                            } else {
+                              Map<String, dynamic>? result =
+                                  await cameraVM.sendImage();
+                              cameraVM.handleResult(result);
+                            }
                           },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

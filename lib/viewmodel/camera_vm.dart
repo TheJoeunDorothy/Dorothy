@@ -100,7 +100,7 @@ class CameraVM extends GetxController {
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21 // Android
           : ImageFormatGroup.bgra8888, // iOS
-      enableAudio : false,
+      enableAudio: false,
     );
 
     controller.value!.initialize().then(
@@ -342,7 +342,7 @@ class CameraVM extends GetxController {
       if (result['result'] == null ||
           result['age'] == null ||
           result['percent'] == null) {
-        _predDialog();
+        predDialog();
       } else {
         ResultVM controller = Get.put(ResultVM());
         controller.result = result;
@@ -353,12 +353,10 @@ class CameraVM extends GetxController {
 
       isLoading.value = false;
     } catch (e) {
-      _predDialog();
+      predDialog();
       isLoading.value = false;
     }
   }
-
-  // 다이얼로그
 
   /// Auth : Oh-Kang94
   ///
@@ -381,7 +379,8 @@ class CameraVM extends GetxController {
     return handler.insertLogs(log);
   }
 
-  Future<void> _predDialog() {
+  // 다이얼로그
+  Future<void> predDialog() {
     ScreenUtil screenUtil = ScreenUtil();
     return Get.dialog(
       barrierDismissible: false,

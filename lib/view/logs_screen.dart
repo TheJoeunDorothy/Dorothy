@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:dorothy/view/log_screen.dart';
 import 'package:dorothy/viewmodel/log_vm.dart';
 import 'package:dorothy/viewmodel/logs_vm.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -19,48 +20,62 @@ class LogsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("usage_history_appbar".tr),
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.dialog(
-                AlertDialog(
-                  title: Text(
-                    'delete_alert_title'.tr,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                  content: Text('delete_alert_content'.tr,),
-                  actions: [
-                    TextButton(
-                      child: Text(
-                        "cancle_button".tr,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                      onPressed: () => Get.back(),
-                    ),
-                    Obx(
-                      () => TextButton(
-                        onPressed: controller.logs.isEmpty
-                            ? null
-                            : () async {
-                                await controller.deleteAllLogs();
-                                Get.back();
-                                Get.snackbar(
-                                  'delete_snackbar_title'.tr,
-                                  'delete_snackbar_content'.tr,
-                                  colorText: Colors.redAccent,
-                                );
+          Obx(
+            () => IconButton(
+              onPressed: controller.logs.isEmpty
+                  ? null
+                  : () {
+                      // TODO #14 [Feature] Dialog대신 Cupertino Bottom Sheet 제작
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => CupertinoActionSheet(
+                          title: Text(
+                            'delete_alert_title'.tr,
+                            style:
+                                TextStyle(color: Colors.red, fontSize: 20.sp),
+                          ),
+                          message: Text(
+                            'delete_alert_content'.tr,
+                            style: TextStyle(
+                                color: Colors.redAccent, fontSize: 18.sp),
+                          ),
+                          actions: [
+                            CupertinoActionSheetAction(
+                              child: Text(
+                                "cancle_button".tr,
+                                style: TextStyle(
+                                    color: Colors.blue, fontSize: 17.sp),
+                              ),
+                              onPressed: () => Get.back(),
+                            ),
+                            CupertinoActionSheetAction(
+                              onPressed: () async {
+                                if (controller.logs.isNotEmpty) {
+                                  await controller.deleteAllLogs();
+                                  Get.back();
+                                  Get.snackbar(
+                                    'delete_snackbar_title'.tr,
+                                    'delete_snackbar_content'.tr,
+                                    colorText: Colors.redAccent,
+                                  );
+                                }
                               },
-                        child: const Text("삭제하기"),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.delete,
-              color: Colors.red,
+                              child: Text(
+                                'delete'.tr,
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 16.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+              icon: Icon(
+                Icons.delete,
+                color: controller.logs.isEmpty ? Colors.grey[300] : Colors.red,
+              ),
             ),
-          )
+          ),
         ],
       ),
       body: Obx(
@@ -119,11 +134,11 @@ class LogsScreen extends StatelessWidget {
                                     child: ColorFiltered(
                                       colorFilter: ColorFilter.mode(
                                         Colors.white.withOpacity(0.3),
-                                          BlendMode.softLight,
+                                        BlendMode.softLight,
                                       ),
                                       child: Image.memory(
-                                        base64Decode(
-                                            controller.logs[index].originalImage),
+                                        base64Decode(controller
+                                            .logs[index].originalImage),
                                         height: 100.h,
                                       ),
                                     ),
@@ -147,7 +162,9 @@ class LogsScreen extends StatelessWidget {
                                         const Text(
                                           '나이 예측 결과 :',
                                         ),
-                                        SizedBox(width: 5.w,),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
                                         Text(
                                           controller.logs[index].ageResult,
                                         ),
@@ -159,7 +176,9 @@ class LogsScreen extends StatelessWidget {
                                         const Text(
                                           '색상 예측 결과 :',
                                         ),
-                                        SizedBox(width: 5.w,),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
                                         Text(
                                           controller.logs[index].colorResult,
                                         ),

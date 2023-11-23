@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:dorothy/static/app_url.dart';
 import 'package:dorothy/static/personal_color.dart';
 import 'package:dorothy/viewmodel/result_vm.dart';
 import 'package:dorothy/widget/age_result.dart';
@@ -24,8 +25,7 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen> {
   final resultVM = Get.find<ResultVM>();
-  static final GlobalKey<_ResultScreenState> key =
-      GlobalKey<_ResultScreenState>();
+  static final GlobalKey<_ResultScreenState> key = GlobalKey<_ResultScreenState>();
   late final Color backgroundColor;
   late final Color foregroundColor;
   late final String imagePath;
@@ -44,10 +44,7 @@ class _ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'result_appbar'.tr,
-          style: TextStyle(color: foregroundColor),
-        ),
+        title: Text('result_appbar'.tr, style: TextStyle(color: foregroundColor),),
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
       ),
@@ -61,19 +58,13 @@ class _ResultScreenState extends State<ResultScreen> {
               child: Container(
                 color: backgroundColor,
                 child: sliderWidget(
-                    pageHeight: 590.h,
-                    vm: resultVM,
-                    firstWidget: colorResult(
-                        context,
-                        resultVM.originalImage,
-                        resultVM.result,
-                        imagePath,
-                        foregroundColor,
-                        backgroundColor),
-                    secondWidget: ageResult(context, resultVM.originalImage,
-                        resultVM.result, foregroundColor, backgroundColor),
-                    textColor: foregroundColor,
-                    primaryColor: backgroundColor),
+                  pageHeight: 590.h,
+                  vm: resultVM,
+                  firstWidget: colorResult(context, resultVM.originalImage, resultVM.result, imagePath, foregroundColor, backgroundColor),
+                  secondWidget: ageResult(context, resultVM.originalImage, resultVM.result, foregroundColor, backgroundColor),
+                  textColor: foregroundColor, 
+                  primaryColor: backgroundColor
+                ),
               ),
             ),
             sliderIndicator(resultVM),
@@ -121,7 +112,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   /// 결과 이미지 공유하기 기능
-  ///
+  /// 
   /// @params : `Uint8List?`
   void shareImage(Uint8List? imageBytes) async {
     try {
@@ -131,17 +122,14 @@ class _ResultScreenState extends State<ResultScreen> {
       // 이미지를 저장할 임시 디렉토리 가져오기
       final tempDir = await getTemporaryDirectory();
       // 이미지 파일로 저장
-      File file = await File('${tempDir.path}/result_image.png')
-          .writeAsBytes(imageBytes);
+      File file = await File('${tempDir.path}/result_image.png').writeAsBytes(imageBytes);
       // share 패키지를 사용하여 이미지 파일을 공유
       Share.shareXFiles(
-        [XFile(file.path)],
-        text: (resultVM.currentPage.value == 0)
-            ? 'share_color_message'.tr
-            : 'share_face_message'.tr,
+        [XFile(file.path)], 
+        text: (resultVM.currentPage.value == 0) ? 'share_color_message'.tr + AppUrl.APP_URL : 'share_face_message'.tr + AppUrl.APP_URL,
       );
     } catch (e) {
-      return;
+      //print('Error sharing image: $e');
     }
   }
 }
