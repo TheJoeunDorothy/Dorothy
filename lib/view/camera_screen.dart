@@ -18,33 +18,40 @@ class CameraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // 뒤로가기 제한
-        elevation: 0, // 그림자 제거
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: AdBanner(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(107),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const AdBanner(),
+            SizedBox(
+              height: 60.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      await Get.dialog(infoDialog());
+                      cameraVM.resetInfoPage();
+                    },
+                    icon: const Icon(Icons.info_outlined),
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      cameraVM.isPageStreaming.value = false;
+                      await Get.to(
+                        () => const SettingsScreen(),
+                      )?.then(
+                        (value) => cameraVM.isPageStreaming.value = true,
+                      );
+                    },
+                    icon: const Icon(Icons.settings),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Get.dialog(infoDialog());
-              cameraVM.resetInfoPage();
-            },
-            icon: const Icon(Icons.info_outlined),
-          ),
-          IconButton(
-            onPressed: () async {
-              cameraVM.isPageStreaming.value = false;
-              await Get.to(
-                () => const SettingsScreen(),
-              )?.then(
-                (value) => cameraVM.isPageStreaming.value = true,
-              );
-            },
-            icon: const Icon(Icons.settings),
-          ),
-        ],
       ),
       body: Obx(
         () => SafeArea(
