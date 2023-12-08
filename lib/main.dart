@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetMaterialApp(
           title: 'Dorothy',
+          debugShowCheckedModeBanner: false,
           // 기기의 폰트사이즈를 따라가지 않고 고정
           builder: (context, child) {
             return MediaQuery(
